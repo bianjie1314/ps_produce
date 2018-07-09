@@ -1,0 +1,237 @@
+/*!
+ * Start Bootstrap - SB Admin 2 Bootstrap Admin Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+    background-color: #fff;
+}
+
+#wrapper {
+    width: 100%;
+   display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+
+#page-wrapper {
+    padding: 15px;
+    min-height: 568px;
+    flex-grow : 1;
+}
+
+.sidebar .zoombar{
+	margin-top: 5px;
+	margin-bottom: 10px;
+    font-size: 20px;
+    text-align: center;
+    color: #444;
+}
+
+.sidebar ul li a {
+    color: #444;
+}
+.sidebar ul li a.active {
+    background-color: #eee;
+}
+.sidebar{
+	width: 200px;
+	min-width: 200px;
+    height: calc(100% - 50px);    
+}
+.sidebar .sidebar-nav.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.sidebar .sidebar-search {
+    padding: 15px;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sidebar ul li a.active {
+    background-color: #eee;
+}
+
+.sidebar .arrow {
+    float: right;
+}
+
+.sidebar .fa.arrow:before {
+   
+}
+
+.sidebar .active>a>.fa.arrow:before {
+
+}
+
+.sidebar .nav-second-level li,
+.sidebar .nav-third-level li {
+    border-bottom: 0!important;
+}
+
+.sidebar .nav-second-level li a {
+    padding-left: 37px;
+}
+
+.sidebar .nav-third-level li a {
+    padding-left: 52px;
+}
+
+@media(min-width:768px) {
+    .sidebar {
+        z-index: 1;
+        width: 200px;
+    }
+
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+    }
+}
+.error{
+	    border: 1px solid #e24c4c;
+}
+
+
+table {
+	text-overflow: ellipsis;
+}
+
+table td {
+	text-overflow: hidden;
+}
+
+.table>thead>tr>td.selected, .table>tbody>tr>td.selected, .table>tfoot>tr>td.selected,
+	.table>thead>tr>th.selected, .table>tbody>tr>th.selected, .table>tfoot>tr>th.selected,
+	.table>thead>tr.selected>td, .table>tbody>tr.selected>td, .table>tfoot>tr.selected>td,
+	.table>thead>tr.selected>th, .table>tbody>tr.selected>th, .table>tfoot>tr.selected>th
+	{
+	background-color: #dfeef3
+}
+.dataTable th {   
+    white-space: nowrap !important;  
+}  
+
+#datatable tbody tr td {
+    max-width: 80px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#datatable tbody tr td:hover {
+    white-space: normal;
+    overflow: inherit;
+}
+.progress-bar {
+	color:#000;
+}
+
+.label-fc {   
+    color: #555;
+    margin-bottom: 0;
+    font-weight: 400;
+    margin-right: 5px;
+}
+.fc-event {
+	
+	    cursor: pointer;
+}
+.navbar-top-links {
+    margin-right: 0;
+}
+
+.navbar-top-links li {
+    display: inline-block;
+}
+
+.navbar-top-links li:last-child {
+    margin-right: 15px;
+}
+
+.navbar-top-links li a {
+    padding: 15px;
+    min-height: 50px;
+}
+
+.navbar-top-links .dropdown-menu li {
+    display: block;
+}
+
+.navbar-top-links .dropdown-menu li:last-child {
+    margin-right: 0;
+}
+
+.navbar-top-links .dropdown-menu li a {
+    padding: 3px 20px;
+    min-height: 0;
+}
+
+.navbar-top-links .dropdown-menu li a div {
+    white-space: normal;
+}
+
+.navbar-top-links .dropdown-messages,
+.navbar-top-links .dropdown-tasks,
+.navbar-top-links .dropdown-alerts {
+    width: 310px;
+    min-width: 0;
+}
+
+.navbar-top-links .dropdown-messages {
+    margin-left: 5px;
+}
+
+.navbar-top-links .dropdown-tasks {
+    margin-left: -59px;
+}
+
+.navbar-top-links .dropdown-alerts {
+    margin-left: -123px;
+}
+
+.navbar-top-links .dropdown-user {
+    right: 0;
+    left: auto;
+}
+
+
+
+.t-event{
+	position: relative;
+    display: block;
+    font-size: .85em;
+    line-height: 1.3;
+    border-radius: 3px;
+    font-weight: 400;
+	background-color:#f2dede;
+	border:1px solid #f2dede;
+	color:#843534 ;
+}
+
+.t-event a:hover, a:focus {
+    color: #f2dede
+    
+    text-decoration: underline;
+        cursor: auto;
+}
+
+
+a:link {    cursor: pointer;}		
+a:visited {    cursor: pointer;}	
+a:hover {    cursor: pointer;}	
+a:active {    cursor: pointer;}	
+.remark-time{
+	font-size: 8px;
+}
+.line{
+	border-bottom: 1px solid #e5e5e5;
+}
+

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ps.produce.system.dao.OfficeDao">
+	
+	<sql id="officeColumns">
+		a.id,
+		a.parent_id AS "parent.id",
+		a.parent_ids,
+		a.code,
+		a.name,
+		a.master,
+		a.phone, 
+		a.email, 
+		a.create_date,
+		a.update_date,
+		a.del_flag,
+		a.useable AS useable,
+		p.name AS "parent.name"
+	</sql>
+	
+	<sql id="officeJoins">
+		LEFT JOIN sys_office p ON p.id = a.parent_id
+<!-- 		LEFT JOIN SYS_USER pp ON pp.id = a.primary_person -->
+<!-- 		LEFT JOIN SYS_USER dp ON dp.id = a.deputy_person -->
+    </sql>
+	
+	<select id="get" resultType="com.ps.produce.system.entity.Office">
+		SELECT
+			<include refid="officeColumns"/>
+		FROM sys_office a
+		<include refid="officeJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<insert id="save">
+		insert into sys_office (name,parent_id,parent_ids,code,master,phone,email,update_date,create_date,del_flag)
+		values (#{name},#{parent.id},#{parentIds},#{code},#{master},#{phone},#{email},#{updateDate},#{createDate},#{DEL_FLAG_NORMAL})
+	</insert>
+	
+	<update id="update">
+		update sys_office set 
+			name=#{name},
+			master=#{master},
+			phone=#{phone},
+			email=#{email},
+			update_date=#{updateDate},
+			parent_ids=#{parentIds},
+			parent_id=#{parent.id},
+			code=#{code}
+		where 
+			id=#{id}
+	</update>
+	
+	<update id="delete">
+		update sys_office set del_flag=#{DEL_FLAG_DELETE} where id=#{id}
+		OR parent_ids LIKE
+		CONCAT('%,', #{id}, ',%')
+	</update>
+	
+	<select id="findByPage" resultType="com.ps.produce.system.entity.Office">
+	</select>
+	
+	<select id="findByParentIdsLike" resultType="com.ps.produce.system.entity.Office">
+		SELECT
+			<include refid="officeColumns"/>
+		FROM sys_office a
+		<include refid="officeJoins"/>
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL} AND a.parent_ids LIKE #{parentIds}
+		ORDER BY a.code
+	</select>
+	
+	<select id="findList" resultType="com.ps.produce.system.entity.Office">
+		SELECT
+			<include refid="officeColumns"/>
+		FROM sys_office a
+		<include refid="officeJoins"/>
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		<!-- 数据范围过滤 -->
+		${sqlMap.dsf}
+<!-- 		OR a.id = #{currentUser.office.id} -->
+		ORDER BY a.code
+	</select>
+		<update id="updateParentIds">
+		UPDATE sys_office SET 
+			parent_id = #{parent.id}, 
+			parent_ids = #{parentIds}
+		WHERE id = #{id}
+	</update>	
+	<select id="findAllList" resultType="com.ps.produce.system.entity.Office">
+		SELECT
+			<include refid="officeColumns"/>
+		FROM sys_office a
+		<include refid="officeJoins"/>
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		ORDER BY a.code
+	</select>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"  
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	 <context:component-scan base-package="com.ps.produce" /> 
+	<context:component-scan base-package="com.ps.produce" />
+	<context:component-scan base-package="com.oa" />
+	<util:properties id="settings" location="classpath:application.properties"/>
+	<context:property-placeholder
+		ignore-unresolvable="true" location="classpath*:/application.properties" />
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">		
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="0" />		
+		<property name="maxActive" value="20" />	
+		<property name="minIdle" value="0" />		
+		<property name="maxWait" value="60000" />	
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1800" />
+		<property name="logAbandoned" value="false" />
+		<property name="filters" value="mergeStat" />
+	</bean>
+
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.ps.produce"/>
+        <property name="typeAliasesSuperType" value="com.ps.produce.base.entity.BaseEntity"/>
+		<property name="mapperLocations" value="classpath*:com/ps/produce/**/dao/mapper/*.xml" />
+		<property name="configLocation" value="classpath:/mybatis.xml"></property>
+	</bean>
+	
+	
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ps.produce.**.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+ 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+       <property name="dataSource" ref="dataSource" />  
+ 	</bean>  
+ 	
+ 	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="txManager"  />
+	<task:annotation-driven />
+ 	
+	<!--把事务控制在Service层-->
+	<!-- <aop:config>
+		<aop:pointcut id="tbd" expression="execution(* com.ps.produce.*.service.*.*(..))"/>
+		order 值越小优先级越高  防止执行日志被回滚
+		<aop:advisor pointcut-ref="tbd" advice-ref="txAdvice" order="2"/>
+	</aop:config>
+	   声明式事务 方式 二     
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="del*" propagation="REQUIRED" read-only="false"/>
+      		<tx:method name="insert*" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="save*" propagation="REQUIRED" read-only="false" />
+      		<tx:method name="update*" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="add*" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="modify*" propagation="REQUIRED" read-only="false" />
+    
+      		<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="count*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="isExist*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice> -->
+	
+	
+	
+</beans>

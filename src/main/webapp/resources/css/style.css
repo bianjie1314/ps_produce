@@ -1,0 +1,123 @@
+body{margin: 0;padding: 0;font-family:"Microsoft YaHei","宋体";background: url("../images/BG.png") no-repeat center;
+  background-attachment: fixed;
+  background-size: cover;}
+ul, ol { 
+  list-style: none; 
+}
+ul{
+  margin: 0;
+  padding: 0;
+}
+i{
+  font-style: normal;
+}
+@media (min-width: 768px) .container {
+    width: 750px;
+}
+@media (min-width: 992px) .container {
+    width: 970px;
+}
+@media (min-width: 1200px) .container {
+    width: 1170px;
+}
+.title{
+  height: 60px;
+  background: url("../images/title.png") no-repeat center;
+  margin-top: 6px;
+  margin-bottom: 11px;
+
+}
+.country-list{
+	margin-left: 60px;
+	margin-right: 60px;
+}
+.c-row{}
+.contry{
+  height: 290px;
+  background: url("../images/country-bg.png") no-repeat center;
+  position: relative;
+  background-size: 100% 100%;
+}
+.c-head{
+  height: 48px;
+  line-height: 48px;
+  font-size: 1.5em;
+  color: #fff;
+}
+.c-head img{
+  vertical-align: middle;
+  margin-top: 0.2em;
+  margin-right: 0.6em;
+}
+.line{
+  width: 1px;
+  height: 11em;
+  background-color: #9b9b9b;
+  position: absolute;
+  top: 5em;
+  left: 2.5em;
+}
+.c-date-list{
+  position: absolute;
+  top: 5em;
+  left: 2.5em;
+}
+.c-date-list ul li{
+  position: relative;
+  padding-left: 1em;
+  text-align: left;
+  margin-bottom: 1.2em;
+}
+.c-date-list ul li::before{
+  content: "";
+  width: 12px;
+  height: 12px;
+  display: block;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  left: -6px;
+  top: 0px;
+}
+.c-date{
+  font-size: 1.4em;
+  color: #fff;
+}
+.c-festival{
+  font-size: 1.1em;
+  color: #fff;
+  margin-top: 0.4em;
+}
+.r-title{
+	margin-top:20px;
+  font-size: 1em;
+  color: #fff;
+  background: url("../images/line.png") no-repeat center bottom;
+  height: 2.5em;
+}
+.r-list{
+  font-size: 1em;
+  color: #fff;
+}
+.r-title div,.r-list div{
+  width:30%;
+  display:inline-block;
+}
+.r-list ul li{
+  height: 4em;
+  line-height: 4em;
+}
+.r-number{
+  font-size: 2em;
+  font-weight: bold;;
+}
+.map{
+  width: 80%;
+  height: 400px;
+  background-color: #fff;
+}
+
+
+
+
+
