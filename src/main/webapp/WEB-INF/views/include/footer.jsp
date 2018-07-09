@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <script type="text/javascript">
-    $.ajax({
+   /*  $.ajax({
     	url : ctx + "/system/tips",
     	type: "get",
     	success: function(result) {
@@ -13,5 +13,5 @@
     			}
     		}
     	}
-    })
+    }) */
 </script>

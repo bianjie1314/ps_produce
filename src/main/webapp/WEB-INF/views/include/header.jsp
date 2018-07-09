@@ -8,7 +8,7 @@
 <nav class="navbar navbar-default navbar-static-top  navbar-inverse " role="navigation" style="margin-bottom: 0">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#" > <span class="glyphicon glyphicon-leaf zoombar" style="color:#53d192; font-size: 23px;"></span></a> <a class="navbar-brand" href="#">紫光生产系统</a>
+            <a class="navbar-brand" href="#" > <span class=" zoombar" style="color:#53d192; font-size: 23px;"><img class="img " style=" width:20px" id="u9_img" src="${pageContext.request.contextPath}/resources/images/u9.png"></span></a> <a class="navbar-brand" href="#">紫光生产系统</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

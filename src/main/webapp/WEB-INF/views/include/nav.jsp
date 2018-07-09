@@ -2,9 +2,6 @@
 <%@ page isELIgnored="false"%> 
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <%-- <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>   --%>
-<script src='${pageContext.request.contextPath}/resources/js/sockjs.min.js'></script>
-
-
 
 
 	<div class="navbar-default sidebar" role="navigation">
