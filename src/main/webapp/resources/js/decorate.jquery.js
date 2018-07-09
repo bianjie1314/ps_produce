@@ -213,7 +213,15 @@ $.extend({
 		}
 			
 		return false;
-	},
+	},dataScopeFormat : function(data,dataScopes){
+		var result= '';
+		for (var i in dataScopes) {
+			if (data.dataScope == dataScopes[i].value) {
+				return '<span class="label label-primary">'+dataScopes[i].label+'</span>';
+			}
+		}
+		return result;
+	}
 	
 });
 
