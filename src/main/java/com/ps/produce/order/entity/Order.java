@@ -6,96 +6,132 @@ package com.ps.produce.order.entity;
 import com.ps.produce.base.entity.AbstractEntity;
 
 /**
- * 字典Entity
- * @author ThinkGem
- * @version 2013-05-15
+ * 订单
+ * @author
+ * @version 
  */
 public class Order extends AbstractEntity {
-
-	private String value;	// 数据值
-	private String label;	// 标签名
-	private String type;	// 类型
-	private String description;// 描述
-	private Integer sort;	// 排序
-	private String parentId;//父Id
-	private Long id;
-
-	public Long getId() {
-		return id;
+	private String templateName;
+	private String orderNo;
+	private String orderUsername;
+	private String  orderCreateTime;
+	private String expressUsername;
+	private String expressTel;
+	private String expressAddress;
+	private String productName;
+	private String productColor;
+	private String productSize;
+	private Integer productQuantity;
+	private String ean;//商品EAN 条形码
+	private String images;
+	private Integer status;
+	private Long optUseranme;
+	private String optUserId;
+	private String callbackUrl;
+	public String getTemplateName() {
+		return templateName;
 	}
-
-
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
 	}
-
-
-
-	public Order() {
-		super();
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	public String getOrderUsername() {
+		return orderUsername;
+	}
+	public void setOrderUsername(String orderUsername) {
+		this.orderUsername = orderUsername;
+	}
+	public String getOrderCreateTime() {
+		return orderCreateTime;
+	}
+	public void setOrderCreateTime(String orderCreateTime) {
+		this.orderCreateTime = orderCreateTime;
+	}
+	public String getExpressUsername() {
+		return expressUsername;
+	}
+	public void setExpressUsername(String expressUsername) {
+		this.expressUsername = expressUsername;
+	}
+	public String getExpressTel() {
+		return expressTel;
+	}
+	public void setExpressTel(String expressTel) {
+		this.expressTel = expressTel;
+	}
+	public String getExpressAddress() {
+		return expressAddress;
+	}
+	public void setExpressAddress(String expressAddress) {
+		this.expressAddress = expressAddress;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getProductColor() {
+		return productColor;
+	}
+	public void setProductColor(String productColor) {
+		this.productColor = productColor;
+	}
+	public String getProductSize() {
+		return productSize;
+	}
+	public void setProductSize(String productSize) {
+		this.productSize = productSize;
+	}
+	public Integer getProductQuantity() {
+		return productQuantity;
+	}
+	public void setProductQuantity(Integer productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+	public String getEan() {
+		return ean;
+	}
+	public void setEan(String ean) {
+		this.ean = ean;
+	}
+	public String getImages() {
+		return images;
+	}
+	public void setImages(String images) {
+		this.images = images;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public Long getOptUseranme() {
+		return optUseranme;
+	}
+	public void setOptUseranme(Long optUseranme) {
+		this.optUseranme = optUseranme;
+	}
+	public String getOptUserId() {
+		return optUserId;
+	}
+	public void setOptUserId(String optUserId) {
+		this.optUserId = optUserId;
+	}
+	public String getCallbackUrl() {
+		return callbackUrl;
+	}
+	public void setCallbackUrl(String callbackUrl) {
+		this.callbackUrl = callbackUrl;
 	}
 	
 	
 	
-	public Order(String value, String label){
-		this.value = value;
-		this.label = label;
-	}
-	
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Integer getSort() {
-		return sort;
-	}
-
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
-
-	public String getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
-	
-	@Override
-	public String toString() {
-		return label;
-	}
-
-
 
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ps.produce.order.dao.OrderDao">
+    <sql id="where_clause">
+    </sql>
+	
+	<select id="findList" resultType="com.ps.produce.order.entity.Order">
+		SELECT 
+			* 
+		FROM order 
+		WHERE 1=1
+		 LIMIT #{beginIndex},#{pageSize}
+	</select>
+	<select id="findAllList" resultType="com.ps.produce.order.entity.Order">
+		SELECT 
+			* 
+		FROM order 
+		WHERE 1=1
+		order by sort
+	</select>
+	<select id="count" resultType="long">
+		SELECT count(id) FROM order WHERE 1=1
+	</select>
+	
+	
+	
+	<insert id="insert">
+		INSERT INTO order(
+			value, 
+			label, 
+			type, 
+			description, 
+			sort, 
+			create_date, 
+			update_date, 
+			remarks, 
+			del_flag
+		) VALUES (		
+			#{value}, 
+			#{label}, 
+			#{type}, 
+			#{description}, 
+			#{sort}, 
+			#{createDate}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE order SET 
+			value = #{value}, 
+			label = #{label}, 
+			type = #{type}, 
+			description = #{description}, 
+			sort = #{sort}, 
+			update_date = #{updateDate} 
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		delete from order WHERE id = #{id}
+	</update>
+	
+</mapper>
