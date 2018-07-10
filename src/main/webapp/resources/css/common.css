@@ -234,4 +234,28 @@ a:active {    cursor: pointer;}
 .line{
 	border-bottom: 1px solid #e5e5e5;
 }
+.order-header {
+	padding-bottom: 9px;
+	margin: 10px 0 10px;
+	border-bottom: 1px solid #eee;
+}
+table {
+    white-space: normal;
+    line-height: normal;
+    font-weight: normal;
+    font-size: small;
+    font-style: normal;
+    color: -internal-quirk-inherit;
+    text-align: start;
+    font-variant: normal;
+}
 
+.order-item {
+	padding-bottom: 9px;
+	margin: 10px 0 10px;
+}
+
+
+.search-bar{
+	margin: 30px 0 20px;
+}
