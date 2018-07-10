@@ -26,14 +26,21 @@
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
 			<div role="form" class="row">
-			    <div class="form-group col-md-3">
+			   <div class="form-group col-md-3">
 					<div class="input-group">
-					<label class="input-group-addon">上传开始时间</label>
-						 <input type="text" id="no-startTime" class="form-control" placeholder="上传开始时间" required>
+						<label class="input-group-addon">类别</label>
+						 <select type="text" name="category" class="form-control" placeholder="类别" ></select>
 					</div>
 				</div>
 			</div>
 			<div role="form" class="row">
+				<div class="form-group col-md-3">
+					<div class="input-group">
+						<label class="input-group-addon">名称</label>
+						 <input type="text" name="keyword" class="form-control" placeholder="名称" required>
+					</div>
+				</div>
+				
 				<div class="form-group col-md-3">
 					<div class="input-group">
 					<label class="input-group-addon">上传开始时间</label>
@@ -47,15 +54,8 @@
 					</div>
 				</div>
 				<div class="form-group col-md-3">
-					<div class="input-group">
-						<label class="input-group-addon">创建人</label>
-						 <input type="text" name="username" class="form-control" placeholder="创建人" required>
-					</div>
-				</div>
-				<div class="form-group col-md-3">
-					<div class="input-group">
-				<button class=" btn btn-primary " id="search">搜索</button>
-					</div>
+					<button  class=" btn btn-primary " id="search">搜索</button>
+
 				</div>
 			</div>
 			

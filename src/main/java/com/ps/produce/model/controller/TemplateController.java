@@ -32,7 +32,7 @@ public class TemplateController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String user(Model model,PageBean<User> userPageBean) {
 		model.addAttribute("title", "用户管理");
-		return "/system/Template";
+		return "/produce/Template";
 	}
 	
 	@RequestMapping(value = "/source")
