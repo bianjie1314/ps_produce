@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ps.produce.model.dao.TemplateMapper">
+  
+  <select id="list" resultType="com.ps.produce.model.po.Template">
+     select * from template where 1=1 
+     <if test="productType!=null">
+     and product_type=#{productType}
+     </if>
+     <if test="productName!=null">
+     and product_name=#{productName}
+     </if>
+     <if test="startDate!=null and endDate!=null">
+     and create_time &gt; #{startDate} and create_time &lt; #{endDate}
+     </if>
+      order by create_time desc limit 0,10
+     
+  </select>
+  <update id="update" parameterType="com.ps.produce.model.po.Template">
+    update template
+    <set>
+      <if test="productType != null">
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null">
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="tempImgs != null">
+        temp_imgs = #{tempImgs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insert" parameterType="com.ps.produce.model.po.Template">
+    insert into template (id, product_type, sku, 
+      product_name, create_time, temp_imgs
+      )
+    values (#{id,jdbcType=INTEGER}, #{productType,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{tempImgs,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+   <delete id="delete">
+     delete from template where id=#{id}
+  </delete>
+</mapper>
