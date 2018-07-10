@@ -29,7 +29,7 @@ public class OrderController {
     public String index(String keyword,Date start,Date end,String orderUsername,Integer status ,Model model) {
     	List<Order> orders = orderService.find(keyword, start, end, orderUsername, status);
     	model.addAttribute("orders", orders);
-        return "system/Order";
+        return "produce/Order";
     }
 
    
