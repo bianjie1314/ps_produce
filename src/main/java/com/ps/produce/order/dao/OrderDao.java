@@ -23,5 +23,5 @@ public interface OrderDao {
 
 	public List<Order> findAllList();
 
-	public List<Order> findList(String keyword, Date start, Date end, String orderUsername, Integer status);
+	public List<Order> findList(@Param("keyword") String keyword, String start, String end, String orderUsername, Integer status,Integer pageNumber);
 }

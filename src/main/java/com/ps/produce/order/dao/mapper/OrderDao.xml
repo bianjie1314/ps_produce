@@ -35,6 +35,9 @@
 	</resultMap>
    
     <sql id="where_clause">
+    	<if test="keyword != null and keyword != ''">
+			and (p.name like CONCAT('%',#{keyword},'%') or o.order_no like CONCAT('%',#{keyword},'%') )
+		</if>
     </sql>
 	
 	<select id="findList" resultMap="orderResult">
@@ -51,7 +54,9 @@
 			p.image as  'product.image' 
 			
 		FROM produce_order o left join produce_product p on o.id=p.order_id
-		WHERE 1=1
+		<where>
+			<include refid="where_clause" />
+		</where>
 		 <!-- LIMIT #{beginIndex},#{pageSize} -->
 	</select>
 	

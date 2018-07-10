@@ -39,17 +39,19 @@
 				<li role="presentation"><a href="#">已发货订单</a></li>
 				<li role="presentation"><a href="#">已取消订单</a></li>
 			</ul>
+			
+			<form action="" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
 					<div class="input-group">
 					<label class="input-group-addon">关键词</label>
-						 <input type="text" name="keyword" class="form-control" placeholder="请输入关键词" >
+						 <input type="text" name="keyword" value="${keyword}" class="form-control" placeholder="请输入关键词" >
 					</div> 
 				</div>
 				  <div class="col-sm-4">
 	                     <div class="input-prepend input-group">
 	                         <span class="add-on input-group-addon">下单时间：<i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-	                         <input type="text"  style="width: 230px" name="reservation" id="reservation" class="form-control"/> 
+	                         <input type="text"  style="width: 230px" name="time"  value="${time}" id="reservation" class="form-control"/> 
 	                 	 </div>
 					</div>					
 				<div class="form-group col-md-2">
@@ -61,12 +63,10 @@
 				</div>
 				<div class="form-group col-md-3">
 					<button class=" btn btn-primary " id="search">搜索</button>
-
 				</div>
 			</div>
-
+			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
-
 				<c:forEach items="${orders}" var="order">
 					<tr>
 						<td>
@@ -129,7 +129,7 @@
 			    </li>
 			  </ul>
 			</nav>
-
+			
 		</div>
 		<jsp:include page="../include/footer.jsp" />
 	</div>

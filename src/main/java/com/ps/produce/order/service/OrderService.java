@@ -52,8 +52,8 @@ public class OrderService {
 	}
 
 
-	public List<Order> find(String keyword, Date start, Date end, String orderUsername, Integer status) {
-		return orderDao.findList(keyword, start, end, orderUsername, status);
+	public List<Order> find(String keyword, String start, String end, String orderUsername, Integer status,Integer pageNumber) {
+		return orderDao.findList(keyword, start, end, orderUsername, status,pageNumber);
 	}
 
    

@@ -1,9 +1,11 @@
 package com.ps.produce.order.controller;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +27,23 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @RequestMapping(value = "list")
-    public String index(String keyword,Date start,Date end,String orderUsername,Integer status ,Model model) {
-    	List<Order> orders = orderService.find(keyword, start, end, orderUsername, status);
+    @RequestMapping(value = "list" ,produces = "text/html;charset=UTF-8")
+    public String index( String keyword,String time,String orderUsername,Integer status ,Integer pageNumber ,Model model) {
+
+    	String start=null;
+    	String end=null;
+    	if(StringUtils.isNoneEmpty(time)) {
+    		String[] times = time.split("~");
+    		start=times[0];
+    		end=times[1];
+    	}
+    	if(StringUtils.isNoneEmpty(keyword)) {
+    		keyword=	URLDecoder.decode(keyword);
+    	}
+    	List<Order> orders = orderService.find(keyword, start, end, orderUsername, status,pageNumber);
     	model.addAttribute("orders", orders);
+    	model.addAttribute("keyword", keyword);
+    	model.addAttribute("time", time);
         return "produce/Order";
     }
 
