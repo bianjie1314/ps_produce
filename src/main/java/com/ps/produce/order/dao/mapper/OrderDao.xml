@@ -1,27 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ps.produce.order.dao.OrderDao">
+   
+   <resultMap type="com.ps.produce.order.entity.Order" id="orderResult">
+		<id property="id" column="id"/>
+		<result property="orderNo" column="order_no"/>
+		<result property="orderUsername" column="order_username"/>
+		<result property="orderCreateTime" column="order_create_time"/>
+		
+		<result property="expressUsername" column="express_username"/>
+		<result property="expressTel" column="express_Tel"/>
+		<result property="expressAddress" column="express_address"/>
+		<result property="status" column="status"/>
+		<result property="optUseranme" column="opt_useranme"/>
+		<result property="optUserId" column="opt_user_id"/>
+		<result property="callbackUrl" column="callback_url"/>
+				
+		<result property="remarks" column="remarks"/>
+		<result property="updateDate" column="update_date"/>
+		<result property="createDate" column="create_date"/>
+		
+		<collection property="products" ofType="com.ps.produce.order.entity.Product">
+			<id property="id" column="product.id"/>
+			<result property="orderId" column="product.orderId"/>
+			<result property="name" column="product.name"/>
+			<result property="color" column="product.color"/>
+			<result property="size" column="product.size"/>
+			<result property="quantity" column="product.quantity"/>
+			<result property="ean" column="product.ean"/>
+			<result property="templateName" column="product.templateName"/>
+			<result property="image" column="product.image"/>
+			
+		</collection> 
+	</resultMap>
+   
     <sql id="where_clause">
     </sql>
 	
-	<select id="findList" resultType="com.ps.produce.order.entity.Order">
+	<select id="findList" resultMap="orderResult">
 		SELECT 
-			* 
-		FROM order 
+			o.*,
+			p.id as  'product.id' ,
+			p.order_id as  'product.orderId' ,
+			p.name as 'product.name',
+			p.color as  'product.color' ,
+			p.size as  'product.size' ,
+			p.quantity as  'product.quantity' ,
+			p.ean as  'product.ean' ,
+			p.template_name as  'product.templateName' ,
+			p.image as  'product.image' 
+			
+		FROM produce_order o left join produce_product p on o.id=p.order_id
 		WHERE 1=1
-		 LIMIT #{beginIndex},#{pageSize}
+		 <!-- LIMIT #{beginIndex},#{pageSize} -->
 	</select>
-	<select id="findAllList" resultType="com.ps.produce.order.entity.Order">
-		SELECT 
-			* 
-		FROM order 
-		WHERE 1=1
-		order by sort
-	</select>
-	<select id="count" resultType="long">
-		SELECT count(id) FROM order WHERE 1=1
-	</select>
-	
 	
 	
 	<insert id="insert">
