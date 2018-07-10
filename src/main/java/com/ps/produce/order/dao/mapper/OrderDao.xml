@@ -35,8 +35,8 @@
 	</resultMap>
    
     <sql id="where_clause">
-    	<if test="keyword != null and keyword != ''">
-			and (p.name like CONCAT('%',#{keyword},'%') or o.order_no like CONCAT('%',#{keyword},'%') )
+    	<if test="query.keyword != null and query.keyword != ''">
+			and (p.name like CONCAT('%',#{query.keyword},'%') or o.order_no like CONCAT('%',#{query.keyword},'%') )
 		</if>
     </sql>
 	
@@ -57,9 +57,21 @@
 		<where>
 			<include refid="where_clause" />
 		</where>
-		 <!-- LIMIT #{beginIndex},#{pageSize} -->
+		limit #{pageBean.beginIndex},#{pageBean.pageSize}
 	</select>
 	
+	<select id="count" resultType="int">
+		SELECT 
+			count(DISTINCT o.id)
+		
+			
+		FROM produce_order o left join produce_product p on o.id=p.order_id
+		<where>
+			<include refid="where_clause" />
+		</where>
+		limit #{pageBean.beginIndex},#{pageBean.pageSize}
+		 <!-- LIMIT #{beginIndex},#{pageSize} -->
+	</select>
 	
 	<insert id="insert">
 		INSERT INTO order(

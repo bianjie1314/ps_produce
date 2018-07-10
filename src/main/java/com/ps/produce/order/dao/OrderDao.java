@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ps.produce.base.entity.query.model.OrderQuery;
+import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.entity.Order;
 
 
@@ -13,7 +15,6 @@ public interface OrderDao {
     
 	
 	
-	public long count(Map<String, String> map, String searchParameter);
 
 	public void insert(Order Order);
 
@@ -21,7 +22,9 @@ public interface OrderDao {
 
 	public void update(Order Order);
 
-	public List<Order> findAllList();
 
-	public List<Order> findList(@Param("keyword") String keyword, String start, String end, String orderUsername, Integer status,Integer pageNumber);
+
+	public List<Order> findList(@Param("pageBean") PageBean<Order> pageBean, @Param("query") OrderQuery query);
+
+	public int count(@Param("pageBean") PageBean<Order> pageBean,@Param("query")  OrderQuery query);
 }

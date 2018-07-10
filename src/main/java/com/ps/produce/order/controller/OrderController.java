@@ -1,9 +1,6 @@
 package com.ps.produce.order.controller;
 
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ps.produce.base.entity.query.model.OrderQuery;
+import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.entity.Order;
+import com.ps.produce.order.entity.Product;
 import com.ps.produce.order.service.OrderService;
 import com.ps.produce.support.Response;
 import com.ps.produce.support.ResponseCode;
@@ -28,22 +28,19 @@ public class OrderController {
     OrderService orderService;
 
     @RequestMapping(value = "list" ,produces = "text/html;charset=UTF-8")
-    public String index( String keyword,String time,String orderUsername,Integer status ,Integer pageNumber ,Model model) {
+    public String index(PageBean<Order> pageBean, OrderQuery query,Model model) {
 
     	String start=null;
     	String end=null;
-    	if(StringUtils.isNoneEmpty(time)) {
-    		String[] times = time.split("~");
+    	if(StringUtils.isNoneEmpty(query.getTime())) {
+    		String[] times = query.getTime().split("~");
     		start=times[0];
     		end=times[1];
     	}
-    	if(StringUtils.isNoneEmpty(keyword)) {
-    		keyword=	URLDecoder.decode(keyword);
-    	}
-    	List<Order> orders = orderService.find(keyword, start, end, orderUsername, status,pageNumber);
-    	model.addAttribute("orders", orders);
-    	model.addAttribute("keyword", keyword);
-    	model.addAttribute("time", time);
+    	
+    	 pageBean = orderService.find(pageBean,query);
+    	model.addAttribute("pageBean", pageBean);
+    	model.addAttribute("query", query);
         return "produce/Order";
     }
 

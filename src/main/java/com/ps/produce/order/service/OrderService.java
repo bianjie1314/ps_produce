@@ -4,11 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ps.produce.base.entity.query.model.OrderQuery;
+import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.dao.OrderDao;
 import com.ps.produce.order.entity.Order;
 
@@ -23,10 +24,6 @@ public class OrderService {
 
 	
 
-
-	public long count(Map<String, String> parameters, String searchParameter) {
-		return orderDao.count(parameters,searchParameter);
-	}
 
 
 	public void insert(Order order) {
@@ -52,8 +49,12 @@ public class OrderService {
 	}
 
 
-	public List<Order> find(String keyword, String start, String end, String orderUsername, Integer status,Integer pageNumber) {
-		return orderDao.findList(keyword, start, end, orderUsername, status,pageNumber);
+	public PageBean<Order> find(PageBean<Order> pageBean, OrderQuery query) {
+		List<Order> orders= orderDao.findList(pageBean,query);
+		int totalCount = orderDao.count(pageBean,query);
+		pageBean.setTotalCount(totalCount);		
+		pageBean.setContent(orders);
+		return pageBean;
 	}
 
    

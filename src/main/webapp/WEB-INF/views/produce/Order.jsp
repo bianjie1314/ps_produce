@@ -38,20 +38,19 @@
 				<li role="presentation"><a href="#">备货中订单</a></li>
 				<li role="presentation"><a href="#">已发货订单</a></li>
 				<li role="presentation"><a href="#">已取消订单</a></li>
-			</ul>
-			
-			<form action="" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
+			</ul>			
+			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
 					<div class="input-group">
 					<label class="input-group-addon">关键词</label>
-						 <input type="text" name="keyword" value="${keyword}" class="form-control" placeholder="请输入关键词" >
+						 <input type="text" name="keyword" value="${query.keyword}" class="form-control" placeholder="请输入关键词" >
 					</div> 
 				</div>
 				  <div class="col-sm-4">
 	                     <div class="input-prepend input-group">
 	                         <span class="add-on input-group-addon">下单时间：<i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-	                         <input type="text"  style="width: 230px" name="time"  value="${time}" id="reservation" class="form-control"/> 
+	                         <input type="text"  style="width: 230px" name="time"  value="${query.time}" id="reservation" class="form-control"/> 
 	                 	 </div>
 					</div>					
 				<div class="form-group col-md-2">
@@ -67,7 +66,7 @@
 			</div>
 			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
-				<c:forEach items="${orders}" var="order">
+				<c:forEach items="${pageBean.content}" var="order">
 					<tr>
 						<td>
 							<div class="row order-header">
@@ -108,27 +107,8 @@
 						</td>
 					</tr>
 				</c:forEach>
-
 			</table>
-			<nav aria-label="Page navigation">
-			  <ul class="pagination">
-			    <li>
-			      <a href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			    <li><a href="#">3</a></li>
-			    <li><a href="#">4</a></li>
-			    <li><a href="#">5</a></li>
-			    <li>
-			      <a href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			  </ul>
-			</nav>
+			<%@ include file="/WEB-INF/views/include/paging.jsp" %>
 			
 		</div>
 		<jsp:include page="../include/footer.jsp" />
