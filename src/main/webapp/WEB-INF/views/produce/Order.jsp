@@ -16,12 +16,7 @@
 
 <script src="${ctx}/resources/js/produce/order.js"></script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#reservation').daterangepicker(null, function(start, end, label) {
-    });
- });
-</script>
+
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -53,10 +48,10 @@ $(document).ready(function() {
 				</div>
 				  <div class="col-sm-4">
 	                     <div class="input-prepend input-group">
-	                         <span class="add-on input-group-addon">下单时间：<i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" readonly style="width: 230px" name="reservation" id="reservation" class="form-control"/> 
+	                         <span class="add-on input-group-addon">下单时间：<i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+	                         <input type="text"  style="width: 230px" name="reservation" id="reservation" class="form-control"/> 
 	                 	 </div>
-					</div>			
-				
+					</div>					
 				<div class="form-group col-md-2">
 					<div class="input-group">
 						<label class="input-group-addon">下单商户</label>
