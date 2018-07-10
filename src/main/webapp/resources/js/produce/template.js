@@ -1,7 +1,14 @@
 (function($) {
     $(function() {
+    	$('#reservation').daterangepicker({format: 'YYYY-MM-DD',
+    	    "startDate": "2018-07-03",
+    	    "endDate": "2018-07-10"
+    	}, function(start, end, label) {
+    	  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+    	});
+       // getDate();
         initUI();
-        queryType();
+         queryType();
         $.myAjax({
 	   		sUrl:ctx + "/template",
 	   		sType:"get",
@@ -17,18 +24,31 @@
 	   			}
 	   		}
 	   	});
-        $('#no-startTime').datepicker({ dateFormat: 'yy-mm-dd'});
-        $('#no-endTime').datepicker({ dateFormat: 'yy-mm-dd'});
+       
     });
+   /* function getDate(){
+    	   var d=new Date();
+           var mydate=new Date(d.getTime()-86400000*7);
+    	   var str = "" + mydate.getFullYear() + "-";
+    	   str += (mydate.getMonth()+1) ;
+    	   str += (mydate.getDate() -7)+ "";
+    	   var nowdate=new Date();
+    	   var str1 = "" + nowdate.getFullYear() + "-";
+    	   str1 += (nowdate.getMonth()+1) + "-";
+    	   str1 += (nowdate.getDate() )+ "";
+    	   var a=str+" ~ "+str1;
+    	   $('#reservation').val(a);
+    	   
+    }*/
     function queryType(){
-    	
+    	   
     	$.ajax({
 			url : ctx + "/template/queryType",
 			type : "post",
 			success : function(d) {
 				var content=""
 				for(var item in d){
-					content+='<option value='+d[item]+'>'+d[item]+'</option>';
+					content+='<option value='+d[item].product_type+'>'+d[item].product_type+'</option>';
 				}
 				$('#category').html(content);
 			}
@@ -36,6 +56,7 @@
     }
     
     function initUI() {
+    	
         var table = $('#datatable').DataTable({
             "dom" : '<"toolbar-btn"> tr<"row"<"col-xs-6"<"col-xs-6"l><"col-xs-6"i>><"col-xs-6"p>>',
             "lengthMenu" : [ [ 50, 100, 200, 500, 2000, 1000000 ], [ 50, 100, 200, 500, 2000, "All" ] ],
@@ -58,20 +79,17 @@
             "fnServerData" : function(sSource, aoData, fnCallback) {
             	var productType=$('[name=category]').val();
             	var productName=$('[name=productName]').val();
-            	var startDate=$('[name=startDate]').val();
-            	var endDate=$('[name=endDate]').val();
-                if(productType){                	
+            	var date=$('#reservation').val();
+            	if(productType){                	
                     aoData.push({ "name": "productType", "value":encodeURI(productType)});
                 }
                 if(productName){                	
                     aoData.push({ "name": "productName", "value":encodeURI(productName)});
                 }
-                if(startDate){                	
-                    aoData.push({ "name": "startDate", "value":encodeURI(startDate)});
+                if(date){                	
+                    aoData.push({ "name": "date", "value":encodeURI(date)});
                 }
-                if(endDate){                	
-                    aoData.push({ "name": "endDate", "value":encodeURI(endDate)});
-                }
+                
                 $.ajax({
                     "data" : aoData,
                     "contentType" : "application/json; charset=utf-8",
@@ -96,7 +114,7 @@
                 	imgs=data.tempImgs.split(';');
                 	var content="";
                 	for(var i=0;i<imgs.length;i++){
-                		content+='<img src='+imgs[i]+' class="img-thumbnail">';
+                		content+='<a href="' + imgs[i]+'" target="blank" data-gallery=""><img style="height: 50px;width: 50px; " alt=""  src="' + imgs[i]+ '"></a><span>&nbsp</span>';
                 	}
                 	return content;
                 }

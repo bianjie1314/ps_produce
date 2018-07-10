@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.druid.filter.AutoLoad;
+import com.alibaba.druid.util.StringUtils;
 import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.model.po.Template;
 import com.ps.produce.model.service.TemplateService;
@@ -44,8 +45,15 @@ public class TemplateController {
 		
 		String productType=request.getParameter("productType");
 		String productName=request.getParameter("productName");
-		String startDate=request.getParameter("startDate");
-		String endDate=request.getParameter("endDate");
+		String date=request.getParameter("date");
+		String startDate="";
+		String endDate="";
+		if(!StringUtils.isEmpty(date)) {
+		String[] dates=date.split("%20~%20");
+		startDate=dates[0];
+		endDate=dates[1];
+		}
+		System.out.println(date);
 		List<Template> list=templateService.list(productType, productName, startDate, endDate);
 		JsonObject<Template> result = new JsonObject<Template>();
 		result.setiTotalDisplayRecords(0);

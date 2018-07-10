@@ -10,6 +10,13 @@
 <meta name="author" content="">
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <script src="${ctx}/resources/js/produce/template.js"></script>
+<%-- <link rel="stylesheet" href="${ctx}/resources/bootstrap-datetimepicker/daterangepicker-bs3.css">
+
+<script src="${ctx}/resources/bootstrap-datetimepicker/moment.js" ></script>
+<script src="${ctx}/resources/bootstrap-datetimepicker/daterangepicker.js" ></script> --%>
+<link rel="stylesheet" href="http://www.daterangepicker.com/daterangepicker.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+<script src="http://www.daterangepicker.com/daterangepicker.js"></script>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -42,18 +49,11 @@
 					</div>
 				</div>
 				
-				<div class="form-group col-md-3">
-					<div class="input-group">
-					<label class="input-group-addon">上传开始时间</label>
-						 <input type="text" id="no-startTime" name ="startDate" class="form-control" placeholder="上传开始时间" required>
-					</div>
-				</div>
-				<div class="form-group col-md-3">
-					<div class="input-group">
-					<label class="input-group-addon">上传结束时间</label>
-						 <input type="text" id="no-endTime" name="endDate" class="form-control" placeholder="上传结束时间" required>
-					</div>
-				</div>
+				<div class="col-sm-4">
+	                     <div class="input-prepend input-group">
+	                         <span class="add-on input-group-addon">下单时间：<i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text"  style="width: 230px" name="reservation" id="reservation" class="form-control"/> 
+	                 	 </div>
+					</div>	
 				<div class="form-group col-md-3">
 					<button  class=" btn btn-primary " id="search">搜索</button>
 
