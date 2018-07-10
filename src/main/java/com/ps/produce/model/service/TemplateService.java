@@ -1,6 +1,7 @@
 package com.ps.produce.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,4 +27,9 @@ public class TemplateService {
    public int insert(Template template) {
 	   return templateMapper.insert(template);
    }
+   
+  public List<Map<String,Object>> queryType() {
+	// TODO Auto-generated method stub
+	return templateMapper.queryType();
+}
 }

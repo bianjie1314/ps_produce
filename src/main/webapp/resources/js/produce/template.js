@@ -1,7 +1,7 @@
 (function($) {
     $(function() {
         initUI();
-        
+        queryType();
         $.myAjax({
 	   		sUrl:ctx + "/template",
 	   		sType:"get",
@@ -20,6 +20,21 @@
         $('#no-startTime').datepicker({ dateFormat: 'yy-mm-dd'});
         $('#no-endTime').datepicker({ dateFormat: 'yy-mm-dd'});
     });
+    function queryType(){
+    	
+    	$.ajax({
+			url : ctx + "/template/queryType",
+			type : "post",
+			success : function(d) {
+				var content=""
+				for(var item in d){
+					content+='<option value='+d[item]+'>'+d[item]+'</option>';
+				}
+				$('#category').html(content);
+			}
+		});
+    }
+    
     function initUI() {
         var table = $('#datatable').DataTable({
             "dom" : '<"toolbar-btn"> tr<"row"<"col-xs-6"<"col-xs-6"l><"col-xs-6"i>><"col-xs-6"p>>',
@@ -41,10 +56,21 @@
             },
             "sAjaxSource" : ctx + '/template/source',
             "fnServerData" : function(sSource, aoData, fnCallback) {
-                for ( var d in aoData) {
-                    if (aoData[d].name == "sSearch") {
-                        aoData[d].value = encodeURI(aoData[d].value);
-                    }
+            	var productType=$('[name=category]').val();
+            	var productName=$('[name=productName]').val();
+            	var startDate=$('[name=startDate]').val();
+            	var endDate=$('[name=endDate]').val();
+                if(productType){                	
+                    aoData.push({ "name": "productType", "value":encodeURI(productType)});
+                }
+                if(productName){                	
+                    aoData.push({ "name": "productName", "value":encodeURI(productName)});
+                }
+                if(startDate){                	
+                    aoData.push({ "name": "startDate", "value":encodeURI(startDate)});
+                }
+                if(endDate){                	
+                    aoData.push({ "name": "endDate", "value":encodeURI(endDate)});
                 }
                 $.ajax({
                     "data" : aoData,
@@ -70,7 +96,7 @@
                 	imgs=data.tempImgs.split(';');
                 	var content="";
                 	for(var i=0;i<imgs.length;i++){
-                		content+='<img src='+imgs[i]+' class="img-rounded">';
+                		content+='<img src='+imgs[i]+' class="img-thumbnail">';
                 	}
                 	return content;
                 }
@@ -80,7 +106,10 @@
             initComplete : function() {
             }
         });
-        
+        $('#search').click(function(event) { 
+			table.ajax.reload();
+		});
+       
        var toolbar =$('<ul class="dropdown-menu"></ul>');
        toolbar.append('<li><a href="#" id="del">删除</a></li>');
        toolbar.append('<li><a href="#" id="edit">修改</a></li>');

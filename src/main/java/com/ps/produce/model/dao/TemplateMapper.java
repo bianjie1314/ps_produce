@@ -2,6 +2,8 @@ package com.ps.produce.model.dao;
 
 import com.ps.produce.model.po.Template;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TemplateMapper {
@@ -10,4 +12,5 @@ public interface TemplateMapper {
     int update(Template record);
     int insert(Template record);
     int delete(@Param("id")int id);
+	List<Map<String,Object>> queryType();
 }

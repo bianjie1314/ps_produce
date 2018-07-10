@@ -1,6 +1,7 @@
 package com.ps.produce.model.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletRequest;
 
@@ -40,6 +41,7 @@ public class TemplateController {
 	@ResponseBody
     public JsonObject<Template> source(@RequestParam(value = "iDisplayStart", defaultValue = "0") int iDisplayStart,
             @RequestParam(value = "iDisplayLength", defaultValue = "10000") int iDisplayLength, Model model,ServletRequest request){
+		
 		String productType=request.getParameter("productType");
 		String productName=request.getParameter("productName");
 		String startDate=request.getParameter("startDate");
@@ -52,4 +54,14 @@ public class TemplateController {
 		return result;
 		
 	} 
+	@RequestMapping(value = "/queryType")
+	@RequiresPermissions("sys:user:view")
+	@ResponseBody
+	public List<Map<String,Object>> queryType(@RequestParam(value = "iDisplayStart", defaultValue = "0") int iDisplayStart,
+    @RequestParam(value = "iDisplayLength", defaultValue = "10000") int iDisplayLength, Model model,ServletRequest request){
+		System.out.println(111111);
+		List<Map<String,Object>>list=templateService.queryType();
+		return list;
+	}
+    	
 }

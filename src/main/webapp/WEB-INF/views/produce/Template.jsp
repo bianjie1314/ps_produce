@@ -29,7 +29,8 @@
 			   <div class="form-group col-md-3">
 					<div class="input-group">
 						<label class="input-group-addon">类别</label>
-						 <select type="text" name="category" class="form-control" placeholder="类别" ></select>
+						 <select type="text" name="category" id="category" class="form-control" placeholder="类别" >
+						  </select>
 					</div>
 				</div>
 			</div>
@@ -37,20 +38,20 @@
 				<div class="form-group col-md-3">
 					<div class="input-group">
 						<label class="input-group-addon">名称</label>
-						 <input type="text" name="keyword" class="form-control" placeholder="名称" required>
+						 <input type="text" name="productName" class="form-control" placeholder="名称" required>
 					</div>
 				</div>
 				
 				<div class="form-group col-md-3">
 					<div class="input-group">
 					<label class="input-group-addon">上传开始时间</label>
-						 <input type="text" id="no-startTime" class="form-control" placeholder="上传开始时间" required>
+						 <input type="text" id="no-startTime" name ="startDate" class="form-control" placeholder="上传开始时间" required>
 					</div>
 				</div>
 				<div class="form-group col-md-3">
 					<div class="input-group">
 					<label class="input-group-addon">上传结束时间</label>
-						 <input type="text" id="no-endTime" class="form-control" placeholder="上传结束时间" required>
+						 <input type="text" id="no-endTime" name="endDate" class="form-control" placeholder="上传结束时间" required>
 					</div>
 				</div>
 				<div class="form-group col-md-3">
