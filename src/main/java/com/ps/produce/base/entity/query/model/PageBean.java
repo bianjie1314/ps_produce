@@ -108,10 +108,7 @@ public class PageBean<E> extends BaseEntity implements Serializable{
 		this.order = order;
 	}
 
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-
+	
 	/**
 	 * 获取mysql数据库开始索引(从0开始)
 	 */

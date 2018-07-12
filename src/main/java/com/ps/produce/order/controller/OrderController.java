@@ -1,18 +1,8 @@
 package com.ps.produce.order.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Date;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tools.zip.ZipEntry;
-import org.apache.tools.zip.ZipOutputStream;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ps.produce.base.entity.query.model.OrderQuery;
+import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.entity.Order;
 import com.ps.produce.order.service.OrderService;
 import com.ps.produce.support.Response;
@@ -34,10 +26,20 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @RequestMapping(value = "list")
-    public String index(String keyword,Date start,Date end,String orderUsername,Integer status ,Model model) {
-    	List<Order> orders = orderService.find(keyword, start, end, orderUsername, status);
-    	model.addAttribute("orders", orders);
+    @RequestMapping(value = "list" ,produces = "text/html;charset=UTF-8")
+    public String index(PageBean<Order> pageBean, OrderQuery query,Model model) {
+
+    	String start=null;
+    	String end=null;
+    	if(StringUtils.isNoneEmpty(query.getTime())) {
+    		String[] times = query.getTime().split("~");
+    		start=times[0];
+    		end=times[1];
+    	}
+    	
+    	 pageBean = orderService.find(pageBean,query);
+    	model.addAttribute("pageBean", pageBean);
+    	model.addAttribute("query", query);
         return "produce/Order";
     }
 
@@ -71,11 +73,5 @@ public class OrderController {
 		
 		return response;
 	}
-    @ResponseBody
-    @RequestMapping(value="/zipImgs")
-    public void download(HttpServletRequest request, HttpServletResponse response){
-    	 
-        
     
-}
     }
