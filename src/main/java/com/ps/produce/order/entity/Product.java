@@ -20,7 +20,14 @@ public class Product extends AbstractEntity {
 	private Integer quantity;
 	private String ean;//商品EAN 条形码
 	private String image;
+	private String sku;
 	
+	public String getSku() {
+		return sku;
+	}
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
 	public String getImage() {
 		return image;
 	}
