@@ -57,6 +57,13 @@ public class OrderService {
 		return pageBean;
 	}
 
+
+	public List<String> queryOrderUser() {
+		// TODO Auto-generated method stub
+		
+		return orderDao.queryOrderUser();
+	}
+
    
 
 }

@@ -33,12 +33,16 @@
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#"> 所有订单 </a></li>
-				<li role="presentation"><a href="#">待处理订单</a></li>
-				<li role="presentation"><a href="#">备货中订单</a></li>
+				<li role="presentation" class="active"><a href="#">待发货订单</a></li>
 				<li role="presentation"><a href="#">已发货订单</a></li>
-				<li role="presentation"><a href="#">已取消订单</a></li>
-			</ul>			
+				
+			</ul>
+			<div class=" col-md-3">	
+			<button  onclick="add()" class="btn btn-primary">扫码添加订单</button>
+			<button type="button" class="btn btn-primary">发货完成完成</button>
+			</div>
+			
+			<br>		
 			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				

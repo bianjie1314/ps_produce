@@ -38,8 +38,17 @@
     	<if test="query.keyword != null and query.keyword != ''">
 			and (p.name like CONCAT('%',#{query.keyword},'%') or o.order_no like CONCAT('%',#{query.keyword},'%') )
 		</if>
+		<if  test="query.start!=null and query.end!=null">
+		     and order_create_time &gt; #{query.start} and order_create_time &lt; #{query.end} 
+		</if>
+		<if test="query.orderUsername !=null">
+		    and order_username=#{query.orderUsername}
+		</if>
+		
     </sql>
-	
+	<select id="queryOrderUser" resultType="string" >
+	    select distinct order_username from produce_order where 1=1
+	</select>
 	<select id="findList" resultMap="orderResult">
 		SELECT 
 			o.*,

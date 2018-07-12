@@ -18,6 +18,20 @@ public class OrderQuery implements Serializable{
 	private String time;
 	private  String orderUsername;
 	private Integer statu;
+	private String start;
+	private String end;
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	}
+	public String getEnd() {
+		return end;
+	}
+	public void setEnd(String end) {
+		this.end = end;
+	}
 	public String getKeyword() {
 		return keyword;
 	}
