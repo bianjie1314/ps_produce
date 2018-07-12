@@ -61,6 +61,10 @@ public class OrderService {
 	public Order findOne(Long id) {
 		return orderDao.findOne(id);
 	}
+	public List<String> queryOrderUser() {
+		
+		return orderDao.queryOrderUser();
+	}
 
    
 

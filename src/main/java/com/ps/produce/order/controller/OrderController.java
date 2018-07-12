@@ -1,6 +1,7 @@
 package com.ps.produce.order.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,18 +36,54 @@ public class OrderController {
     		String[] times = query.getTime().split("~");
     		start=times[0];
     		end=times[1];
-    	}    	
-    	 pageBean = orderService.find(pageBean,query);
+    	}
+    	query.setEnd(end);
+    	query.setStart(start);
+    	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
         return "produce/Order";
     }
-
+    
     @RequestMapping(value = "detail" ,produces = "text/html;charset=UTF-8")
-    public String detail(Long id,Model model) {
+    public String index(Long id,Model model) {
     	Order order = orderService.findOne(id);
     	model.addAttribute("order", order);
         return "produce/Detail";
+    }
+    @RequestMapping(value = "printList" ,produces = "text/html;charset=UTF-8")
+    public String printIndex(PageBean<Order> pageBean, OrderQuery query,Model model) {
+
+    	String start=null;
+    	String end=null;
+    	if(StringUtils.isNoneEmpty(query.getTime())) {
+    		String[] times = query.getTime().split("~");
+    		start=times[0];
+    		end=times[1];
+    	}
+    	query.setEnd(end);
+    	query.setStart(start);
+    	pageBean = orderService.find(pageBean,query);
+    	model.addAttribute("pageBean", pageBean);
+    	model.addAttribute("query", query);
+        return "produce/PrintOrder";
+    }
+    @RequestMapping(value = "makeList" ,produces = "text/html;charset=UTF-8")
+    public String makeIndex(PageBean<Order> pageBean, OrderQuery query,Model model) {
+
+    	String start=null;
+    	String end=null;
+    	if(StringUtils.isNoneEmpty(query.getTime())) {
+    		String[] times = query.getTime().split("~");
+    		start=times[0];
+    		end=times[1];
+    	}
+    	query.setEnd(end);
+    	query.setStart(start);
+    	pageBean = orderService.find(pageBean,query);
+    	model.addAttribute("pageBean", pageBean);
+    	model.addAttribute("query", query);
+        return "produce/MakeOrder";
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/add")
@@ -77,5 +114,28 @@ public class OrderController {
 		
 		return response;
 	}
+    @ResponseBody
+	@RequestMapping(value = "/queryOrderUser")
+	public List<String> queryOrderUser() throws IOException {
+		List<String>list=orderService.queryOrderUser();
+		return list;
+	}
     
+    @RequestMapping(value = "deliveryList" ,produces = "text/html;charset=UTF-8")
+    public String DeliveryIndex(PageBean<Order> pageBean, OrderQuery query,Model model) {
+
+    	String start=null;
+    	String end=null;
+    	if(StringUtils.isNoneEmpty(query.getTime())) {
+    		String[] times = query.getTime().split("~");
+    		start=times[0];
+    		end=times[1];
+    	}
+    	query.setEnd(end);
+    	query.setStart(start);
+    	pageBean = orderService.find(pageBean,query);
+    	model.addAttribute("pageBean", pageBean);
+    	model.addAttribute("query", query);
+        return "produce/DeliveryOrder";
+    }
     }

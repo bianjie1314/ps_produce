@@ -33,12 +33,16 @@
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#"> 所有订单 </a></li>
-				<li role="presentation"><a href="#">待处理订单</a></li>
-				<li role="presentation"><a href="#">备货中订单</a></li>
+				<li role="presentation" class="active"><a href="#">待发货订单</a></li>
 				<li role="presentation"><a href="#">已发货订单</a></li>
-				<li role="presentation"><a href="#">已取消订单</a></li>
-			</ul>			
+				
+			</ul>
+			<div class=" col-md-3">	
+			<button  onclick="add()" class="btn btn-primary">扫码添加订单</button>
+			<button type="button" class="btn btn-primary">发货完成完成</button>
+			</div>
+			
+			<br>		
 			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
@@ -67,7 +71,7 @@
 			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
 				<c:forEach items="${pageBean.content}" var="order">
-					<tr >
+					<tr>
 						<td>
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
@@ -76,12 +80,12 @@
 								<div class="col-md-4">
 									<button class=" btn btn-primary " id="cancle">取消订单</button>
 								</div>
-							</div>							
-							<div class="row product" order-id="${order.id}">
+							</div>
+							<div class="row">
 								<div class="col-md-8">
 									<c:forEach items="${order.products}" var="product"
 										varStatus="stat">
-										<div class="row order-item product"  order-id="${order.id}">
+										<div class="row order-item">
 											<div class="col-md-2">
 												<img src="${product.image}">
 											</div>
@@ -102,7 +106,7 @@
 										</c:if>
 									</c:forEach>
 								</div>
-								<div class="col-md-4" style=" height: auto;">订单状态</div>
+								<div class="col-md-4">订单状态</div>
 							</div>
 						</td>
 					</tr>
