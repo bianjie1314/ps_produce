@@ -27,4 +27,6 @@ public interface OrderDao {
 	public List<Order> findList(@Param("pageBean") PageBean<Order> pageBean, @Param("query") OrderQuery query);
 
 	public int count(@Param("pageBean") PageBean<Order> pageBean,@Param("query")  OrderQuery query);
+
+	public Order findOne(@Param("id") Long id);
 }

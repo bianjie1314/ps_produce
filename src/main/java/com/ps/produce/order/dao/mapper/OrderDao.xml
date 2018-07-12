@@ -73,6 +73,22 @@
 		 <!-- LIMIT #{beginIndex},#{pageSize} -->
 	</select>
 	
+	<select id="findOne" resultMap="orderResult">
+		SELECT 
+			o.*,
+			p.id as  'product.id' ,
+			p.order_id as  'product.orderId' ,
+			p.name as 'product.name',
+			p.color as  'product.color' ,
+			p.size as  'product.size' ,
+			p.quantity as  'product.quantity' ,
+			p.ean as  'product.ean' ,
+			p.template_name as  'product.templateName' ,
+			p.image as  'product.image' 			
+		FROM produce_order o left join produce_product p on o.id=p.order_id where o.id=#{id}
+	</select>
+	
+	
 	<insert id="insert">
 		INSERT INTO order(
 			value, 

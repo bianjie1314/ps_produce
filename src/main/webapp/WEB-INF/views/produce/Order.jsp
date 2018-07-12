@@ -67,7 +67,7 @@
 			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
 				<c:forEach items="${pageBean.content}" var="order">
-					<tr>
+					<tr >
 						<td>
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
@@ -76,12 +76,12 @@
 								<div class="col-md-4">
 									<button class=" btn btn-primary " id="cancle">取消订单</button>
 								</div>
-							</div>
-							<div class="row">
+							</div>							
+							<div class="row product" order-id="${order.id}">
 								<div class="col-md-8">
 									<c:forEach items="${order.products}" var="product"
 										varStatus="stat">
-										<div class="row order-item">
+										<div class="row order-item product"  order-id="${order.id}">
 											<div class="col-md-2">
 												<img src="${product.image}">
 											</div>
@@ -102,7 +102,7 @@
 										</c:if>
 									</c:forEach>
 								</div>
-								<div class="col-md-4">订单状态</div>
+								<div class="col-md-4" style=" height: auto;">订单状态</div>
 							</div>
 						</td>
 					</tr>

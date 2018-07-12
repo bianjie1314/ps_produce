@@ -35,15 +35,19 @@ public class OrderController {
     		String[] times = query.getTime().split("~");
     		start=times[0];
     		end=times[1];
-    	}
-    	
+    	}    	
     	 pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
         return "produce/Order";
     }
 
-   
+    @RequestMapping(value = "detail" ,produces = "text/html;charset=UTF-8")
+    public String detail(Long id,Model model) {
+    	Order order = orderService.findOne(id);
+    	model.addAttribute("order", order);
+        return "produce/Detail";
+    }
     
     @RequestMapping(method = RequestMethod.POST, value = "/add")
     @ResponseBody

@@ -57,6 +57,11 @@ public class OrderService {
 		return pageBean;
 	}
 
+
+	public Order findOne(Long id) {
+		return orderDao.findOne(id);
+	}
+
    
 
 }
