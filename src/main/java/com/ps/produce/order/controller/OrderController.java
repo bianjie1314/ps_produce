@@ -1,9 +1,18 @@
 package com.ps.produce.order.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,5 +71,11 @@ public class OrderController {
 		
 		return response;
 	}
+    @ResponseBody
+    @RequestMapping(value="/zipImgs")
+    public void download(HttpServletRequest request, HttpServletResponse response){
+    	 
+        
     
 }
+    }
