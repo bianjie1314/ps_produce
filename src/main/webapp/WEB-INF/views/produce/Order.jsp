@@ -15,8 +15,6 @@
 <script src="${ctx}/resources/bootstrap-datetimepicker/daterangepicker.js" ></script>
 
 <script src="${ctx}/resources/js/produce/order.js"></script>
-
-
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -67,7 +65,8 @@
 			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
 				<c:forEach items="${pageBean.content}" var="order">
-					<tr >
+					<tr  order-id="${order.id}">
+					    <td style="width: 10px;padding-top: 15px;"><input type="checkbox" ></td>
 						<td>
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
