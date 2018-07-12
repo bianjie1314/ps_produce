@@ -37,6 +37,14 @@
   </function>
   
   <function>
+    <description>获取订单状态</description>
+    <name>getOrderStatus</name>
+    <function-class>com.ps.produce.support.utils.OrderStatusUtils</function-class>
+    <function-signature>java.lang.String getLabel(int)</function-signature>
+    <example>${fns:getOrderStatus(value)}</example>  
+  </function>
+  
+  <function>
     <description>获取字典标签(多个)</description>
     <name>getDictLabels</name>
     <function-class>com.ps.produce.support.utils.DictUtils</function-class>

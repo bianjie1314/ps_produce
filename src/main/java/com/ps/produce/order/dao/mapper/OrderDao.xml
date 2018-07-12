@@ -121,7 +121,9 @@
 			#{delFlag}
 		)
 	</insert>
-	
+	<update id="changOrderStatus">
+	    update produce_order set staus=#{status} where order_no=#{orderId}
+	</update>
 	<update id="update">
 		UPDATE order SET 
 			value = #{value}, 

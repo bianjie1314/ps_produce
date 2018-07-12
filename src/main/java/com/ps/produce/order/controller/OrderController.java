@@ -3,13 +3,18 @@ package com.ps.produce.order.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.OrderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ps.produce.base.entity.query.model.OrderQuery;
@@ -18,6 +23,8 @@ import com.ps.produce.order.entity.Order;
 import com.ps.produce.order.service.OrderService;
 import com.ps.produce.support.Response;
 import com.ps.produce.support.ResponseCode;
+import com.ps.produce.support.pair.OrderStatus;
+import com.ps.produce.support.utils.OrderStatusUtils;
 
 
 @Controller
@@ -137,5 +144,47 @@ public class OrderController {
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
         return "produce/DeliveryOrder";
+    }
+    @ResponseBody
+	@RequestMapping(value = "/cancalOrder")
+    public String cancalOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
+    	String[] orderNo=orderId.split(",");
+    	orderService.changOrderStatus(OrderStatus.cancel.getValue(),orderNo);
+    	return null;
+    }
+    @ResponseBody
+	@RequestMapping(value = "/confirmOrder")
+    public String confirmOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
+    	String[] orderNo=orderId.split(",");
+    	orderService.changOrderStatus(OrderStatus.confirm.getValue(),orderNo);
+    	return null;
+    }
+    @ResponseBody
+	@RequestMapping(value = "/waitMakeOrder")
+    public String waitMakeOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
+    	String[] orderNo=orderId.split(",");
+    	orderService.changOrderStatus(OrderStatus.waitMake.getValue(),orderNo);
+    	return null;
+    }
+    @ResponseBody
+	@RequestMapping(value = "/makeOrder")
+    public String makeOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
+    	String[] orderNo=orderId.split(",");
+    	orderService.changOrderStatus(OrderStatus.make.getValue(),orderNo);
+    	return null;
+    }
+    @ResponseBody
+	@RequestMapping(value = "/waitShippingOrder")
+    public String waitShippingOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
+    	String[] orderNo=orderId.split(",");
+    	orderService.changOrderStatus(OrderStatus.waitShipping.getValue(),orderNo);
+    	return null;
+    }
+    @ResponseBody
+	@RequestMapping(value = "/ShippingOrder")
+    public String ShippingOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
+    	String[] orderNo=orderId.split(",");
+    	orderService.changOrderStatus(OrderStatus.shipping.getValue(),orderNo);
+    	return null;
     }
     }
