@@ -13,8 +13,8 @@
 
 <script src="${ctx}/resources/bootstrap-datetimepicker/moment.js" ></script>
 <script src="${ctx}/resources/bootstrap-datetimepicker/daterangepicker.js" ></script>
-
 <script src="${ctx}/resources/js/produce/order.js"></script>
+<script src="${ctx}/resources/js/produce/deliveryOrder.js"></script>
 
 
 </head>
@@ -38,8 +38,8 @@
 				
 			</ul>
 			<div class=" col-md-3">	
-			<button  onclick="add()" class="btn btn-primary">扫码添加订单</button>
-			<button type="button" class="btn btn-primary">发货完成完成</button>
+			<button  id="addWaitDeliveryOrder" class="btn btn-primary">扫码添加订单</button>
+			<button type="button" id="deliveryOrder" class="btn btn-primary">发货完成</button>
 			</div>
 			
 			<br>		
@@ -71,14 +71,15 @@
 			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
 				<c:forEach items="${pageBean.content}" var="order">
-					<tr>
-						<td>
+				<tr  order-id="${order.id}">
+					<td style="width: 10px;padding-top: 15px;"><input class="isDelivery" type="checkbox" ></td>
+					<td>
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
 								<div class="col-md-3">下单商户：${order.orderUsername}</div>
 								<div class="col-md-3">下单时间：${order.orderCreateTime}</div>
 								<div class="col-md-4">
-									<button class=" btn btn-primary " id="cancle">取消订单</button>
+									${fns:checkStatus(order.status)}
 								</div>
 							</div>
 							<div class="row">
@@ -106,7 +107,7 @@
 										</c:if>
 									</c:forEach>
 								</div>
-								<div class="col-md-4">订单状态</div>
+								<div class="col-md-4">订单状态  ${fns:getOrderStatus(order.status)}</div>
 							</div>
 						</td>
 					</tr>
