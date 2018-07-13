@@ -25,14 +25,13 @@ public enum OrderStatus {
         this.value=value;
     }
 
-    public static List<Map<String, String>> getDictType() {
-        List<Map<String, String>> list = Lists.newArrayList();
-        for (OrderStatus r : OrderStatus.values()) {
-            Map<String, String> scope = Maps.newHashMap();
-            scope.put("label", r.label);
-            scope.put("value", r.name());
-            list.add(scope);
-        }
-        return list;
-    }
+	public String getLabel() {
+		return label;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+    
 }

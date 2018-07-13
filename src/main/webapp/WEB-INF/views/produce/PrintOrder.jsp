@@ -15,7 +15,7 @@
 <script src="${ctx}/resources/bootstrap-datetimepicker/daterangepicker.js" ></script>
 
 <script src="${ctx}/resources/js/produce/order.js"></script>
-
+<script src="${ctx}/resources/js/produce/printOrder.js"></script>
 
 </head>
 <body>
@@ -33,14 +33,15 @@
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#">待打印订单</a></li>
-				<li role="presentation"><a href="#">已打印订单</a></li>
+				<li role="presentation" <c:if test="${status==0}"> class="active" </c:if>> <a href="?status=0">待打印订单</a></li>
+				<li role="presentation" <c:if test="${status==1}"> class="active" </c:if>> <a href="?status=1"> 已打印订单</a></li>
 				
 			</ul>
 			<div class=" col-md-3">	
-			<button type="button" class="btn btn-primary">打印面单</button>
+			<button type="button" id="printOrder" class="btn btn-primary">打印面单</button>
 			</div><br>		
 			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
+			<input name="statu" value="${status}" style="visibility:hidden">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
 					<div class="input-group">
@@ -68,7 +69,8 @@
 			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
 				<c:forEach items="${pageBean.content}" var="order">
-					<tr>
+					<tr  order-id="${order.id}">
+					<td style="width: 10px;padding-top: 15px;"><input class="isConfirm" type="checkbox" ></td>
 						<td>
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>

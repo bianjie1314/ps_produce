@@ -30,14 +30,16 @@
 				<div id="message" class="alert alert-danger">
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
-			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#"> 所有订单 </a></li>
-				<li role="presentation"><a href="#">待处理订单</a></li>
-				<li role="presentation"><a href="#">备货中订单</a></li>
-				<li role="presentation"><a href="#">已发货订单</a></li>
-				<li role="presentation"><a href="#">已取消订单</a></li>
-			</ul>			
+		
+			<ul class="nav nav-tabs" id="myTab">
+				<li role="presentation" <c:if test="${empty status}"> class="active" </c:if>> <a href="?"> 所有订单 </a></li>
+				<li role="presentation"<c:if test="${status==0}"> class="active" </c:if>> <a href="?status=0">待处理订单</a></li>
+				<li role="presentation"<c:if test="${status==4}"> class="active" </c:if>> <a href="?status=4">备货中订单</a></li>
+				<li role="presentation"<c:if test="${status==5}"> class="active" </c:if>> <a href="?status=5">已发货订单</a></li>
+				<li role="presentation"<c:if test="${status==-1}"> class="active" </c:if>> <a href="?status=-1">已取消订单</a></li>
+			</ul>
 			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
+			<input name="statu" value="${status}" style="visibility:hidden">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
 					<div class="input-group">
@@ -66,14 +68,13 @@
 			<table class="table table-striped table-hover table-aws" id="datatable">
 				<c:forEach items="${pageBean.content}" var="order">
 					<tr  order-id="${order.id}">
-					    <td style="width: 10px;padding-top: 15px;"><input type="checkbox" ></td>
-						<td>
+					    <td>
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
 								<div class="col-md-3">下单商户：${order.orderUsername}</div>
 								<div class="col-md-3">下单时间：${order.orderCreateTime}</div>
 								<div class="col-md-4">
-									<button class=" btn btn-primary " id="cancle">取消订单</button>
+								    ${fns:checkStatus(order.status)}
 								</div>
 							</div>							
 							<div class="row product" order-id="${order.id}">
@@ -101,7 +102,7 @@
 										</c:if>
 									</c:forEach>
 								</div>
-								<div class="col-md-4" style=" height: auto;">订单状态</div>
+								<div class="col-md-4" style=" height: auto;">订单状态  ${fns:getOrderStatus(order.status)}</div>
 							</div>
 						</td>
 					</tr>

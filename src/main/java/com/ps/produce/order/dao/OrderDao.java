@@ -1,9 +1,6 @@
 package com.ps.produce.order.dao;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Param;
 
 import com.ps.produce.base.entity.query.model.OrderQuery;
@@ -31,4 +28,6 @@ public interface OrderDao {
 	public Order findOne(@Param("id") Long id);
 	
 	public List<String> queryOrderUser();
+
+	public int changOrderStatus(@Param("status")int confirm, @Param("orderId")String orderId);
 }

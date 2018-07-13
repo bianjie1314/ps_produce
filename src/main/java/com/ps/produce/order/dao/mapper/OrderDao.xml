@@ -38,10 +38,13 @@
     	<if test="query.keyword != null and query.keyword != ''">
 			and (p.name like CONCAT('%',#{query.keyword},'%') or o.order_no like CONCAT('%',#{query.keyword},'%') )
 		</if>
+		<if test="query.statu !=null">
+		    and status=#{query.statu}
+		</if>
 		<if  test="query.start!=null and query.end!=null">
 		     and order_create_time &gt; #{query.start} and order_create_time &lt; #{query.end} 
 		</if>
-		<if test="query.orderUsername !=null">
+		<if test="query.orderUsername !=null and query.orderUsername!=''">
 		    and order_username=#{query.orderUsername}
 		</if>
 		
@@ -121,7 +124,9 @@
 			#{delFlag}
 		)
 	</insert>
-	
+	<update id="changOrderStatus">
+	    update produce_order set status=#{status} where id=#{orderId}
+	</update>
 	<update id="update">
 		UPDATE order SET 
 			value = #{value}, 

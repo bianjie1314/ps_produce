@@ -12,6 +12,7 @@ import com.ps.produce.base.entity.query.model.OrderQuery;
 import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.dao.OrderDao;
 import com.ps.produce.order.entity.Order;
+import com.ps.produce.support.pair.OrderStatus;
 
 
 @Service
@@ -64,6 +65,14 @@ public class OrderService {
 	public List<String> queryOrderUser() {
 		
 		return orderDao.queryOrderUser();
+	}
+
+
+	public void  changOrderStatus(int confirm,String[] orderId) {
+		// TODO Auto-generated method stub
+           for(int i=0;i<orderId.length;i++)
+           orderDao.changOrderStatus(confirm,orderId[i]);
+		
 	}
 
    
