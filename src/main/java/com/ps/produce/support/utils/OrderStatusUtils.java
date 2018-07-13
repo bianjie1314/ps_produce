@@ -34,7 +34,12 @@ public class OrderStatusUtils {
 		}
 		return label;
 	}
-	
+	public static String checkStatus(int value) {
+		if(value!=OrderStatus.cancel.getValue()) {
+			return "<button class=\" btn btn-primary cancle\">取消订单</button>";
+		}
+		return "";
+	}
 
 	
 	

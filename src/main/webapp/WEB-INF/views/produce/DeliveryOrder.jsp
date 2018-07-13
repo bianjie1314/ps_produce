@@ -33,8 +33,8 @@
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#">待发货订单</a></li>
-				<li role="presentation"><a href="#">已发货订单</a></li>
+				<li role="presentation"<c:if test="${status==4}"> class="active" </c:if>> <a href="?status=4">待发货订单</a></li>
+				<li role="presentation"<c:if test="${status==5}"> class="active" </c:if>> <a href="?status=5">已发货订单</a></li>
 				
 			</ul>
 			<div class=" col-md-3">	

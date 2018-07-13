@@ -33,10 +33,10 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
-
+    
     @RequestMapping(value = "list" ,produces = "text/html;charset=UTF-8")
-    public String index(PageBean<Order> pageBean, OrderQuery query,Model model) {
-
+    public String index(PageBean<Order> pageBean, OrderQuery query,Model model,ServletRequest request) {
+        String status=request.getParameter("status");
     	String start=null;
     	String end=null;
     	if(StringUtils.isNoneEmpty(query.getTime())) {
@@ -44,11 +44,14 @@ public class OrderController {
     		start=times[0];
     		end=times[1];
     	}
-    	query.setEnd(end);
     	query.setStart(start);
+    	query.setEnd(end);
+    	if(!StringUtils.isEmpty(status)) 
+    	query.setStatu(Integer.parseInt(status));
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
+    	model.addAttribute("status",status);
         return "produce/Order";
     }
     
@@ -59,8 +62,8 @@ public class OrderController {
         return "produce/Detail";
     }
     @RequestMapping(value = "printList" ,produces = "text/html;charset=UTF-8")
-    public String printIndex(PageBean<Order> pageBean, OrderQuery query,Model model) {
-
+    public String printIndex(PageBean<Order> pageBean, OrderQuery query,Model model,ServletRequest request) {
+    	String status=request.getParameter("status");
     	String start=null;
     	String end=null;
     	if(StringUtils.isNoneEmpty(query.getTime())) {
@@ -68,16 +71,19 @@ public class OrderController {
     		start=times[0];
     		end=times[1];
     	}
-    	query.setEnd(end);
     	query.setStart(start);
+    	query.setEnd(end);
+    	if(!StringUtils.isEmpty(status)) 
+    	query.setStatu(Integer.parseInt(status));
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
+    	model.addAttribute("status",status);
         return "produce/PrintOrder";
     }
     @RequestMapping(value = "makeList" ,produces = "text/html;charset=UTF-8")
-    public String makeIndex(PageBean<Order> pageBean, OrderQuery query,Model model) {
-
+    public String makeIndex(PageBean<Order> pageBean, OrderQuery query,Model model,ServletRequest request) {
+    	String status=request.getParameter("status");
     	String start=null;
     	String end=null;
     	if(StringUtils.isNoneEmpty(query.getTime())) {
@@ -85,11 +91,14 @@ public class OrderController {
     		start=times[0];
     		end=times[1];
     	}
-    	query.setEnd(end);
     	query.setStart(start);
+    	query.setEnd(end);
+    	if(!StringUtils.isEmpty(status)) 
+    	query.setStatu(Integer.parseInt(status));
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
+    	model.addAttribute("status",status);
         return "produce/MakeOrder";
     }
     
@@ -129,8 +138,8 @@ public class OrderController {
 	}
     
     @RequestMapping(value = "deliveryList" ,produces = "text/html;charset=UTF-8")
-    public String DeliveryIndex(PageBean<Order> pageBean, OrderQuery query,Model model) {
-
+    public String DeliveryIndex(PageBean<Order> pageBean, OrderQuery query,Model model,ServletRequest request) {
+    	String status=request.getParameter("status");
     	String start=null;
     	String end=null;
     	if(StringUtils.isNoneEmpty(query.getTime())) {
@@ -138,23 +147,27 @@ public class OrderController {
     		start=times[0];
     		end=times[1];
     	}
-    	query.setEnd(end);
     	query.setStart(start);
+    	query.setEnd(end);
+    	if(!StringUtils.isEmpty(status)) 
+    	query.setStatu(Integer.parseInt(status));
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
+    	model.addAttribute("status",status);
         return "produce/DeliveryOrder";
     }
     @ResponseBody
-	@RequestMapping(value = "/cancalOrder")
+	@RequestMapping(method = RequestMethod.POST,value = "/cancalOrder")
     public String cancalOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
+    	orderId=request.getParameter("orderId");
     	String[] orderNo=orderId.split(",");
     	orderService.changOrderStatus(OrderStatus.cancel.getValue(),orderNo);
     	return null;
     }
     @ResponseBody
 	@RequestMapping(value = "/confirmOrder")
-    public String confirmOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
+    public String confirmOrder(String orderId,ServletRequest request) {
     	String[] orderNo=orderId.split(",");
     	orderService.changOrderStatus(OrderStatus.confirm.getValue(),orderNo);
     	return null;

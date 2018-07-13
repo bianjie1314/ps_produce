@@ -33,8 +33,8 @@
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#">待制作订单</a></li>
-				<li role="presentation"><a href="#">已制作订单</a></li>
+				<li role="presentation"<c:if test="${status==2}"> class="active" </c:if>> <a href="?status=2">待制作订单</a></li>
+				<li role="presentation"<c:if test="${status==3}"> class="active" </c:if>> <a href="?status=3">已制作订单</a></li>
 				
 			</ul>
 			<div class=" col-md-3">	
@@ -44,6 +44,7 @@
 			
 			<br>		
 			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
+			<input name="statu" value="${status}" style="visibility:hidden">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
 					<div class="input-group">

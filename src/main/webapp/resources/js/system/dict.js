@@ -95,8 +95,7 @@
 			    	  $.ajax({
 				 		   url : ctx + "/system/dict/del",
 				 		   type:"post",			 		  
-				 
-				 		   data :"ids="+ids.join(),
+				           data :"ids="+ids.join(),
 				 		   success : function(d) {	
 				 			 
 				 			   table.ajax.reload();

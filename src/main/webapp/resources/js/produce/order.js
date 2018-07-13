@@ -15,7 +15,24 @@
     			return;
     	    var id = $(e.target).attr('order-id');
     		window.open(ctx+"/order/detail?id="+id);   
-    	});   	
+    	});   
+    	
+    	
+    	$('.cancle').click(function(e){
+        	var btn=$(this);
+        	var orderId= $(this).closest('tr').eq(0).attr('order-id');
+        	$.ajax({
+                    url : ctx + "/order/cancalOrder",
+                    type : "POST",
+                     data:"orderId="+orderId,
+                    success : function(result) {
+                    	btn.remove();
+                    },
+                    
+                });
+        	
+        });
+
     }
     
     
@@ -25,7 +42,7 @@
     		url : ctx + "/order/queryOrderUser",
     		type : "post",
     		success : function(d) {
-    			var content=""
+    			var content="<option value=''>全部</option>"
     			for(var item in d){
     				content+='<option value='+d[item]+'>'+d[item]+'</option>';
     			}
@@ -74,7 +91,7 @@
                     };
                     $.ajax({
                         url : ctx + "/system/dict/update",
-                        type : "POST",
+                        type : "post",
                         contentType : 'application/json; charset=utf-8',
                         dataType : 'json',
                         data : JSON.stringify(param),
@@ -97,10 +114,19 @@
             }
         });
     }
+    function confirmOrder(){
+    var orderId="";
+    var checks=$('.isConfirm')
+    for(var i;i<checks.length;i++){
+    	if(checks[i].checked=true){
+    		
+    	}
+    }
+    }
     function onSubmit(){
     	$(this).submit();
     	return false;
     }
-
+    
 })(jQuery);
 
