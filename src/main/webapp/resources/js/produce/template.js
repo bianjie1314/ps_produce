@@ -40,7 +40,7 @@
 			url : ctx + "/template/queryType",
 			type : "post",
 			success : function(d) {
-				var content='<option ></option>';
+				var content='<option value="">全部</option>';
 				for(var item in d){
 					content+='<option value='+d[item].product_type+'>'+d[item].product_type+'</option>';
 				}

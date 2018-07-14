@@ -53,7 +53,7 @@ public class TemplateController {
 		if(!StringUtils.isEmpty(date)) {
 		String[] dates=date.split("~");
 		startDate=dates[0];
-		endDate=dates[1]+235959;
+		endDate=dates[1]+" 23:59:59";
 		}
 		
 		List<Template> list=templateService.list(productType, productName, startDate, endDate);
