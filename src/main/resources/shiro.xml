@@ -24,6 +24,7 @@
 	<bean name="shiroFilterChainDefinitions" class="java.lang.String">
 		<constructor-arg> 
 			<value>
+				/api/** = apiAuthc
 				/resources/** = anon
 				/favicon.ico = anon	
 				/loginAction = anon
@@ -46,6 +47,13 @@
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
             </map>
         </property> -->
+         <property name="filters">    
+           <map>    
+                <entry key="apiAuthc" >
+               <bean class="com.ps.produce.shiro.APIAuthenticationFilter"/>
+               </entry> 
+           </map>    
+       </property>
 		<property name="filterChainDefinitions">
 			<ref bean="shiroFilterChainDefinitions"/>
 		</property>

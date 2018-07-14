@@ -5,12 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
@@ -27,12 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.Barcode128;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -61,12 +55,10 @@ public class BarCodeController {
 	@RequestMapping("/printPdf/{code:.+}")
 	public ResponseEntity<byte[]> prindPdf(@PathVariable("code") String code)
 			throws Exception {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-	          
-	            
-	            Rectangle pageSize = new Rectangle(1000, 3000);
-	            Document document = new Document(pageSize);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
+	          //  Rectangle pageSize = new Rectangle(1000, 3000);
+			      Document document = new Document();
+		            document.setPageSize(PageSize.A4);
 
 	            PdfWriter writer = PdfWriter.getInstance(document, baos);
 	            document.open();
@@ -85,7 +77,7 @@ public class BarCodeController {
 	            // 创建需要填入文档的元素
 	            PdfPTable table = new PdfPTable(4);
 	            table.setHorizontalAlignment(Element.ALIGN_CENTER);
-	            table.setWidthPercentage(99);
+	            table.setWidthPercentage(98);
 	            table.setWidths(new int[] { 25, 25, 25, 25 });
 
 	            // cell = new PdfPCell(new Paragraph(new Paragraph("21312312312321312", new
@@ -302,8 +294,13 @@ public class BarCodeController {
 	            barcodeCell.setPadding(5);
 	            barcodeCell.setBorderWidth(0);
 	            table.addCell(barcodeCell);
-
 	            document.add(table);
+        
+	            document.newPage();
+	    
+	             document.add(new Paragraph("This PageSize is A3."));
+
+	          
 	            // 6.关闭文档
 	            document.close();
 	            writer.close();
