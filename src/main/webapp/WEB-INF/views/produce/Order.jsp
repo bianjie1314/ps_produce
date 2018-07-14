@@ -90,11 +90,11 @@
 										varStatus="stat">
 										<div class="row order-item product"  order-id="${order.id}">
 											<div class="col-md-2">
-												<img src="${product.image}">
+												<img src="${product.image}" style=" width: 100%;">
 											</div>
 											<div class="col-md-3">
 												<p>${product.name}</p>
-												<p>SKU：${product.name}</p>
+												<p>SKU：${product.sku}</p>
 
 												<p>条形码：${product.ean}</p>
 											</div>
