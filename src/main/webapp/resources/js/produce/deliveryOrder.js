@@ -3,7 +3,8 @@
     	
     	printOrder();
     	  add();
-    	  addShipInfo()
+    	  addShipInfo();
+    	  gertDate();
     });
     function printOrder(){
     	$("#deliveryOrder").click(function(e){
@@ -19,7 +20,12 @@
                 type : "POST",
                  data:"orderId="+orderIds.join(),
                 success : function(result) {
+                	if(result==0){
                 	location.reload();
+                	}else{
+                		$btn.button('reset');
+                		$.messager.popup("订单同步失败!");
+                	}
                 },
                 error:function(){
                 	 $btn.button('reset');
@@ -28,6 +34,20 @@
             });
     	});  
     }
+    function getDate(){
+ 	   var d=new Date();
+        var mydate=new Date(d.getTime()-86400000*7);
+ 	   var str = "" + mydate.getFullYear() + "-";
+ 	   str += (mydate.getMonth()+1)+"-" ;
+ 	   str += (mydate.getDate());
+ 	   var nowdate=new Date();
+ 	   var str1 =nowdate.getFullYear() + "-";
+ 	   str1 += (nowdate.getMonth()+1) + "-";
+ 	   str1 += (nowdate.getDate())+ "";
+ 	   var a=str+" ~ "+str1;
+ 	   $('#reservation').val(a);
+ 	   
+ }
     function add() {
    	 $("#addWaitDeliveryOrder").click(function(){
    		var $btn = $(this).button('loading')
@@ -107,11 +127,11 @@
                             dataType : 'json',
                             data : JSON.stringify(param),
    	                        success : function(result) {
-   	                        	if (result== 1) {
+   	                        	if (result== 0) {
    	                            	location.reload();
    	                                
    	                            } else{
-   	                            	$.messager.popup("请检查物流信息!");
+   	                            	$.messager.popup("订单同步失败!");
    	                            }
    	                        },
    	                        complete : function() {

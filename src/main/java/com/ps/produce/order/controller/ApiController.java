@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.ps.produce.model.po.Template;
+import com.ps.produce.order.dto.OrderParam;
 import com.ps.produce.order.entity.Order;
 import com.ps.produce.order.entity.Product;
 import com.ps.produce.order.service.OrderService;
@@ -58,7 +59,7 @@ public class ApiController {
     
     
     public static void main(String [] args) {
-    	 test3();
+    	 
     }
     public static void test3() {
     	Gson gson = new Gson();
@@ -89,7 +90,7 @@ public class ApiController {
 		String reponse = HttpClientUtil.doPostJson(url, data);
 		System.out.println(reponse);
     }
-    
+
     public static void test() {
     	Gson gson = new Gson();
    	 List<Product> products = new ArrayList<Product>();
