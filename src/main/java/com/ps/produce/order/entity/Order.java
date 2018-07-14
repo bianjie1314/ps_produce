@@ -3,7 +3,10 @@
  */
 package com.ps.produce.order.entity;
 
+import java.net.URLEncoder;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.ps.produce.base.entity.AbstractEntity;
 
@@ -49,6 +52,7 @@ public class Order extends AbstractEntity {
 	public String getOrderNo() {
 		return orderNo;
 	}
+	
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
