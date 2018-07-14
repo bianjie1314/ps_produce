@@ -38,6 +38,10 @@ public interface OrderDao {
 	public int addWaitShippingOrder(@Param("orderNo")String orderNo);
 
 	public int addShipInfo(@Param("order")Order order);
+
+	public void addMakeOrder(@Param("status")int value ,@Param("orderNo")String orderNo, @Param("userName")String userName, @Param("userId")long userId);
+
+	public String queryProductImg(@Param("productId")String productId);
 	
 	
 }

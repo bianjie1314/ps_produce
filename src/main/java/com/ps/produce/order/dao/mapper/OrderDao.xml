@@ -47,6 +47,9 @@
 		<if test="query.orderUsername !=null and query.orderUsername!=''">
 		    and order_username=#{query.orderUsername}
 		</if>
+		<if test="query.id !=null and query.id !='' and query.statu=='3'">
+		   and opt_user_id=#{query.id}
+		</if>
 		
     </sql>
 	<select id="queryOrderUser" resultType="string" >
@@ -100,7 +103,9 @@
 		FROM produce_order o left join produce_product p on o.id=p.order_id where o.id=#{id}
 	</select>
 	
-	
+	<update id="addMakeOrder">
+	   update produce_order set opt_username=#{userName},opt_user_id=#{userId},status=#{status} where id=#{orderNo}
+	</update>
 	<insert id="insert">
 		INSERT INTO order(
 			value, 
@@ -130,6 +135,9 @@
 	<update id="changOrderStatus">
 	    update produce_order set status=#{status} where id=#{orderId}
 	</update>
+	<select id="queryProductImg" resultType="String" >
+	    select materials from produce_product where id=#{productId}
+	</select>
 	<update id="update">
 		UPDATE order SET 
 			value = #{value}, 

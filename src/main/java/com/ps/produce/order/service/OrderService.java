@@ -95,6 +95,20 @@ public int addShipInfo(Order order) {
 	// TODO Auto-generated method stub
 	return orderDao.addShipInfo(order);
 }
+
+
+public void addMakeOrder(int value, String[] orderNo, String userName, long userId) {
+	// TODO Auto-generated method stub
+	for(int i=0;i<orderNo.length;i++) {
+	  orderDao.addMakeOrder(value,orderNo[i],userName,userId);
+	  }
+}
+
+
+public String querProductImg(String productId) {
+	// TODO Auto-generated method stub
+	return orderDao.queryProductImg(productId);
+}
    
 
 }

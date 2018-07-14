@@ -14,12 +14,20 @@ import com.ps.produce.system.entity.User;
 
 
 public class OrderQuery implements Serializable{
+	private long id;
 	private String keyword;
 	private String time;
 	private  String orderUsername;
 	private Integer statu;
 	private String start;
 	private String end;
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getStart() {
 		return start;
 	}
