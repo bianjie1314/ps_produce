@@ -41,12 +41,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <insert id="insert" parameterType="com.ps.produce.model.po.Template">
-    insert into template (id, product_type, sku, 
-      product_name, create_time, temp_imgs
-      )
-    values (#{id,jdbcType=INTEGER}, #{productType,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, 
-      #{productName,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{tempImgs,jdbcType=LONGVARCHAR}
-      )
+    insert into template ( product_type, sku,  product_name, create_time, temp_imgs)  values ( #{productType}, #{sku}, #{productName}, #{createTime}, #{tempImgs})
   </insert>
    <delete id="delete">
      delete from template where id=#{id}

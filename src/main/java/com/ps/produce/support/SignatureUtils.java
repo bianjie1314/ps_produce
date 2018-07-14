@@ -4,13 +4,17 @@
 package com.ps.produce.support;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.Maps;
+import com.ps.produce.exception.BusinessException;
 
 /**
  * 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
@@ -23,7 +27,7 @@ public class SignatureUtils extends org.apache.commons.lang3.StringUtils {
     private static final char SEPARATOR = '_';
     private static final String CHARSET_NAME = "UTF-8";
     private static final String SIGNATURE = "signature";
-
+    private static final String salt = "dce7b60efaee20cc";
     /**
      * 转换为字节数组
      * @param str
@@ -70,5 +74,48 @@ public class SignatureUtils extends org.apache.commons.lang3.StringUtils {
         url += "&" + SIGNATURE + "=" + signature;
         logger.info("signatureUrl to url:" + url + "data:" + data);
         return url;
+    }
+    
+    public static Boolean checkSign(HttpServletRequest request,String body ) {
+    	
+    	Map map = Maps.newTreeMap();
+        Enumeration em = request.getParameterNames();
+        while (em.hasMoreElements()) {
+            String name = (String) em.nextElement();
+            String value = request.getParameter(name);
+            map.put(name,value);
+        }
+        return checkSign(map,body,salt);
+    }
+    
+    public static Boolean checkSign(Map<String, String> map, String body, String salt) {
+		
+        Set<String> keySet = map.keySet();
+        Iterator<String> iter = keySet.iterator();
+        String params = "";
+        String signatureParam = "";
+        boolean isFirstParam = true;
+        while (iter.hasNext()) {
+            String key = iter.next();
+            String value = map.get(key);
+            if (key.equals(SIGNATURE)) {
+                signatureParam = value;
+            } else {
+                if (isFirstParam) {
+                    isFirstParam = false;
+                } else {
+                    params += "&";
+                }
+                params += key + "=" + value;
+            }
+
+        }
+
+        params += "&" + body;
+        String signature = SignatureUtils.sha(params, salt);
+        if (!signatureParam.equals(signature)) {
+            throw new BusinessException("验签失败");
+        }
+        return true;
     }
 }

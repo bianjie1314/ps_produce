@@ -4,6 +4,7 @@
 package com.ps.produce.order.entity;
 
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,8 +16,8 @@ import com.ps.produce.base.entity.AbstractEntity;
  * @author
  * @version 
  */
-public class Order extends AbstractEntity {
-	
+public class Order  {
+	private Long id;
 	private String orderNo;
 	private String orderUsername;
 	private String  orderCreateTime;
@@ -30,7 +31,35 @@ public class Order extends AbstractEntity {
 	private List<Product> products;
 	private String expressName;
 	private String expressNo;
+	private Date updateDate;
+	private Date createDate;
+	private String remarks;
 	
+	
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getExpressName() {
 		return expressName;
 	}

@@ -31,8 +31,9 @@ public class OrderService {
 
 
 	public void insert(Order order) {
-		order.preInsert();
+		order.setStatus(OrderStatus.waitConfirm.getValue());
 		orderDao.insert(order);
+		this.orderDao.insertProduct(order.getProducts(), order.getId());
 		
 	}
 
@@ -119,6 +120,10 @@ public String querProductImg(String productId) {
 }
 
 
+	public int cancle(Order order) {
+		return orderDao.cancle(order);
+		
+	}
 public int canalOrder(int value, String[] orderNo) {
 	// TODO Auto-generated method stub
 	int ret=ResponseCode.SUCCESS.value();
