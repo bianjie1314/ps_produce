@@ -20,8 +20,8 @@
 
 <style type="text/css">
 #page-wrapper{
-margin-left: 50px;
-    margin-right: 50px;
+margin-left: 100px;
+    margin-right: 100px;
 }
 
 </style>
@@ -41,7 +41,7 @@ margin-left: 50px;
 			</c:if>
 			
 			<div class="row">
-			${order.orderNo}
+			 <img src="${ctx}/barcode/${order.orderNo}">
 			</div>
 			<div class="row">
 				<div class="col-md-6">
@@ -111,20 +111,21 @@ margin-left: 50px;
 				<c:forEach items="${order.products}" var="product"
 										varStatus="stat">
 										<div class="row order-item">
-											<div class="col-md-2">
+											<div class="col-md-4">
 												<img src="${product.image}">
 											</div>
-											<div class="col-md-3">
-												<p>${product.name}</p>
-												<p>SKU：${product.name}</p>
+											<div class="col-md-8">
+												<p><strong>商品信息</strong></p>
+												<p>商品名称：${product.name}  尺寸：${product.size}</p>
+												<p>颜色：${product.color}  数量：${product.quantity}</p>
 
-												<p>条形码：${product.ean}</p>
+												<p><img src="${ctx}/barcode/${product.ean}"></p>
 											</div>
-											<div class="col-md-3">
+											<%-- <div class="col-md-3">
 												<p>${product.templateName}</p>
 												<p>订单量：${product.quantity}</p>
-												<p>Color：${product.color} Size：${product.size}</p>
-											</div>
+												<p>Color：${product.quantity} Size：${product.size}</p>
+											</div> --%>
 										</div>
 										<c:if test="${!stat.last}">
 											<div class="line"></div>
