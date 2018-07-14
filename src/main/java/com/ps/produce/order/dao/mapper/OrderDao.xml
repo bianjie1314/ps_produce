@@ -55,6 +55,22 @@
 	<select id="queryOrderUser" resultType="string" >
 	    select distinct order_username from produce_order where 1=1
 	</select>
+	<insert id="addLog">
+	   INSERT INTO produce_order_Log(
+			status,
+			flag,
+			opt_user_id,
+			opt_username,
+			remarks,
+			create_date,
+			order_id
+		) VALUES (#{orderLog.status},
+		#{orderLog.flag},
+		#{orderLog.optUserId},
+		#{orderLog.remarks},
+		#{orderLog.createDate},
+		#{orderLog.optUsername}		)
+	</insert>
 	<select id="findList" resultMap="orderResult">
 		SELECT 
 			o.*,
@@ -188,5 +204,8 @@
 	
 	<select id="findOrder" resultType="int" >
 	 select count(1) from produce_order where order_no=#{orderNo}
+	</select>
+	<select id="findOrderIdbyOrderNo" resultType="long">
+	 select id from produce_order where order_no=#{orderNo}
 	</select>
 </mapper>

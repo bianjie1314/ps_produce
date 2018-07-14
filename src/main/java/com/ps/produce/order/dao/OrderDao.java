@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.ps.produce.base.entity.query.model.OrderQuery;
 import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.entity.Order;
+import com.ps.produce.order.entity.OrderLog;
 import com.ps.produce.order.entity.Product;
 
 
@@ -48,6 +49,9 @@ public interface OrderDao {
 	public String queryProductImg(@Param("productId")String productId);
 
 	public int cancle(@Param("order") Order order);
+	
+	public void addLog(@Param("orderLog")OrderLog orderLog);
+	public long findOrderIdbyOrderNo(@Param("orderNo")String orderNo);
 
 	
 	

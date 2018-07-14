@@ -12,6 +12,7 @@ import com.ps.produce.base.entity.query.model.OrderQuery;
 import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.dao.OrderDao;
 import com.ps.produce.order.entity.Order;
+import com.ps.produce.order.entity.OrderLog;
 import com.ps.produce.support.Response;
 import com.ps.produce.support.ResponseCode;
 import com.ps.produce.support.pair.OrderStatus;
@@ -178,6 +179,24 @@ public int addShipOrder(String[] orderId) {
 	}
 	return ret;
 	
+}
+
+
+
+
+
+public void addLog(OrderLog orderLog) {
+	// TODO Auto-generated method stub
+       orderDao.addLog(orderLog);
+}
+
+
+
+
+
+public long findOrderIdbyOrderNo(String orderNo) {
+	// TODO Auto-generated method stub
+	return orderDao.findOrderIdbyOrderNo(orderNo);
 }
    
 
