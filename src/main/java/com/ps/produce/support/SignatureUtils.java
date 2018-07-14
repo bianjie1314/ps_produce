@@ -3,6 +3,7 @@
  */
 package com.ps.produce.support;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -27,11 +28,20 @@ public class SignatureUtils extends org.apache.commons.lang3.StringUtils {
      * 转换为字节数组
      * @param str
      * @return
+     * @throws UnsupportedEncodingException 
      */
-    public static String sha(String str,String salter){
+    public static String sha(String str,String salter) {
 		byte[] salt = Encodes.decodeHex(salter);
-		return  Encodes.encodeHex(Digest.sha1(str.getBytes(), salt, 1024));
+      try {
+		return  Encodes.encodeHex(Digests.sha1(str.getBytes("UTF-8"), salt, 1024));
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+      return null;
     }
+    
+ 
 
     public static String signatureUrl(String url, String data, String salt) {
         Long timestamp = System.currentTimeMillis();

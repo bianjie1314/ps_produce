@@ -9,7 +9,6 @@ import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
-import com.ps.produce.exception.Exceptions;
 
 
 
@@ -43,8 +42,9 @@ public class Encodes {
 		try {
 			return Hex.decodeHex(input.toCharArray());
 		} catch (DecoderException e) {
-			throw Exceptions.unchecked(e);
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 	/**
@@ -107,26 +107,5 @@ public class Encodes {
 		return StringEscapeUtils.unescapeXml(xmlEscaped);
 	}*/
 
-	/**
-	 * URL 编码, Encode默认为UTF-8.
-	 */
-	public static String urlEncode(String part) {
-		try {
-			return URLEncoder.encode(part, DEFAULT_URL_ENCODING);
-		} catch (UnsupportedEncodingException e) {
-			throw Exceptions.unchecked(e);
-		}
-	}
-
-	/**
-	 * URL 解码, Encode默认为UTF-8.
-	 */
-	public static String urlDecode(String part) {
-
-		try {
-			return URLDecoder.decode(part, DEFAULT_URL_ENCODING);
-		} catch (UnsupportedEncodingException e) {
-			throw Exceptions.unchecked(e);
-		}
-	}
+	
 }

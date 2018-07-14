@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 
@@ -47,6 +48,7 @@ public class APIAuthenticationFilter  extends AuthenticatingFilter {
 	
 	
 	 public Boolean checkSign(Map<String, String> map, String body, String salt) {
+		
 	        Set<String> keySet = map.keySet();
 	        Iterator<String> iter = keySet.iterator();
 	        String params = "";
@@ -69,7 +71,6 @@ public class APIAuthenticationFilter  extends AuthenticatingFilter {
 	        }
 
 	        params += "&" + body;
-
 	        String signature = SignatureUtils.sha(params, salt);
 	        if (!signatureParam.equals(signature)) {
 	            throw new BusinessException("验签失败");
