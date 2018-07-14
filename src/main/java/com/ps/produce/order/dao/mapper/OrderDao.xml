@@ -186,4 +186,7 @@
 	  update  produce_order set status=4 where order_no=#{orderNo} and status=3
 	</update>
 	
+	<select id="findOrder" resultType="int" >
+	 select count(1) from produce_order where order_no=#{orderNo}
+	</select>
 </mapper>

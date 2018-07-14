@@ -18,12 +18,21 @@ import com.ps.produce.base.entity.AbstractEntity;
  */
 public class OrderLog  {
 	private Long id;
+	private Long orderId;
 	private String optUsername;
 	private Long optUserId;
 	private String remarks;
 	private int status;//订单状态
 	private int flag;//操作状态  0 成功 1失败
 	private Date createDate;
+	
+	
+	public Long getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
 	public Long getId() {
 		return id;
 	}
