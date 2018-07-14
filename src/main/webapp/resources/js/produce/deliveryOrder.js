@@ -4,7 +4,7 @@
     	printOrder();
     	  add();
     	  addShipInfo();
-    	  gertDate();
+    	  getDate();
     });
     function printOrder(){
     	$("#deliveryOrder").click(function(e){

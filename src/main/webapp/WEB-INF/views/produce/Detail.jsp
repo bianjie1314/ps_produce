@@ -9,8 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
-<link rel="stylesheet"
-	href="${ctx}/resources/bootstrap-datetimepicker/daterangepicker-bs3.css">
+<link rel="stylesheet" href="${ctx}/resources/bootstrap-datetimepicker/daterangepicker-bs3.css">
 
 <script src="${ctx}/resources/bootstrap-datetimepicker/moment.js"></script>
 <script
@@ -19,11 +18,10 @@
 <script src="${ctx}/resources/js/produce/order.js"></script>
 
 <style type="text/css">
-#page-wrapper{
-margin-left: 100px;
-    margin-right: 100px;
+#page-wrapper {
+	margin-left: 100px;
+	margin-right: 100px;
 }
-
 </style>
 </head>
 <body>
@@ -39,9 +37,9 @@ margin-left: 100px;
 				<div id="message" class="alert alert-danger">
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
-			
+
 			<div class="row">
-			 <img src="${ctx}/barcode/${order.orderNo}">
+				<img src="${ctx}/barcode/${order.orderNo}">
 			</div>
 			<div class="row">
 				<div class="col-md-6">
@@ -81,56 +79,73 @@ margin-left: 100px;
 					<strong>订单进度</strong>
 				</h4>
 				</p>
-				<p>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>时间</th>
-							<th>当前进度</th>
-							<th>状态</th>
-							<th>操作员</th>
-							<th>备注</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>2018-06-04 12:00</td>
-							<td>已发货</td>
-							<td>成功</td>
-							<td>xxx</td>
-							<td>xxx</td>
-						</tr>
-
-					</tbody>
-				</table>
-				</p>
-				<div class="line"></div>
-			</div>
 			
-			<div class="row">
-				<c:forEach items="${order.products}" var="product"
-										varStatus="stat">
-										<div class="row order-item">
-											<div class="col-md-4">
-												<img src="${product.image}">
-											</div>
-											<div class="col-md-8">
-												<p><strong>商品信息</strong></p>
-												<p>商品名称：${product.name}  尺寸：${product.size}</p>
-												<p>颜色：${product.color}  数量：${product.quantity}</p>
+					<c:if test="${empty orderLogs}">
+						<div class="row order-header">
+							<span>暂无数据</span>
+						</div>
+					</c:if>
+					<c:if test="${not empty orderLogs}">
+	                 <p>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>时间</th>
+									<th>当前进度</th>
+									<th>状态</th>
+									<th>操作员</th>
+									<th>备注</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
 
-												<p><img src="${ctx}/barcode/${product.ean}"></p>
-											</div>
-											<%-- <div class="col-md-3">
+									<c:forEach items="${orderLogs}" var="log" varStatus="stat">
+										<td> <fmt:formatDate value="${log.createDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>
+
+										</td>
+										<td> ${fns:getOrderStatus(log.status)}</td>
+										<td>成功</td>
+										<td>${log.optUsername}</td>
+										<td>${log.remarks}</td>
+									</c:forEach>
+								</tr>
+							</tbody>
+						</table>
+						</p>
+						<div class="line"></div>
+					</c:if>
+				
+				
+			</div>
+			<div class="row">
+
+				<c:forEach items="${order.products}" var="product" varStatus="stat">
+					<div class="row order-item">
+						<div class="col-md-4">
+							<img src="${product.image}">
+						</div>
+						<div class="col-md-8">
+							<p>
+								<strong>商品信息</strong>
+							</p>
+							<p>商品名称：${product.name} 尺寸：${product.size}</p>
+							<p>颜色：${product.color} 数量：${product.quantity}</p>
+
+							<p>
+								<img src="${ctx}/barcode/${product.ean}">
+							</p>
+						</div>
+						<%-- <div class="col-md-3">
 												<p>${product.templateName}</p>
 												<p>订单量：${product.quantity}</p>
 												<p>Color：${product.quantity} Size：${product.size}</p>
 											</div> --%>
-										</div>
-										<c:if test="${!stat.last}">
-											<div class="line"></div>
-										</c:if>
-									</c:forEach>
+					</div>
+					<c:if test="${!stat.last}">
+						<div class="line"></div>
+					</c:if>
+				</c:forEach>
 			</div>
 
 		</div>
