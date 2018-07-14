@@ -40,7 +40,7 @@
 			url : ctx + "/template/queryType",
 			type : "post",
 			success : function(d) {
-				var content=""
+				var content='<option ></option>';
 				for(var item in d){
 					content+='<option value='+d[item].product_type+'>'+d[item].product_type+'</option>';
 				}
