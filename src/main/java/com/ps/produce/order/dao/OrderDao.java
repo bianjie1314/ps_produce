@@ -1,11 +1,13 @@
 package com.ps.produce.order.dao;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.ps.produce.base.entity.query.model.OrderQuery;
 import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.entity.Order;
+import com.ps.produce.order.entity.Product;
 
 
 public interface OrderDao {
@@ -14,7 +16,9 @@ public interface OrderDao {
 	
 
 	public void insert(Order Order);
+	public void insertProduct(@Param("products")List<Product> products,@Param("orderId")long orderId);
 
+	
 	public void delete(String id);
 
 	public void update(Order Order);
@@ -42,6 +46,9 @@ public interface OrderDao {
 	public void addMakeOrder(@Param("status")int value ,@Param("orderNo")String orderNo, @Param("userName")String userName, @Param("userId")long userId);
 
 	public String queryProductImg(@Param("productId")String productId);
+
+	public int cancle(@Param("order") Order order);
+
 	
 	
 }

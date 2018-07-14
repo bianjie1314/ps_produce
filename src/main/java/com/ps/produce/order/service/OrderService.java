@@ -28,8 +28,9 @@ public class OrderService {
 
 
 	public void insert(Order order) {
-		order.preInsert();
+		order.setStatus(OrderStatus.waitConfirm.getValue());
 		orderDao.insert(order);
+		this.orderDao.insertProduct(order.getProducts(), order.getId());
 		
 	}
 
@@ -109,6 +110,12 @@ public String querProductImg(String productId) {
 	// TODO Auto-generated method stub
 	return orderDao.queryProductImg(productId);
 }
+
+
+	public int cancle(Order order) {
+		return orderDao.cancle(order);
+		
+	}
    
 
 }

@@ -106,28 +106,49 @@
 	<update id="addMakeOrder">
 	   update produce_order set opt_username=#{userName},opt_user_id=#{userId},status=#{status} where id=#{orderNo}
 	</update>
-	<insert id="insert">
-		INSERT INTO order(
-			value, 
-			label, 
-			type, 
-			description, 
-			sort, 
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO produce_order(
+			order_no, 
+			order_username, 
+			order_create_time, 
+			express_username, 
+			express_tel, 
+			express_address,
+			callback_url,			
 			create_date, 
 			update_date, 
-			remarks, 
-			del_flag
+			remarks
 		) VALUES (		
-			#{value}, 
-			#{label}, 
-			#{type}, 
-			#{description}, 
-			#{sort}, 
+			#{orderNo}, 
+			#{orderUsername}, 
+			#{orderCreateTime}, 
+			#{expressUsername}, 
+			#{expressTel}, 
+			#{expressAddress}, 
+			#{callbackUrl}, 
 			#{createDate}, 
-			#{updateDate}, 
-			#{remarks}, 
-			#{delFlag}
+			#{updateDate},
+			#{remarks}
 		)
+	</insert>
+	
+	<insert id="insertProduct">
+		INSERT INTO produce_product(
+			order_id, 
+			template_name, 
+			name, 
+			color, 
+			size, 
+			quantity, 
+			ean, 
+			image, 
+			sku, 
+			materials
+		) VALUES 
+		<foreach collection="products" item="product" separator=",">	
+		 ( #{orderId}, #{product.templateName}, #{product.name},#{product.color}, #{product.size}, #{product.quantity}, #{product.ean}, #{product.image},#{product.sku}, #{product.materials} )
+		
+			</foreach>
 	</insert>
 	<update id="addShipInfo">
 	    update produce_order set express_name=#{order.expressName} , express_no=#{order.expressNo} , status=5 where id=#{order.id}
@@ -135,6 +156,10 @@
 	<update id="changOrderStatus">
 	    update produce_order set status=#{status} where id=#{orderId}
 	</update>
+	<update id="cancle" >
+	    update produce_order set status=-1 where order_no=#{order.orderNo} and status=0
+	</update>
+	
 	<select id="queryProductImg" resultType="String" >
 	    select materials from produce_product where id=#{productId}
 	</select>

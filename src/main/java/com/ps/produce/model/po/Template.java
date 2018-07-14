@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Template {
 	
-    private long id;
+    private Long id;
 
     private String productType;
 
@@ -12,17 +12,18 @@ public class Template {
 
     private String productName;
 
-    private Date createTime;
+    private Date createTime=new Date();
 
     private String tempImgs;
 
    
 
-    public long getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
