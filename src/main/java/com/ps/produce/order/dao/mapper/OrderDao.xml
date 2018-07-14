@@ -124,6 +124,9 @@
 			#{delFlag}
 		)
 	</insert>
+	<update id="addShipInfo">
+	    update produce_order set express_name=#{order.expressName} , express_no=#{order.expressNo} , status=5 where id=#{order.id}
+	</update>
 	<update id="changOrderStatus">
 	    update produce_order set status=#{status} where id=#{orderId}
 	</update>
@@ -137,9 +140,17 @@
 			update_date = #{updateDate} 
 		WHERE id = #{id}
 	</update>
-	
+	<update id="addWaitMakeOrder">
+	update  produce_order set status=2 where order_no=#{orderNo} and status=1
+	</update>
+	<select id="findOneByOrderNo" resultType="int" >
+	 select count(1) from produce_order where order_no=#{orderNo}
+	</select>
 	<update id="delete">
 		delete from order WHERE id = #{id}
+	</update>
+	<update id="addWaitShippingOrder">
+	  update  produce_order set status=4 where order_no=#{orderNo} and status=3
 	</update>
 	
 </mapper>

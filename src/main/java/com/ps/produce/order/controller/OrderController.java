@@ -61,6 +61,7 @@ public class OrderController {
     	model.addAttribute("order", order);
         return "produce/Detail";
     }
+    
     @RequestMapping(value = "printList" ,produces = "text/html;charset=UTF-8")
     public String printIndex(PageBean<Order> pageBean, OrderQuery query,Model model,ServletRequest request) {
     	String status=request.getParameter("status");
@@ -122,6 +123,12 @@ public class OrderController {
     }
     
     @ResponseBody
+	@RequestMapping(value = "/addShipInfo", method = RequestMethod.POST)
+	public String addShipInfo( @RequestBody Order order) throws IOException {
+    	int result=orderService.addShipInfo(order);
+		return result+"";
+	}
+    @ResponseBody
 	@RequestMapping(value = "/del", method = RequestMethod.POST)
 	public Response walkaround( String ids) throws IOException {
 		
@@ -160,24 +167,31 @@ public class OrderController {
     @ResponseBody
 	@RequestMapping(method = RequestMethod.POST,value = "/cancalOrder")
     public String cancalOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
-    	orderId=request.getParameter("orderId");
     	String[] orderNo=orderId.split(",");
     	orderService.changOrderStatus(OrderStatus.cancel.getValue(),orderNo);
     	return null;
     }
     @ResponseBody
+	@RequestMapping(value = "/addMakeOrder")
+    public String addMakeOrder(String orderId,ServletRequest request) {
+    	String[] orderNo=orderId.split(",");
+    	orderService.changOrderStatus(OrderStatus.confirm.getValue(),orderNo);
+    	return null;
+    }
+    @ResponseBody
 	@RequestMapping(value = "/confirmOrder")
     public String confirmOrder(String orderId,ServletRequest request) {
+    	System.out.println(orderId+"sdasdasdas");
     	String[] orderNo=orderId.split(",");
     	orderService.changOrderStatus(OrderStatus.confirm.getValue(),orderNo);
     	return null;
     }
     @ResponseBody
 	@RequestMapping(value = "/waitMakeOrder")
-    public String waitMakeOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
-    	String[] orderNo=orderId.split(",");
-    	orderService.changOrderStatus(OrderStatus.waitMake.getValue(),orderNo);
-    	return null;
+    public String waitMakeOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
+    	int result=orderService.addWaitMakeOrder(orderNo);
+    	System.out.println(result);
+    	return result+"";
     }
     @ResponseBody
 	@RequestMapping(value = "/makeOrder")
@@ -188,16 +202,9 @@ public class OrderController {
     }
     @ResponseBody
 	@RequestMapping(value = "/waitShippingOrder")
-    public String waitShippingOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
-    	String[] orderNo=orderId.split(",");
-    	orderService.changOrderStatus(OrderStatus.waitShipping.getValue(),orderNo);
-    	return null;
+    public String waitShippingOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
+    	int result =orderService.addWaitShippingOrder(orderNo);
+    	return result+"";
     }
-    @ResponseBody
-	@RequestMapping(value = "/ShippingOrder")
-    public String ShippingOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
-    	String[] orderNo=orderId.split(",");
-    	orderService.changOrderStatus(OrderStatus.shipping.getValue(),orderNo);
-    	return null;
-    }
+    
     }

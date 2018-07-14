@@ -75,6 +75,26 @@ public class OrderService {
 		
 	}
 
+
+	public int addWaitMakeOrder(String orderNo) {
+		// TODO Auto-generated method stub
+		if(orderDao.findOneByOrderNo(orderNo)==0) {
+			return -1;
+		}
+		return orderDao.addWaitMakeOrder(orderNo);
+	}
+   public int addWaitShippingOrder(String orderNo) {
+	   if(orderDao.findOneByOrderNo(orderNo)==0) {
+			return -1;
+		}
+		return orderDao.addWaitShippingOrder(orderNo);
+   }
+
+
+public int addShipInfo(Order order) {
+	// TODO Auto-generated method stub
+	return orderDao.addShipInfo(order);
+}
    
 
 }

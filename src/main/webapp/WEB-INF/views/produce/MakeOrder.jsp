@@ -15,7 +15,7 @@
 <script src="${ctx}/resources/bootstrap-datetimepicker/daterangepicker.js" ></script>
 
 <script src="${ctx}/resources/js/produce/order.js"></script>
-
+<script src="${ctx}/resources/js/produce/makeOrder.js"></script>
 
 </head>
 <body>
@@ -38,8 +38,8 @@
 				
 			</ul>
 			<div class=" col-md-3">	
-			<button onclick="add()" class="btn btn-primary">扫码添加订单</button>
-			<button type="button" class="btn btn-primary">制作完成</button>
+			<button id="addOrder" class="btn btn-primary">扫码添加订单</button>
+			<button type="button" id="makeOrder" class="btn btn-primary">制作完成</button>
 			</div>
 			
 			<br>		
@@ -72,7 +72,8 @@
 			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
 				<c:forEach items="${pageBean.content}" var="order">
-					<tr>
+					<tr  order-id="${order.id}">
+					<td style="width: 10px;padding-top: 15px;"><input class="isMake" type="checkbox" ></td>
 						<td>
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
@@ -101,13 +102,16 @@
 												<p>订单量：${product.quantity}</p>
 												<p>Color：${product.color} Size：${product.size}</p>
 											</div>
+											<div class="col-md-3 ">
+												<button type="button" class="btn btn-primary">下载素材</button>
+											</div>
 										</div>
 										<c:if test="${!stat.last}">
 											<div class="line"></div>
 										</c:if>
 									</c:forEach>
 								</div>
-								<div class="col-md-4">订单状态</div>
+								<div class="col-md-4">订单状态  ${fns:getOrderStatus(order.status)}</div>
 							</div>
 						</td>
 					</tr>

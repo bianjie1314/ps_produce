@@ -105,7 +105,7 @@
 										</c:if>
 									</c:forEach>
 								</div>
-								<div class="col-md-4">订单状态</div>
+								<div class="col-md-4">订单状态  ${fns:getOrderStatus(order.status)}</div>
 							</div>
 						</td>
 					</tr>

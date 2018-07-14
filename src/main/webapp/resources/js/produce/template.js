@@ -137,7 +137,7 @@
        $.bindEvent(table);//绑定各种事件
        
        $('#add').click(function() {
-    	
+    	   var $btn = $(this).button('loading');
            var $f = $('<div role="form"></div>');
            $f.append('<p>申请更多模具请与我们的客服联系</p>');
         
@@ -145,6 +145,7 @@
                title : "修改字典",
                onClose : function() {
                    $(this).dialog("destroy");
+                   $btn.button('reset');
                }
            });
 	    });

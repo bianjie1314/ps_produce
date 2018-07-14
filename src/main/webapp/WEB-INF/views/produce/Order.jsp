@@ -15,6 +15,8 @@
 <script src="${ctx}/resources/bootstrap-datetimepicker/daterangepicker.js" ></script>
 
 <script src="${ctx}/resources/js/produce/order.js"></script>
+<script src="${ctx}/resources/js/produce/deliveryOrder.js"></script>
+
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />

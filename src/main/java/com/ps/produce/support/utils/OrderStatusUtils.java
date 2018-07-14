@@ -35,8 +35,11 @@ public class OrderStatusUtils {
 		return label;
 	}
 	public static String checkStatus(int value) {
-		if(value!=OrderStatus.cancel.getValue()) {
+		if(value==OrderStatus.waitConfirm.getValue()) {
 			return "<button class=\" btn btn-primary cancle\">取消订单</button>";
+		}
+		if(value==OrderStatus.waitShipping.getValue()) {
+			return "<button  class=\" btn btn-primary addShipInfo\">添加物流信息</button>";
 		}
 		return "";
 	}

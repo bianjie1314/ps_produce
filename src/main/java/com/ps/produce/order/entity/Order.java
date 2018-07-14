@@ -16,6 +16,7 @@ import com.ps.produce.base.entity.AbstractEntity;
  * @version 
  */
 public class Order extends AbstractEntity {
+	
 	private String orderNo;
 	private String orderUsername;
 	private String  orderCreateTime;
@@ -27,7 +28,21 @@ public class Order extends AbstractEntity {
 	private String optUserId;
 	private String callbackUrl;
 	private List<Product> products;
+	private String expressName;
+	private String expressNo;
 	
+	public String getExpressName() {
+		return expressName;
+	}
+	public void setExpressName(String expressName) {
+		this.expressName = expressName;
+	}
+	public String getExpressNo() {
+		return expressNo;
+	}
+	public void setExpressNo(String expressNo) {
+		this.expressNo = expressNo;
+	}
 	public List<Product> getProducts() {
 		return products;
 	}

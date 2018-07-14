@@ -30,4 +30,14 @@ public interface OrderDao {
 	public List<String> queryOrderUser();
 
 	public int changOrderStatus(@Param("status")int confirm, @Param("orderId")String orderId);
+
+	public int addWaitMakeOrder(@Param("orderNo")String orderNo);
+	
+	public int findOneByOrderNo(@Param("orderNo")String orderNo);
+
+	public int addWaitShippingOrder(@Param("orderNo")String orderNo);
+
+	public int addShipInfo(@Param("order")Order order);
+	
+	
 }
