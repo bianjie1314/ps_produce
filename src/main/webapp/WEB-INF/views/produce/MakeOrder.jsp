@@ -71,6 +71,10 @@
 			</div>
 			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
+			<c:if test="${pageBean.totalCount==0}">
+			<div class="row order-header"><span>暂无数据</span></div>
+			</c:if>
+			<c:if test="${pageBean.totalCount!=0}">
 				<c:forEach items="${pageBean.content}" var="order">
 					<tr  order-id="${order.id}">
 					<td style="width: 10px;padding-top: 15px;"><input class="isMake" type="checkbox" ></td>
@@ -80,7 +84,7 @@
 								<div class="col-md-3">下单商户：${order.orderUsername}</div>
 								<div class="col-md-3">下单时间：${order.orderCreateTime}</div>
 								<div class="col-md-4">
-									<button class=" btn btn-primary " id="cancle">取消订单</button>
+									
 								</div>
 							</div>
 							<div class="row">
@@ -102,8 +106,8 @@
 												<p>订单量：${product.quantity}</p>
 												<p>Color：${product.color} Size：${product.size}</p>
 											</div>
-											<div class="col-md-3 ">
-												<button type="button" class="btn btn-primary">下载素材</button>
+											<div class="col-md-3 "  product-id="${product.id}">
+												<button type="button" class="btn btn-primary downImg">下载素材</button>
 											</div>
 										</div>
 										<c:if test="${!stat.last}">
@@ -116,6 +120,7 @@
 						</td>
 					</tr>
 				</c:forEach>
+				</c:if>
 			</table>
 			<%@ include file="/WEB-INF/views/include/paging.jsp" %>
 			

@@ -2,6 +2,7 @@
     $(function() {
     	
     	printOrder();
+    	downImg();
     	add();
     });
     function printOrder(){
@@ -26,6 +27,24 @@
             });
     	});  
     }
+    function downImg(){
+    	$(".downImg").click(function(){
+    		var $btn = $(this).button('loading');
+    		var productId= $(this).closest('div').eq(0).attr('product-id');
+    		var temp = document.createElement("form");        
+		    temp.action = ctx+"/order/downImg";        
+		    temp.method = "post";
+		    var opt1 = document.createElement("textarea");        
+		    opt1.name = "productId";        
+		    opt1.value = productId;        
+		    temp.appendChild(opt1); 
+		    temp.style.display = "none";        
+		    document.body.appendChild(temp);        
+		    temp.submit(); 
+		    $btn.button('reset');
+    	});
+    }
+    
     function add() {
     	 $("#addOrder").click(function(){
     		 var $btn = $(this).button('loading');

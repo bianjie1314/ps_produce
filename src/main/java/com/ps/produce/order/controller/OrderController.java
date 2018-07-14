@@ -5,10 +5,11 @@ import java.util.List;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.OrderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.ps.produce.base.entity.query.model.OrderQuery;
 import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.entity.Order;
 import com.ps.produce.order.service.OrderService;
+import com.ps.produce.shiro.ShiroUser;
 import com.ps.produce.support.Response;
 import com.ps.produce.support.ResponseCode;
 import com.ps.produce.support.pair.OrderStatus;
-import com.ps.produce.support.utils.OrderStatusUtils;
+import com.ps.produce.support.utils.ZipImgs;
+
 
 
 @Controller
@@ -84,6 +86,8 @@ public class OrderController {
     }
     @RequestMapping(value = "makeList" ,produces = "text/html;charset=UTF-8")
     public String makeIndex(PageBean<Order> pageBean, OrderQuery query,Model model,ServletRequest request) {
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	long userId=u.getId();
     	String status=request.getParameter("status");
     	String start=null;
     	String end=null;
@@ -92,6 +96,7 @@ public class OrderController {
     		start=times[0];
     		end=times[1];
     	}
+    	query.setId(userId);
     	query.setStart(start);
     	query.setEnd(end);
     	if(!StringUtils.isEmpty(status)) 
@@ -171,13 +176,7 @@ public class OrderController {
     	orderService.changOrderStatus(OrderStatus.cancel.getValue(),orderNo);
     	return null;
     }
-    @ResponseBody
-	@RequestMapping(value = "/addMakeOrder")
-    public String addMakeOrder(String orderId,ServletRequest request) {
-    	String[] orderNo=orderId.split(",");
-    	orderService.changOrderStatus(OrderStatus.confirm.getValue(),orderNo);
-    	return null;
-    }
+    
     @ResponseBody
 	@RequestMapping(value = "/confirmOrder")
     public String confirmOrder(String orderId,ServletRequest request) {
@@ -197,7 +196,10 @@ public class OrderController {
 	@RequestMapping(value = "/makeOrder")
     public String makeOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
     	String[] orderNo=orderId.split(",");
-    	orderService.changOrderStatus(OrderStatus.make.getValue(),orderNo);
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	String userName=u.getOsUsername();
+    	long userId=u.getId();
+    	orderService.addMakeOrder(OrderStatus.make.getValue(),orderNo,userName,userId);
     	return null;
     }
     @ResponseBody
@@ -206,5 +208,18 @@ public class OrderController {
     	int result =orderService.addWaitShippingOrder(orderNo);
     	return result+"";
     }
-    
+    @ResponseBody
+	@RequestMapping(value = "/ShippingOrder")
+    public String ShippingOrder(@RequestParam(value="orderId")String orderIds,ServletRequest request) {
+    	String[] orderId=orderIds.split(",");
+    	orderService.changOrderStatus(OrderStatus.shipping.getValue(), orderId);
+    	return null;
+    }
+    @ResponseBody
+    @RequestMapping(value="/downImg")
+    public String downImg(@RequestParam(value="productId")String productId,ServletRequest  request,HttpServletResponse response) {
+    	String imgUrls=orderService.querProductImg(productId);
+    	ZipImgs.zipImgs(response, imgUrls);
+    	return null;
+    }
     }

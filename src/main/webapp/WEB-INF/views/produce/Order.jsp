@@ -68,7 +68,12 @@
 			</div>
 			</form>
 			<table class="table table-striped table-hover table-aws" id="datatable">
-				<c:forEach items="${pageBean.content}" var="order">
+			<c:if test="${pageBean.totalCount==0}">
+			<div class="row order-header"><span>暂无数据</span></div>
+			</c:if>
+			<c:if test="${pageBean.totalCount!=0}">
+			    <c:forEach items="${pageBean.content}" var="order">
+			    
 					<tr  order-id="${order.id}">
 					    <td>
 							<div class="row order-header">
@@ -109,6 +114,7 @@
 						</td>
 					</tr>
 				</c:forEach>
+				</c:if>
 			</table>
 			<%@ include file="/WEB-INF/views/include/paging.jsp" %>
 			
