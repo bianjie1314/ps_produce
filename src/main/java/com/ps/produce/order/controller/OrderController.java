@@ -111,37 +111,24 @@ public class OrderController {
         return "produce/MakeOrder";
     }
     
-    @RequestMapping(method = RequestMethod.POST, value = "/add")
-    @ResponseBody
-    public Response add(@RequestBody Order order) {
-       orderService.insert(order);
-       return new Response().setResponseCode(ResponseCode.SUCCESS);
-       
-    } 
     
-    @RequestMapping(method = RequestMethod.POST, value = "/update")
-    @ResponseBody
-    public Response update(@RequestBody Order order) {     
-       orderService.update(order);
-        
-       return new Response().setResponseCode(ResponseCode.SUCCESS);
-       
-    }
     
     @ResponseBody
 	@RequestMapping(value = "/addShipInfo", method = RequestMethod.POST)
 	public int addShipInfo( @RequestBody Order order) throws IOException {
     	int result=orderService.addShipInfo(order);
-		return result;
-	}
-    @ResponseBody
-	@RequestMapping(value = "/del", method = RequestMethod.POST)
-	public Response walkaround( String ids) throws IOException {
-		
-		Response response = new Response();
-		orderService.delete(ids);
-		
-		return response;
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	long userId=u.getId();
+    	String userName=u.getUsername();
+    	OrderLog orderLog=new OrderLog();
+		orderLog.setOptUserId(userId);
+		orderLog.setOptUsername(userName);
+		orderLog.setOrderId(order.getId());
+		orderLog.setStatus(OrderStatus.cancel.getValue());
+		orderLog.setRemarks("物流公司："+order.getExpressName()+"  物流编号:"+order.getExpressName());
+		orderLog.setFlag(0);
+		orderService.addLog(orderLog);
+     return result;
 	}
     @ResponseBody
 	@RequestMapping(value = "/queryOrderUser")
@@ -174,6 +161,19 @@ public class OrderController {
 	@RequestMapping(method = RequestMethod.POST,value = "/cancalOrder")
     public int cancalOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
     	String[] orderNo=orderId.split(",");
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	long userId=u.getId();
+    	String userName=u.getUsername();
+    	for(int i=0;i<orderNo.length;i++) {
+    		OrderLog orderLog=new OrderLog();
+        	orderLog.setOptUserId(userId);
+        	orderLog.setOptUsername(userName);
+        	orderLog.setOrderId(Long.parseLong(orderNo[i]));
+        	orderLog.setStatus(OrderStatus.cancel.getValue());
+        	orderLog.setRemarks("取消订单");
+        	orderLog.setFlag(0);
+        	orderService.addLog(orderLog);
+    	}
     	int ret =orderService.canalOrder(OrderStatus.cancel.getValue(),orderNo);
     	return ret;
     }
@@ -182,6 +182,21 @@ public class OrderController {
 	@RequestMapping(value = "/confirmOrder")
     public int confirmOrder(String orderId,ServletRequest request) {
     	String[] orderNo=orderId.split(",");
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	long userId=u.getId();
+    	String userName=u.getUsername();
+    	for(int i=0;i<orderNo.length;i++) {
+    		OrderLog orderLog=new OrderLog();
+        	orderLog.setOptUserId(userId);
+        	orderLog.setOptUsername(userName);
+        	orderLog.setOrderId(Long.parseLong(orderNo[i]));
+        	orderLog.setStatus(OrderStatus.confirm.getValue());
+        	orderLog.setRemarks("确认订单");
+        	orderLog.setFlag(0);
+        	orderService.addLog(orderLog);
+    	}
+    	
+    	
     	int ret=orderService.confirmOrder(orderNo);
     	return ret;
     }
@@ -189,7 +204,20 @@ public class OrderController {
 	@RequestMapping(value = "/waitMakeOrder")
     public String waitMakeOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
     	int result=orderService.addWaitMakeOrder(orderNo);
-    	System.out.println(result);
+    	long orderId=orderService.findOrderIdbyOrderNo(orderNo);
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	long userId=u.getId();
+    	String userName=u.getUsername();
+    	OrderLog orderLog=new OrderLog();
+        orderLog.setOptUserId(userId);
+        orderLog.setOptUsername(userName);
+        orderLog.setOrderId(orderId);
+        orderLog.setStatus(OrderStatus.waitMake.getValue());
+        orderLog.setRemarks("添加等待制作订单");
+        orderLog.setFlag(0);
+        orderService.addLog(orderLog);
+    	
+    	
     	return result+"";
     }
     @ResponseBody
@@ -199,6 +227,17 @@ public class OrderController {
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	String userName=u.getOsUsername();
     	long userId=u.getId();
+    	for(int i=0;i<orderNo.length;i++) {
+    		OrderLog orderLog=new OrderLog();
+        	orderLog.setOptUserId(userId);
+        	orderLog.setOptUsername(userName);
+        	orderLog.setOrderId(Long.parseLong(orderNo[i]));
+        	orderLog.setStatus(OrderStatus.make.getValue());
+        	orderLog.setRemarks("添加到已制作订单");
+        	orderLog.setFlag(0);
+        	orderService.addLog(orderLog);
+    	}
+    	
     	orderService.addMakeOrder(OrderStatus.make.getValue(),orderNo,userName,userId);
     	return null;
     }
@@ -206,13 +245,38 @@ public class OrderController {
 	@RequestMapping(value = "/waitShippingOrder")
     public String waitShippingOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
     	int result =orderService.addWaitShippingOrder(orderNo);
+    	long orderId=orderService.findOrderIdbyOrderNo(orderNo);
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	long userId=u.getId();
+    	String userName=u.getUsername();
+    	OrderLog orderLog=new OrderLog();
+        orderLog.setOptUserId(userId);
+        orderLog.setOptUsername(userName);
+        orderLog.setOrderId(orderId);
+        orderLog.setStatus(OrderStatus.waitShipping.getValue());
+        orderLog.setRemarks("添加等待发货订单");
+        orderLog.setFlag(0);
+        orderService.addLog(orderLog);
     	return result+"";
     }
     @ResponseBody
 	@RequestMapping(value = "/ShippingOrder")
     public int  ShippingOrder(@RequestParam(value="orderId")String orderIds,ServletRequest request) {
-    	String[] orderId=orderIds.split(",");
-    	int ret =orderService.addShipOrder( orderId);
+    	String[] orderNo=orderIds.split(",");
+    	int ret =orderService.addShipOrder(orderNo);
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	String userName=u.getOsUsername();
+    	long userId=u.getId();
+    	for(int i=0;i<orderNo.length;i++) {
+    		OrderLog orderLog=new OrderLog();
+        	orderLog.setOptUserId(userId);
+        	orderLog.setOptUsername(userName);
+        	orderLog.setOrderId(Long.parseLong(orderNo[i]));
+        	orderLog.setStatus(OrderStatus.shipping.getValue());
+        	orderLog.setRemarks("添加到已发货订单");
+        	orderLog.setFlag(0);
+        	orderService.addLog(orderLog);
+    	}
     	return ret;
     }
     @ResponseBody

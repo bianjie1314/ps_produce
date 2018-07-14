@@ -49,6 +49,9 @@ public interface OrderDao {
 	public String queryProductImg(@Param("productId")String productId);
 
 	public int cancle(@Param("order") Order order);
+	
+	public void addLog(@Param("orderLog")OrderLog orderLog);
+	public long findOrderIdbyOrderNo(@Param("orderNo")String orderNo);
 
 	public List<OrderLog> findOrderLogByOrderId(@Param("orderId")Long orderId);
 	public List<Order> findOrderByOrderIds(@Param("orderIds") String orderIds);

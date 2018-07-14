@@ -162,11 +162,15 @@ public class OrderService {
 		return this.orderDao.findOrderLogByOrderId(id);
 	}
 
-	
-
 	public List<Order> findOrderByOrderIds(String orderIds) {
 		return this.orderDao.findOrderByOrderIds(orderIds);
 	}
-	
 
+	public void addLog(OrderLog orderLog) {
+		orderDao.addLog(orderLog);
+	}
+
+	public long findOrderIdbyOrderNo(String orderNo) {
+		return orderDao.findOrderIdbyOrderNo(orderNo);
+	}
 }

@@ -24,7 +24,7 @@ public class OrderLog  {
 	private String remarks;
 	private int status;//订单状态
 	private int flag;//操作状态  0 成功 1失败
-	private Date createDate;
+	private Date createDate=new Date();
 	
 	
 	public Long getOrderId() {
