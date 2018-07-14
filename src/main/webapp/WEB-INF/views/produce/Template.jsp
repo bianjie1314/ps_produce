@@ -14,9 +14,10 @@
 
 <script src="${ctx}/resources/bootstrap-datetimepicker/moment.js" ></script>
 <script src="${ctx}/resources/bootstrap-datetimepicker/daterangepicker.js" ></script> --%>
-<link rel="stylesheet" href="http://www.daterangepicker.com/daterangepicker.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
-<script src="http://www.daterangepicker.com/daterangepicker.js"></script>
+<link rel="stylesheet" href="${ctx}/resources/bootstrap-datetimepicker/daterangepicker-bs3.css">
+
+<script src="${ctx}/resources/bootstrap-datetimepicker/moment.js" ></script>
+<script src="${ctx}/resources/bootstrap-datetimepicker/daterangepicker.js" ></script>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -32,7 +33,7 @@
 				<div id="message" class="alert alert-danger">
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
-			<div role="form" class="row">
+			<div role="form" class="row" >
 			   <div class="form-group col-md-3">
 					<div class="input-group">
 						<label class="input-group-addon">类别</label>

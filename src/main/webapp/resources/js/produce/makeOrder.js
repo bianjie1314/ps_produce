@@ -4,6 +4,7 @@
     	printOrder();
     	downImg();
     	add();
+    	getDate();
     });
     function printOrder(){
     	$("#makeOrder").click(function(e){
@@ -27,6 +28,20 @@
             });
     	});  
     }
+    function getDate(){
+ 	   var d=new Date();
+        var mydate=new Date(d.getTime()-86400000*7);
+ 	   var str = "" + mydate.getFullYear() + "-";
+ 	   str += (mydate.getMonth()+1)+"-" ;
+ 	   str += (mydate.getDate());
+ 	   var nowdate=new Date();
+ 	   var str1 =nowdate.getFullYear() + "-";
+ 	   str1 += (nowdate.getMonth()+1) + "-";
+ 	   str1 += (nowdate.getDate())+ "";
+ 	   var a=str+" ~ "+str1;
+ 	   $('#reservation').val(a);
+ 	   
+ }
     function downImg(){
     	$(".downImg").click(function(){
     		var $btn = $(this).button('loading');

@@ -1,14 +1,8 @@
 (function($) {
     $(function() {
-    	$('#reservation').daterangepicker({format: 'YYYY-MM-DD',
-    	    "startDate": "2018-07-03",
-    	    "endDate": "2018-07-10"
-    	}, function(start, end, label) {
-    	  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-    	});
-       // getDate();
+    	getDate();
         initUI();
-         queryType();
+        queryType();
         $.myAjax({
 	   		sUrl:ctx + "/template",
 	   		sType:"get",
@@ -26,20 +20,20 @@
 	   	});
        
     });
-   /* function getDate(){
+    function getDate(){
     	   var d=new Date();
            var mydate=new Date(d.getTime()-86400000*7);
     	   var str = "" + mydate.getFullYear() + "-";
-    	   str += (mydate.getMonth()+1) ;
-    	   str += (mydate.getDate() -7)+ "";
+    	   str += (mydate.getMonth()+1)+"-" ;
+    	   str += (mydate.getDate());
     	   var nowdate=new Date();
-    	   var str1 = "" + nowdate.getFullYear() + "-";
+    	   var str1 =nowdate.getFullYear() + "-";
     	   str1 += (nowdate.getMonth()+1) + "-";
-    	   str1 += (nowdate.getDate() )+ "";
+    	   str1 += (nowdate.getDate())+ "";
     	   var a=str+" ~ "+str1;
     	   $('#reservation').val(a);
     	   
-    }*/
+    }
     function queryType(){
     	   
     	$.ajax({
@@ -56,7 +50,8 @@
     }
     
     function initUI() {
-    	
+    	$('#reservation').daterangepicker(null, function(start, end, label) {
+        });
         var table = $('#datatable').DataTable({
             "dom" : '<"toolbar-btn"> tr<"row"<"col-xs-6"<"col-xs-6"l><"col-xs-6"i>><"col-xs-6"p>>',
             "lengthMenu" : [ [ 50, 100, 200, 500, 2000, 1000000 ], [ 50, 100, 200, 500, 2000, "All" ] ],

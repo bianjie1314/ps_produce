@@ -111,9 +111,7 @@ public class OrderController {
     @RequestMapping(method = RequestMethod.POST, value = "/add")
     @ResponseBody
     public Response add(@RequestBody Order order) {
-     
        orderService.insert(order);
-        
        return new Response().setResponseCode(ResponseCode.SUCCESS);
        
     } 
@@ -129,9 +127,9 @@ public class OrderController {
     
     @ResponseBody
 	@RequestMapping(value = "/addShipInfo", method = RequestMethod.POST)
-	public String addShipInfo( @RequestBody Order order) throws IOException {
+	public int addShipInfo( @RequestBody Order order) throws IOException {
     	int result=orderService.addShipInfo(order);
-		return result+"";
+		return result;
 	}
     @ResponseBody
 	@RequestMapping(value = "/del", method = RequestMethod.POST)
@@ -171,19 +169,18 @@ public class OrderController {
     }
     @ResponseBody
 	@RequestMapping(method = RequestMethod.POST,value = "/cancalOrder")
-    public String cancalOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
+    public int cancalOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
     	String[] orderNo=orderId.split(",");
-    	orderService.changOrderStatus(OrderStatus.cancel.getValue(),orderNo);
-    	return null;
+    	int ret =orderService.canalOrder(OrderStatus.cancel.getValue(),orderNo);
+    	return ret;
     }
     
     @ResponseBody
 	@RequestMapping(value = "/confirmOrder")
-    public String confirmOrder(String orderId,ServletRequest request) {
-    	System.out.println(orderId+"sdasdasdas");
+    public int confirmOrder(String orderId,ServletRequest request) {
     	String[] orderNo=orderId.split(",");
-    	orderService.changOrderStatus(OrderStatus.confirm.getValue(),orderNo);
-    	return null;
+    	int ret=orderService.confirmOrder(orderNo);
+    	return ret;
     }
     @ResponseBody
 	@RequestMapping(value = "/waitMakeOrder")
@@ -210,10 +207,10 @@ public class OrderController {
     }
     @ResponseBody
 	@RequestMapping(value = "/ShippingOrder")
-    public String ShippingOrder(@RequestParam(value="orderId")String orderIds,ServletRequest request) {
+    public int  ShippingOrder(@RequestParam(value="orderId")String orderIds,ServletRequest request) {
     	String[] orderId=orderIds.split(",");
-    	orderService.changOrderStatus(OrderStatus.shipping.getValue(), orderId);
-    	return null;
+    	int ret =orderService.addShipOrder( orderId);
+    	return ret;
     }
     @ResponseBody
     @RequestMapping(value="/downImg")

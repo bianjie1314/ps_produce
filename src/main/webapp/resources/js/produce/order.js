@@ -2,7 +2,7 @@
     $(function() {
     	  initUI();
     	  queryOrderName();
-    	  
+    	  getDate();
     });
 
     function initUI() {       
@@ -26,7 +26,12 @@
                     type : "POST",
                      data:"orderId="+orderId,
                     success : function(result) {
-                    	btn.remove();
+                    	if(result==0){
+                    	btn.remove();}
+                    	else{
+                    		$btn1.button('reset');
+                    		$.messager.popup("订单同步失败!");
+                    	}
                     },
                     error:function(){
                     	$btn1.button('reset');
@@ -38,7 +43,20 @@
 
     }
     
-    
+    function getDate(){
+ 	   var d=new Date();
+        var mydate=new Date(d.getTime()-86400000*7);
+ 	   var str = "" + mydate.getFullYear() + "-";
+ 	   str += (mydate.getMonth()+1)+"-" ;
+ 	   str += (mydate.getDate());
+ 	   var nowdate=new Date();
+ 	   var str1 =nowdate.getFullYear() + "-";
+ 	   str1 += (nowdate.getMonth()+1) + "-";
+ 	   str1 += (nowdate.getDate())+ "";
+ 	   var a=str+" ~ "+str1;
+ 	   $('#reservation').val(a);
+ 	   
+ }
 
     function queryOrderName(){
     	$.ajax({
