@@ -68,6 +68,7 @@
 	</insert>
 	<select id="findList" resultMap="orderResult">
 		SELECT 
+		
 			o.*,
 			p.id as  'product.id' ,
 			p.order_id as  'product.orderId' ,
@@ -79,11 +80,11 @@
 			p.template_name as  'product.templateName' ,
 			p.image as  'product.image', 
 		    p.sku	 as  'product.sku' 			
-		FROM produce_order o left join produce_product p on o.id=p.order_id
+		FROM (select * from produce_order 	limit #{pageBean.beginIndex},#{pageBean.pageSize} ) o left join produce_product p on o.id=p.order_id
 		<where>
 			<include refid="where_clause" />
 		</where>
-		limit #{pageBean.beginIndex},#{pageBean.pageSize}
+	
 	</select>
 	
 	<select id="count" resultType="int">
@@ -91,7 +92,7 @@
 			count(DISTINCT o.id)
 		
 			
-		FROM produce_order o left join produce_product p on o.id=p.order_id
+		FROM produce_order o 
 		<where>
 			<include refid="where_clause" />
 		</where>
