@@ -8,14 +8,15 @@
     });
     function printOrder(){
     	$("#deliveryOrder").click(function(e){
-    		var $btn = $(this).button('loading');
+    		
     		var checks=$('input:checkbox[class=isDelivery]:checked');
     		var orderIds=[];
     		if(checks.length<1){
     			$.messager.popup("请选中订单!");
-    			$btn.button('reset');
+    			
     			return false;
     		}
+    		var $btn = $(this).button('loading');
     		for(var i=0;i<checks.length;i++){
     			var t =checks[i];
     			orderIds.push( $(t).closest('tr').eq(0).attr('order-id'));
