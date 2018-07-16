@@ -21,7 +21,7 @@ public class ZipImgs {
               response.setContentType("application/octet-stream");// 指明response的返回对象是文件流
               response.setHeader("Content-Disposition", "attachment;filename=" + downloadFilename);// 设置在下载框默认显示的文件名
               ZipOutputStream zos = new ZipOutputStream(response.getOutputStream());
-              String[] files = imgUrls.split(";");
+              String[] files = imgUrls.split(",");
               for (int i=0;i<files.length;i++) {
                   URL url = new URL(files[i]);
                  zos.putNextEntry(new ZipEntry(i+".jpg"));
