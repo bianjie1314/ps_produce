@@ -22,11 +22,12 @@
                 	//location.reload();
                 	if(result==0){
                 	$btn.button('reset');
-                	print(ctx+"/printPdf/sdf");}
-                	else{
+                	print(ctx+"/printPdf?orderIds="+orderIds.join());
+                	}else{
                 		$btn.button('reset');
                 		$.messager.popup("订单同步失败!");
                 	}
+
                 },
                 error:function(){
                 	

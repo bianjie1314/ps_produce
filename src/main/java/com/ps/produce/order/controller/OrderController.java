@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.ps.produce.base.entity.query.model.OrderQuery;
 import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.order.entity.Order;
@@ -61,7 +61,9 @@ public class OrderController {
     @RequestMapping(value = "detail" ,produces = "text/html;charset=UTF-8")
     public String index(Long id,Model model) {
     	Order order = orderService.findOne(id);
+    	List<OrderLog> orderLogs =orderService.findOrderLogByOrderId(id);
     	model.addAttribute("order", order);
+    	model.addAttribute("orderLogs", orderLogs);
         return "produce/Detail";
     }
     

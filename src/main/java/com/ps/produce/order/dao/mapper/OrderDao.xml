@@ -202,8 +202,24 @@
 	  update  produce_order set status=4 where order_no=#{orderNo} and status=3
 	</update>
 	
-	<select id="findOrder" resultType="int" >
-	 select count(1) from produce_order where order_no=#{orderNo}
+	<select id="findOrderLogByOrderId" resultType="com.ps.produce.order.entity.OrderLog" >
+	 select * from produce_order_log where order_id=#{orderId}
+	</select>
+	
+	
+	<select id="findOrderByOrderIds" resultMap="orderResult" >
+	 SELECT 
+			o.*,
+			p.id as  'product.id' ,
+			p.order_id as  'product.orderId' ,
+			p.name as 'product.name',
+			p.color as  'product.color' ,
+			p.size as  'product.size' ,
+			p.quantity as  'product.quantity' ,
+			p.ean as  'product.ean' ,
+			p.template_name as  'product.templateName' ,
+			p.image as  'product.image' 			
+		FROM produce_order o left join produce_product p on o.id=p.order_id where o.id in (${orderIds})
 	</select>
 	<select id="findOrderIdbyOrderNo" resultType="long">
 	 select id from produce_order where order_no=#{orderNo}

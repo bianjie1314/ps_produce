@@ -53,6 +53,7 @@ public interface OrderDao {
 	public void addLog(@Param("orderLog")OrderLog orderLog);
 	public long findOrderIdbyOrderNo(@Param("orderNo")String orderNo);
 
-	
+	public List<OrderLog> findOrderLogByOrderId(@Param("orderId")Long orderId);
+	public List<Order> findOrderByOrderIds(@Param("orderIds") String orderIds);
 	
 }
