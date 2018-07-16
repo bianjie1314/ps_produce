@@ -69,8 +69,7 @@
    	                        type : "post",
    	                        data : "orderNo="+orderNo,
    	                        success : function(result) {
-   	                        	alert(result);
-   	                            if (result== 1) {
+   	                        	if (result== 1) {
    	                            	location.reload();
    	                                
    	                            } else if(result==-1){

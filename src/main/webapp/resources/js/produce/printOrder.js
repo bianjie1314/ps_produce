@@ -14,6 +14,12 @@
     			var t =checks[i];
     			orderIds.push( $(t).closest('tr').eq(0).attr('order-id'));
     		}
+    		var status=$("#status").val();
+    		if(status==1){
+    			print(ctx+"/printPdf?orderIds="+orderIds.join());
+    			return false;
+    			
+    		}
     		$.ajax({
                 url : ctx + "/order/confirmOrder",
                 type : "POST",
