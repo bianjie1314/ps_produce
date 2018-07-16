@@ -204,7 +204,10 @@ public class OrderController {
 	@RequestMapping(value = "/waitMakeOrder")
     public String waitMakeOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
     	int result=orderService.addWaitMakeOrder(orderNo);
-    	long orderId=orderService.findOrderIdbyOrderNo(orderNo);
+    	Long orderId=orderService.findOrderIdbyOrderNo(orderNo);
+    	if(orderId==null){
+    		return -1+"";
+    	}
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	long userId=u.getId();
     	String userName=u.getUsername();
@@ -216,8 +219,7 @@ public class OrderController {
         orderLog.setRemarks("添加等待制作订单");
         orderLog.setFlag(0);
         orderService.addLog(orderLog);
-    	
-    	
+        System.out.println("result");
     	return result+"";
     }
     @ResponseBody
@@ -245,7 +247,10 @@ public class OrderController {
 	@RequestMapping(value = "/waitShippingOrder")
     public String waitShippingOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
     	int result =orderService.addWaitShippingOrder(orderNo);
-    	long orderId=orderService.findOrderIdbyOrderNo(orderNo);
+    	Long orderId=orderService.findOrderIdbyOrderNo(orderNo);
+    	if(orderId==null) {
+    		return -1+"";
+    	}
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	long userId=u.getId();
     	String userName=u.getUsername();

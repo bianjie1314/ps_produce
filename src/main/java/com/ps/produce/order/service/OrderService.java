@@ -170,7 +170,7 @@ public class OrderService {
 		orderDao.addLog(orderLog);
 	}
 
-	public long findOrderIdbyOrderNo(String orderNo) {
+	public Long findOrderIdbyOrderNo(String orderNo) {
 		return orderDao.findOrderIdbyOrderNo(orderNo);
 	}
 }
