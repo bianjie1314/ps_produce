@@ -10,13 +10,19 @@
     		var $btn = $(this).button('loading')
             var checks=$('input:checkbox[class=isConfirm]:checked');
     		var orderIds=[];
+    		if(checks.length<1){
+    			$.messager.popup("请选中订单!");
+    			return false;
+    		}
     		for(var i=0;i<checks.length;i++){
     			var t =checks[i];
     			orderIds.push( $(t).closest('tr').eq(0).attr('order-id'));
     		}
+    		
     		var status=$("#status").val();
     		if(status==1){
     			print(ctx+"/printPdf?orderIds="+orderIds.join());
+    			$btn.button('reset');
     			return false;
     			
     		}
@@ -27,8 +33,8 @@
                 success : function(result) {
                 	//location.reload();
                 	if(result==0){
-                	$btn.button('reset');
                 	print(ctx+"/printPdf?orderIds="+orderIds.join());
+                	$btn.button('reset');
                 	}else{
                 		$btn.button('reset');
                 		$.messager.popup("订单同步失败!");

@@ -11,6 +11,10 @@
     		var $btn = $(this).button('loading');
     		var checks=$('input:checkbox[class=isMake]:checked');
     		var orderIds=[];
+    		if(checks.length<1){
+    			$.messager.popup("请选中订单!");
+    			return false;
+    		}
     		for(var i=0;i<checks.length;i++){
     			var t =checks[i];
     			orderIds.push( $(t).closest('tr').eq(0).attr('order-id'));
