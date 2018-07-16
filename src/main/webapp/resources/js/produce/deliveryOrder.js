@@ -13,6 +13,7 @@
     		var orderIds=[];
     		if(checks.length<1){
     			$.messager.popup("请选中订单!");
+    			$btn.button('reset');
     			return false;
     		}
     		for(var i=0;i<checks.length;i++){
