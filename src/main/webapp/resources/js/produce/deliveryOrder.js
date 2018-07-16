@@ -4,11 +4,11 @@
     	printOrder();
     	  add();
     	  addShipInfo();
-    	  gertDate();
+    	  getDate();
     });
     function printOrder(){
     	$("#deliveryOrder").click(function(e){
-    		 var $btn = $(this).button('loading');
+    		var $btn = $(this).button('loading');
     		var checks=$('input:checkbox[class=isDelivery]:checked');
     		var orderIds=[];
     		for(var i=0;i<checks.length;i++){
