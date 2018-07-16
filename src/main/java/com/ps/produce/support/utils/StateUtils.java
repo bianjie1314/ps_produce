@@ -17,7 +17,7 @@ public class StateUtils {
     	o.setState(states);
     	o.setTracking_number(tracking_number);
     	String data =gson.toJson(o);
-    	String url=urlHead+"/orders/sync";
+    	String url=urlHead+"/ps/orders/sync";
     	url = SignatureUtils.signatureUrl(url, data, "dce7b60efaee20cc");
     	String response=HttpClientUtil.doPostJson(url,data);
         return  gson.fromJson(response,Response.class);
