@@ -38,10 +38,9 @@
 				
 			</ul>
 			<div class=" col-md-3">	
-			<button  id="addWaitDeliveryOrder" class="btn btn-primary">扫码添加订单</button>
-			<button type="button" id="deliveryOrder" class="btn btn-primary">发货完成</button>
-			</div>
-			
+			<button  style="margin-top: 10px;" id="addWaitDeliveryOrder" class="btn btn-primary">扫码添加订单</button>
+			<button style="margin-top: 10px ;" type="button" id="deliveryOrder" class="btn btn-primary">发货完成</button>
+			</div>			
 			<br>		
 			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
 			<div  class="row search-bar">

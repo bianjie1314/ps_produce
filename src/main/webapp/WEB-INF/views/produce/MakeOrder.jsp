@@ -38,8 +38,8 @@
 				
 			</ul>
 			<div class=" col-md-3">	
-			<button id="addOrder" class="btn btn-primary">扫码添加订单</button>
-			<button type="button" id="makeOrder" class="btn btn-primary">制作完成</button>
+			<button style="margin: 10px 0px;" id="addOrder" class="btn btn-primary">扫码添加订单</button>
+			<button style="margin: 10px 0px;" type="button" id="makeOrder" class="btn btn-primary">制作完成</button>
 			</div>
 			
 			<br>		
