@@ -21,13 +21,17 @@
         	var btn=$(this);
         	var $btn1= $(this).button('loading');
         	var orderId= $(this).closest('tr').eq(0).attr('order-id');
+        	var div= $(this).parents(".parent").find(".status1");
+        	
         	$.ajax({
                     url : ctx + "/order/cancalOrder",
                     type : "POST",
                      data:"orderId="+orderId,
                     success : function(result) {
                     	if(result==0){
-                    	btn.remove();}
+                    	btn.remove();
+                    	div.text("已取消");
+                    	}
                     	else{
                     		$btn1.button('reset');
                     		$.messager.popup("订单同步失败!");
