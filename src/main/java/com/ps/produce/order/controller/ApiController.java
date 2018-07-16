@@ -37,7 +37,7 @@ public class ApiController {
 		Response res = new Response();
 		try {
 			String body = IOUtils.toString(request.getInputStream(),"utf-8" );
-			
+			System.out.println("revice order "+body);
 			SignatureUtils.checkSign(request, body);
 			Gson gson = new Gson();
 			Order order = gson.fromJson(body, Order.class);
@@ -57,7 +57,7 @@ public class ApiController {
 		Response res = new Response();
 		try {
 			String body = IOUtils.toString(request.getInputStream(),"utf-8" );
-			
+			System.out.println("cancle order "+body);
 			SignatureUtils.checkSign(request, body);
 			Gson gson = new Gson();
 			Order order = gson.fromJson(body, Order.class);
@@ -81,7 +81,7 @@ public class ApiController {
 		Response res = new Response();
 		try {
 			String body = IOUtils.toString(request.getInputStream(),"utf-8" );
-			
+			System.out.println("revice template "+body);
 			SignatureUtils.checkSign(request, body);
 			Gson gson = new Gson();
 			Template template = gson.fromJson(body, Template.class);
