@@ -30,7 +30,7 @@
 			<result property="ean" column="product.ean"/>
 			<result property="templateName" column="product.templateName"/>
 			<result property="image" column="product.image"/>
-			
+			<result property="sku" column="product.sku"/>
 		</collection> 
 	</resultMap>
    
@@ -77,8 +77,8 @@
 			p.quantity as  'product.quantity' ,
 			p.ean as  'product.ean' ,
 			p.template_name as  'product.templateName' ,
-			p.image as  'product.image' 
-			
+			p.image as  'product.image', 
+		    p.sku	 as  'product.sku' 			
 		FROM produce_order o left join produce_product p on o.id=p.order_id
 		<where>
 			<include refid="where_clause" />

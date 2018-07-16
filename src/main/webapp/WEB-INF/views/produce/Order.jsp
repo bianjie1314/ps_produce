@@ -86,8 +86,7 @@
 							</div>							
 							<div class="row product" order-id="${order.id}">
 								<div class="col-md-8">
-									<c:forEach items="${order.products}" var="product"
-										varStatus="stat">
+									<c:forEach items="${order.products}" var="product" varStatus="stat">
 										<div class="row order-item product"  order-id="${order.id}">
 											<div class="col-md-2">
 												<img src="${product.image}" style=" width: 100%;">

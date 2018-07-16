@@ -42,7 +42,7 @@ public class LoginController {
 		ShiroUser shiroUser = (ShiroUser) subject.getPrincipal();
 		// 如果已经登录，则跳转到管理首页
 		if(shiroUser != null){
-			return "redirect:/home";
+			return "redirect:/order/list";
 		}
 		return "/system/Login";
 	}
@@ -73,7 +73,7 @@ public class LoginController {
 			subUser.hasRole("userSB");
 			
 			
-			return "redirect:/home";
+			return "redirect:/order/list";
 		} catch (DisabledAccountException e1) {
 			e1.printStackTrace();
 			ShowMessage.show(ra, MessageType.ISDANGERSHOW, "账号异常,请联系管理员");
