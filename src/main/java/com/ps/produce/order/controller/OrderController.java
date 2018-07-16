@@ -202,11 +202,14 @@ public class OrderController {
     }
     @ResponseBody
 	@RequestMapping(value = "/waitMakeOrder")
-    public String waitMakeOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
+    public Response waitMakeOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
+    	Response response = new Response();
     	int result=orderService.addWaitMakeOrder(orderNo);
     	Long orderId=orderService.findOrderIdbyOrderNo(orderNo);
     	if(orderId==null){
-    		return -1+"";
+    		response.setRet(-1);
+    		response.setMsg("订单不存在");
+    		return response;
     	}
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	long userId=u.getId();
@@ -219,8 +222,11 @@ public class OrderController {
         orderLog.setRemarks("添加等待制作订单");
         orderLog.setFlag(0);
         orderService.addLog(orderLog);
-        System.out.println("result");
-    	return result+"";
+        if(result==0) {
+        	response.setRet(1);
+        	response.setMsg("已存在订单");
+        }
+    	return response;
     }
     @ResponseBody
 	@RequestMapping(value = "/makeOrder")
@@ -245,11 +251,14 @@ public class OrderController {
     }
     @ResponseBody
 	@RequestMapping(value = "/waitShippingOrder")
-    public String waitShippingOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
+    public Response waitShippingOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
     	int result =orderService.addWaitShippingOrder(orderNo);
+    	Response response = new Response();
     	Long orderId=orderService.findOrderIdbyOrderNo(orderNo);
     	if(orderId==null) {
-    		return -1+"";
+    		response.setRet(-1);
+    		response.setMsg("订单不存在");
+    		return response;
     	}
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	long userId=u.getId();
@@ -262,13 +271,17 @@ public class OrderController {
         orderLog.setRemarks("添加等待发货订单");
         orderLog.setFlag(0);
         orderService.addLog(orderLog);
-    	return result+"";
+        if(result==0) {
+        	response.setRet(1);
+        	response.setMsg("已存在订单");
+        }
+        return response;
     }
     @ResponseBody
 	@RequestMapping(value = "/ShippingOrder")
-    public int  ShippingOrder(@RequestParam(value="orderId")String orderIds,ServletRequest request) {
+    public Response ShippingOrder(@RequestParam(value="orderId")String orderIds,ServletRequest request) {
     	String[] orderNo=orderIds.split(",");
-    	int ret =orderService.addShipOrder(orderNo);
+    	 Response response =orderService.addShipOrder(orderNo);
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	String userName=u.getOsUsername();
     	long userId=u.getId();
@@ -282,7 +295,7 @@ public class OrderController {
         	orderLog.setFlag(0);
         	orderService.addLog(orderLog);
     	}
-    	return ret;
+    	return response;
     }
     @ResponseBody
     @RequestMapping(value="/downImg")

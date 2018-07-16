@@ -70,49 +70,69 @@
     		 var $btn = $(this).button('loading');
     		 
     		 var $f = $('<div role="form"></div>');
-    	        $f.append('<div class="form-group" style="padding: 10px 50px;"><div class="input-group"><label class="input-group-addon">订单编号</label><input type="text"   name="time" id="orderNo" class="form-control"/></div></div>');
+    		 
+    	        $f.append('<form onSubmit="submit2(this);return false;"><div class="form-group" style="padding: 10px 50px;"><div class="input-group"><label class="input-group-addon">订单编号</label><input type="text"  id="orderNo" class="form-control"/></div></div></form>');
     	           $f.dialog({
     	    		   title : "添加订单",
     	    		  
     	            onClose : function() {
+    	            	$btn.button('reset');
     	                $(this).dialog("destroy");
     	            }, buttons : {
-    	                "添加订单" : function() {
+    	                "添加订单" : function(){
+    	                	
     	                	if(!$.validate($f))
-    	            	   		return false;
-    	                    var orderNo =  $f.find('[id=orderNo]').val();
-    	                    
-    	                    $.ajax({
-    	                        url : ctx + "/order/waitMakeOrder",
-    	                        type : "post",
-    	                        data : "orderNo="+orderNo,
-    	                        success : function(result) {
-    	                            if (result== 1) {
-    	                            	location.reload();
-    	                                
-    	                            } else if(result==-1){
-    	                            	$btn.button('reset');
-    	                            	$.messager.popup("暂无该订单，请于订单管理员联系!");
-    	                            }else{
-    	                            	$btn.button('reset');
-    	                            	$.messager.popup("该订单已添加!");
-    	                            }
-    	                        },
-    	                        complete : function() {
+    	               		return false;
+    	                var orderNo =  $f.find('[id=orderNo]').val();
+    	                
+    	                $.ajax({
+    	                    url : ctx + "/order/waitMakeOrder",
+    	                    type : "post",
+    	                    data : "orderNo="+orderNo,
+    	                    success : function(result) {
+    	                        if (result.ret!=0 ) {
     	                        	
-    	                            $f.dialog("destroy");
-    	                            $btn.button('reset');
+    	                        	$.messager.popup(result.msg);
+    	                        }else{ 
+    	                        location.reload();
     	                        }
-    	                    });
-    	                    
-    	                }, "取消" : function() {
+    	                    },
+    	                    complete : function() {
+    	                    	$f.dialog("destroy");
+    	                        $btn.button('reset');
+    	                    }
+    	                });}, 
+    	                "取消" : function() {
     	                	 $(this).dialog("destroy");
     	                	 $btn.button('reset');
     	                }
     	            }
+    	            
     	        });
     	 });
     	 
     }
     
+    
 })(jQuery);
+
+function submit2(_this){
+	
+    var orderNo =  $(_this).find('[id=orderNo]').val();
+    
+    $.ajax({
+        url : ctx + "/order/waitMakeOrder",
+        type : "post",
+        data : "orderNo="+orderNo,
+        success : function(result) {
+            if(result.ret!=0){
+            	$.messager.popup(result.msg);
+            }else{
+            	location.reload();
+            }
+        },
+        complete : function() {
+        	
+        }
+    });
+}

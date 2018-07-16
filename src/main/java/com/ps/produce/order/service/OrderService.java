@@ -141,20 +141,22 @@ public class OrderService {
 		return ret;
 	}
 
-	public int addShipOrder(String[] orderId) {
-		int ret = ResponseCode.SUCCESS.value();
+	public Response addShipOrder(String[] orderId) {
+		Response oldResponse=new Response();
 		for (int i = 0; i < orderId.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderId[i]));
 			Response response = StateUtils.changState(order.getOrderNo(), "3", "", "",order.getCallbackUrl());
 			if (response.getRet() == ResponseCode.SUCCESS.value()) {
 				orderDao.changOrderStatus(OrderStatus.shipping.getValue(), orderId[i]);
-
-			}
-			if (response.getRet() == ResponseCode.ERROR.value()) {
-				ret = ResponseCode.ERROR.value();
-			}
+				oldResponse.setRet(0);
+            }else {
+            	oldResponse.setRet(-1);
+            	oldResponse.setMsg("数据同步错误");
+            }
+			
+			
 		}
-		return ret;
+		return oldResponse;
 
 	}
 
