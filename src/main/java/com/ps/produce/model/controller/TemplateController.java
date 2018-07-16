@@ -33,7 +33,6 @@ public class TemplateController {
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(method=RequestMethod.GET)
 	public String user(Model model,PageBean<User> userPageBean) {
-		model.addAttribute("title", "用户管理");
 		return "/produce/Template";
 	}
 	@RequestMapping(value = "/source")
@@ -69,7 +68,6 @@ public class TemplateController {
 	@ResponseBody
 	public List<Map<String,Object>> queryType(@RequestParam(value = "iDisplayStart", defaultValue = "0") int iDisplayStart,
     @RequestParam(value = "iDisplayLength", defaultValue = "10000") int iDisplayLength, Model model,ServletRequest request){
-		System.out.println(111111);
 		List<Map<String,Object>>list=templateService.queryType();
 		return list;
 	}
