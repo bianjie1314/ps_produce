@@ -123,7 +123,7 @@
 				<c:forEach items="${order.products}" var="product" varStatus="stat">
 					<div class="row order-item">
 						<div class="col-md-4">
-							<img src="${product.image}">
+							<img src="${product.image}" style="max-width: 200px;">
 						</div>
 						<div class="col-md-8">
 							<p>
@@ -136,6 +136,7 @@
 								<img src="${ctx}/barcode/${product.ean}">
 							</p>
 						</div>
+						
 						<%-- <div class="col-md-3">
 												<p>${product.templateName}</p>
 												<p>订单量：${product.quantity}</p>
