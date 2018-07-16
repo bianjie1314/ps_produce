@@ -10,7 +10,7 @@
 
 	<!-- Maps '/' requests to the 'home' view -->
 	<!-- 默认首页 -->
-	<mvc:view-controller path="/" view-name="redirect:/home"/>
+	<mvc:view-controller path="/" view-name="redirect:/order/list"/>
 	<mvc:default-servlet-handler/>
 	
 

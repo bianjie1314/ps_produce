@@ -2,8 +2,6 @@
 <%@ page isELIgnored="false"%> 
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <%-- <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>   --%>
-
-
 	<div class="navbar-default sidebar" role="navigation">
 	
 		<div class="sidebar-nav navbar-collapse">
@@ -12,7 +10,7 @@
 				<c:set var="menuList" value="${fns:getMenuList()}"/>
 				<c:forEach items="${menuList}" var="menu" varStatus="idxStatus">
 					<c:if test="${menu.parent.id eq '1'&&menu.isShow eq '1'}">
-						<li>
+						<li <c:if test="${firstMenu}">class="active"</c:if>>
 							<a href="#" name="oneLevel"><i class="icon-${not empty menu.icon ? menu.icon : 'circle-arrow-right'}"></i>&nbsp;${menu.name}</a>
 							<ul class="nav nav-second-level">
 								<c:forEach items="${menuList}" var="menu2">
