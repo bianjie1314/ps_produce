@@ -9,7 +9,7 @@ import com.ps.produce.support.Response;
 import com.ps.produce.support.SignatureUtils;
 
 public class StateUtils {
-	public static  Response changState(String orderNo,String states,String tracking_number,String carriers) {
+	public static  Response changState(String orderNo,String states,String tracking_number,String carriers,String urlHead) {
     	Gson gson=new Gson();
     	OrderParam o=new OrderParam();
     	o.setCarriers(carriers);
@@ -17,12 +17,12 @@ public class StateUtils {
     	o.setState(states);
     	o.setTracking_number(tracking_number);
     	String data =gson.toJson(o);
-    	String url="http://10.101.10.112:8080/ps/ps/orders/sync";
+    	String url=urlHead+"/orders/sync";
     	url = SignatureUtils.signatureUrl(url, data, "dce7b60efaee20cc");
     	String response=HttpClientUtil.doPostJson(url,data);
         return  gson.fromJson(response,Response.class);
     }
 	public static void main(String[] args) {
-		changState("1807141447011421","1","111","1111");
+		
 	}
 }

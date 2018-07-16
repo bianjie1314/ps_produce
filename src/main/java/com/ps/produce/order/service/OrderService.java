@@ -86,7 +86,7 @@ public class OrderService {
 	public int addShipInfo(Order order) {
 		Order order1 = orderDao.findOne(order.getId());
 		Response response = StateUtils.changState(order1.getOrderNo(), "3", order1.getExpressNo(),
-				order1.getExpressName());
+				order1.getExpressName(),order1.getCallbackUrl());
 		if (response.getRet() == ResponseCode.SUCCESS.value()) {
 			orderDao.addShipInfo(order);
 		}
@@ -112,7 +112,7 @@ public class OrderService {
 		int ret = ResponseCode.SUCCESS.value();
 		for (int i = 0; i < orderNo.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderNo[i]));
-			Response response = StateUtils.changState(order.getOrderNo(), "4", "", "");
+			Response response = StateUtils.changState(order.getOrderNo(), "4", "", "",order.getCallbackUrl());
 			if (response.getRet() == ResponseCode.SUCCESS.value()) {
 				orderDao.changOrderStatus(OrderStatus.cancel.getValue(), orderNo[i]);
 
@@ -129,7 +129,7 @@ public class OrderService {
 		int ret = ResponseCode.SUCCESS.value();
 		for (int i = 0; i < orderNo.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderNo[i]));
-			Response response = StateUtils.changState(order.getOrderNo(), "2", "", "");
+			Response response = StateUtils.changState(order.getOrderNo(), "2", "", "",order.getCallbackUrl());
 			if (response.getRet() == ResponseCode.SUCCESS.value()) {
 				orderDao.changOrderStatus(OrderStatus.confirm.getValue(), orderNo[i]);
 			}
@@ -145,7 +145,7 @@ public class OrderService {
 		int ret = ResponseCode.SUCCESS.value();
 		for (int i = 0; i < orderId.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderId[i]));
-			Response response = StateUtils.changState(order.getOrderNo(), "3", "", "");
+			Response response = StateUtils.changState(order.getOrderNo(), "3", "", "",order.getCallbackUrl());
 			if (response.getRet() == ResponseCode.SUCCESS.value()) {
 				orderDao.changOrderStatus(OrderStatus.shipping.getValue(), orderId[i]);
 
