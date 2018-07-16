@@ -104,7 +104,7 @@
             	"title" : "产品名称",
                 "mData" : 'productName'
             }, {
-            	"title" : "模具效果图",
+            	"title" : "模板效果图",
                 "mData" : function(data,type,row){
                 	imgs=data.tempImgs.split(';');
                 	var content="";
@@ -127,14 +127,14 @@
        toolbar.append('<li><a href="#" id="del">删除</a></li>');
        toolbar.append('<li><a href="#" id="edit">修改</a></li>');
     
-       $("div.toolbar-btn").append('<button  class=" btn btn-primary " id="add">创建模具</button> ');
+       $("div.toolbar-btn").append('<button  class=" btn btn-primary " id="add">创建模板</button> ');
        $("div.toolbar-btn").append(toolbar);
        $.bindEvent(table);//绑定各种事件
        
        $('#add').click(function() {
     	   var $btn = $(this).button('loading');
            var $f = $('<div role="form"></div>');
-           $f.append('<p>申请更多模具请与我们的客服联系</p>');
+           $f.append('<p>申请更多模板请与我们的客服联系</p>');
         
     	   $f.dialog({
                title : "修改字典",

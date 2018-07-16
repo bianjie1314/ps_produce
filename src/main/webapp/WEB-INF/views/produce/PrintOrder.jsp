@@ -14,8 +14,8 @@
 <script src="${ctx}/resources/bootstrap-datetimepicker/moment.js" ></script>
 <script src="${ctx}/resources/bootstrap-datetimepicker/daterangepicker.js" ></script>
 
-<script src="${ctx}/resources/js/produce/order.js"></script>
-<script src="${ctx}/resources/js/produce/printOrder.js"></script>
+<script src="${ctx}/resources/js/produce/order.js?<%=(int)(Math.random() *1000000)%>"></script>
+<script src="${ctx}/resources/js/produce/printOrder.js?<%=(int)(Math.random() *1000000)%>"></script>
 
 </head>
 <body>

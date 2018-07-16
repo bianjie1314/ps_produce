@@ -98,9 +98,10 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-
+								
 									<c:forEach items="${orderLogs}" var="log" varStatus="stat">
+									<tr>
+									
 										<td> <fmt:formatDate value="${log.createDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>
 
 										</td>
@@ -108,8 +109,9 @@
 										<td>成功</td>
 										<td>${log.optUsername}</td>
 										<td>${log.remarks}</td>
+											</tr>
 									</c:forEach>
-								</tr>
+							
 							</tbody>
 						</table>
 						</p>

@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-<script src="${ctx}/resources/js/produce/template.js"></script>
+<script src="${ctx}/resources/js/produce/template.js?<%=(int)(Math.random() *1000000)%>"></script>
 <%-- <link rel="stylesheet" href="${ctx}/resources/bootstrap-datetimepicker/daterangepicker-bs3.css">
 
 <script src="${ctx}/resources/bootstrap-datetimepicker/moment.js" ></script>
