@@ -42,7 +42,7 @@
 			<button style="margin-top: 10px ;" type="button" id="deliveryOrder" class="btn btn-primary">发货完成</button>
 			</div>			
 			<br>		
-			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
+			<form action="" id="searchForm" method="post"  accept-charset="UTF-8">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
 					<div class="input-group">

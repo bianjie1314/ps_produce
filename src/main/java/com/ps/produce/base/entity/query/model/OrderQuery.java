@@ -18,7 +18,7 @@ public class OrderQuery implements Serializable{
 	private String keyword;
 	private String time;
 	private  String orderUsername;
-	private Integer statu;
+	private String status;
 	private String start;
 	private String end;
 	
@@ -58,12 +58,12 @@ public class OrderQuery implements Serializable{
 	public void setOrderUsername(String orderUsername) {
 		this.orderUsername = orderUsername;
 	}
-	public Integer getStatu() {
-		return statu;
+	public String getStatus() {
+		return status;
 	}
-	public void setStatu(Integer statu) {
-		this.statu = statu;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	
+
 	
 }

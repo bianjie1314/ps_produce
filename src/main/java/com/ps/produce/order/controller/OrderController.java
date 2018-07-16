@@ -45,12 +45,11 @@ public class OrderController {
     	if(StringUtils.isNoneEmpty(query.getTime())) {
     		String[] times = query.getTime().split("~");
     		start=times[0];
-    		end=times[1];
+    		end=times[1]+" 23:59:59";
     	}
     	query.setStart(start);
     	query.setEnd(end);
-    	if(!StringUtils.isEmpty(status)) 
-    	query.setStatu(Integer.parseInt(status));
+    	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
@@ -76,11 +75,11 @@ public class OrderController {
     		String[] times = query.getTime().split("~");
     		start=times[0];
     		end=times[1];
+    		end=times[1]+" 23:59:59";
     	}
     	query.setStart(start);
     	query.setEnd(end);
-    	if(!StringUtils.isEmpty(status)) 
-    	query.setStatu(Integer.parseInt(status));
+    	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
@@ -98,12 +97,13 @@ public class OrderController {
     		String[] times = query.getTime().split("~");
     		start=times[0];
     		end=times[1];
+    		end=times[1]+" 23:59:59";
+
     	}
     	query.setId(userId);
     	query.setStart(start);
     	query.setEnd(end);
-    	if(!StringUtils.isEmpty(status)) 
-    	query.setStatu(Integer.parseInt(status));
+    	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
@@ -146,11 +146,12 @@ public class OrderController {
     		String[] times = query.getTime().split("~");
     		start=times[0];
     		end=times[1];
+    		end=times[1]+" 23:59:59";
+
     	}
     	query.setStart(start);
     	query.setEnd(end);
-    	if(!StringUtils.isEmpty(status)) 
-    	query.setStatu(Integer.parseInt(status));
+    	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
@@ -219,7 +220,6 @@ public class OrderController {
         orderLog.setRemarks("添加等待制作订单");
         orderLog.setFlag(0);
         orderService.addLog(orderLog);
-        System.out.println("result");
     	return result+"";
     }
     @ResponseBody

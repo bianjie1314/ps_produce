@@ -31,16 +31,16 @@
 			<c:if test="${not empty error}">
 				<div id="message" class="alert alert-danger">
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
-			</c:if>
-		
+			</c:if>		
 			<ul class="nav nav-tabs" id="myTab">
 				<li role="presentation" <c:if test="${empty status}"> class="active" </c:if>> <a href="?"> 所有订单 </a></li>
-				<li role="presentation"<c:if test="${status==0}"> class="active" </c:if>> <a href="?status=0">待处理订单</a></li>
-				<li role="presentation"<c:if test="${status==4}"> class="active" </c:if>> <a href="?status=4">备货中订单</a></li>
-				<li role="presentation"<c:if test="${status==5}"> class="active" </c:if>> <a href="?status=5">已发货订单</a></li>
-				<li role="presentation"<c:if test="${status==-1}"> class="active" </c:if>> <a href="?status=-1">已取消订单</a></li>
-			</ul>
-			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
+				<li role="presentation"<c:if test="${status=='0'}"> class="active" </c:if>> <a href="?status=0">待打印订单</a></li>
+				<li role="presentation"<c:if test="${status=='1,2' }"> class="active" </c:if>>  <a href="?status=1,2">待制作订单</a></li>				
+				<li role="presentation"<c:if test="${status=='3,4'}"> class="active" </c:if>>  <a href="?status=3,4">待发货订单</a></li>
+				<li role="presentation"<c:if test="${status=='5'}"> class="active" </c:if>> <a href="?status=5">已发货订单</a></li>
+				<li role="presentation"<c:if test="${status=='-1'}"> class="active" </c:if>> <a href="?status=-1">已取消订单</a></li>
+			</ul>			
+			<form action="" id="searchForm" method="post"  accept-charset="UTF-8">
 			<input name="statu" value="${status}" style="visibility:hidden">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				

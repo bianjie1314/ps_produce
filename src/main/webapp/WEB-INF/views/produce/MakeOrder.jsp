@@ -43,7 +43,7 @@
 			</div>
 			
 			<br>		
-			<form action="" id="searchForm" method="post" onsubmit="onSubmit()" accept-charset="UTF-8">
+			<form action="" id="searchForm" method="post" accept-charset="UTF-8">
 			<input name="statu" value="${status}" style="visibility:hidden">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
