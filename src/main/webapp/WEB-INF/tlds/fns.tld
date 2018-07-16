@@ -44,6 +44,13 @@
     <example>${fns:getOrderStatus(value)}</example>  
   </function>
   <function>
+    <description>添加物流信息</description>
+    <name>addShippping</name>
+    <function-class>com.ps.produce.support.utils.OrderStatusUtils</function-class>
+    <function-signature>java.lang.String addShippping(int)</function-signature>
+    <example>${fns:addShippping(value)}</example>  
+  </function>
+  <function>
     <description>获取订单状态</description>
     <name>checkStatus</name>
     <function-class>com.ps.produce.support.utils.OrderStatusUtils</function-class>

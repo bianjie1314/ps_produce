@@ -48,7 +48,7 @@ public class OrderController {
     		end=times[1];
     	}
     	query.setStart(start);
-    	query.setEnd(end);
+    	query.setEnd(end+" 23:59:59");
     	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
@@ -77,7 +77,7 @@ public class OrderController {
     		end=times[1];
     	}
     	query.setStart(start);
-    	query.setEnd(end);
+    	query.setEnd(end+" 23:59:59");
     	if(!StringUtils.isEmpty(status)) 
     	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
@@ -100,7 +100,7 @@ public class OrderController {
     	}
     	query.setId(userId);
     	query.setStart(start);
-    	query.setEnd(end);
+    	query.setEnd(end+" 23:59:59");
     	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
@@ -146,7 +146,7 @@ public class OrderController {
     		end=times[1];
     	}
     	query.setStart(start);
-    	query.setEnd(end);
+    	query.setEnd(end+" 23:59:59");
     	if(!StringUtils.isEmpty(status)) 
     	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);

@@ -22,28 +22,49 @@
         	var $btn1= $(this).button('loading');
         	var orderId= $(this).closest('tr').eq(0).attr('order-id');
         	var div= $(this).parents(".parent").find(".status1");
+        	var $f = $('<div role="form">确认取消订单？</div>');
+        	$f.dialog({
+	    		   title : "添加订单",
+	    		  
+	            onClose : function() {
+	            	$btn.button('reset');
+	                $(this).dialog("destroy");
+	                
+	            }, buttons : {
+	                "取消订单" : function(){
+	                	if(!$.validate($f))
+	               		return false;
+	                	$.ajax({
+	                        url : ctx + "/order/cancalOrder",
+	                        type : "POST",
+	                         data:"orderId="+orderId,
+	                        success : function(result) {
+	                        	if(result==0){
+	                        	$f.dialog("destroy");	
+	                        	btn.remove();
+	                        	div.text("已取消");
+	                        	}
+	                        	else{
+	                        		$btn1.button('reset');
+	                        		$.messager.popup("订单同步失败!");
+	                        	}
+	                        },
+	                        error:function(){
+	                        	$btn1.button('reset');
+	                        }
+	                        
+	                    });}, 
+	                "取消" : function() {
+	                	 $(this).dialog("destroy");
+	                	 $btn.button('reset');
+	                }
+	            }
+	            
+	        });
+	 });
         	
-        	$.ajax({
-                    url : ctx + "/order/cancalOrder",
-                    type : "POST",
-                     data:"orderId="+orderId,
-                    success : function(result) {
-                    	if(result==0){
-                    	btn.remove();
-                    	div.text("已取消");
-                    	}
-                    	else{
-                    		$btn1.button('reset');
-                    		$.messager.popup("订单同步失败!");
-                    	}
-                    },
-                    error:function(){
-                    	$btn1.button('reset');
-                    }
-                    
-                });
         	
-        });
+        
 
     }
     
