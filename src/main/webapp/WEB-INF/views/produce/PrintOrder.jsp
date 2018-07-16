@@ -85,6 +85,7 @@
 								<div class="col-md-3">下单商户：${order.orderUsername}</div>
 								<div class="col-md-3">下单时间：${order.orderCreateTime}</div>
 								<div class="col-md-4">
+								 ${fns:checkStatus(order.status)}
 								</div>
 							</div>
 							<div class="row">
