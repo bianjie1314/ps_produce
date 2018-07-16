@@ -85,7 +85,7 @@ public class OrderService {
 
 	public int addShipInfo(Order order) {
 		Order oldOrder = orderDao.findOne(order.getId());
-		Response response = StateUtils.changState(order.getOrderNo(), "3", order.getExpressNo(),
+		Response response = StateUtils.changState(oldOrder.getOrderNo(), "3", order.getExpressNo(),
 				order.getExpressName(),oldOrder.getCallbackUrl());
 		if (response.getRet() == ResponseCode.SUCCESS.value()) {
 			orderDao.addShipInfo(order);
