@@ -183,6 +183,31 @@ public class PageBean<E> extends BaseEntity implements Serializable{
 			totalCount=0;
 		totalPage = (totalCount + pageSize - 1) / pageSize;
 		
+		totalPage = (totalCount + pageSize - 1) / pageSize;
+		if (totalPage <= 20) {// 总页数不多于20页，则全部显示
+			beginPageIndex = 1;
+			endPageIndex = totalPage;
+		} else {
+			// 当前页附近的共20个页码（前9个 + 当前页 + 后10个）
+			beginPageIndex = pageNo - 9;
+			endPageIndex = pageNo + 10;
+			// 当前面的页码不足9个时，则显示前20个页码
+			if (beginPageIndex < 1) {
+				beginPageIndex = 1;
+				endPageIndex = 20;
+			}
+			// 当后面的页码不足10个时，则显示后20个页码
+			if (endPageIndex > totalPage) {
+				endPageIndex = totalPage;
+				beginPageIndex = totalPage - 20 + 1;
+			}
+		}
+		
+		if(pageNo <= 0){
+			pageNo = 1;
+		}else if(pageNo >= totalPage && totalPage!=0){
+			pageNo = totalPage;
+		}
 		this.totalCount = totalCount;
 	}
 }

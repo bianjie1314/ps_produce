@@ -49,8 +49,7 @@ public class OrderController {
     	}
     	query.setStart(start);
     	query.setEnd(end);
-    	if(!StringUtils.isEmpty(status)) 
-    	query.setStatu(Integer.parseInt(status));
+    	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
@@ -80,7 +79,7 @@ public class OrderController {
     	query.setStart(start);
     	query.setEnd(end);
     	if(!StringUtils.isEmpty(status)) 
-    	query.setStatu(Integer.parseInt(status));
+    	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
@@ -102,8 +101,7 @@ public class OrderController {
     	query.setId(userId);
     	query.setStart(start);
     	query.setEnd(end);
-    	if(!StringUtils.isEmpty(status)) 
-    	query.setStatu(Integer.parseInt(status));
+    	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);
@@ -150,7 +148,7 @@ public class OrderController {
     	query.setStart(start);
     	query.setEnd(end);
     	if(!StringUtils.isEmpty(status)) 
-    	query.setStatu(Integer.parseInt(status));
+    	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
     	model.addAttribute("pageBean", pageBean);
     	model.addAttribute("query", query);

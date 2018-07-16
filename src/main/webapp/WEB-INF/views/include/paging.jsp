@@ -8,10 +8,10 @@
 				<c:forEach begin="${pageBean.beginPageIndex}" end="${pageBean.endPageIndex}" var="pageNo">
 					<c:choose>
 						<c:when test="${pageNo == pageBean.pageNo}">
-							<li class="active"><a href="#" onclick="gotoPage(${pageNo})">${pageNo+1}</a></li>
+							<li class="active"><a href="#" onclick="gotoPage(${pageNo})">${pageNo}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="#" onclick="gotoPage(${pageNo})">${pageNo+1}</a></li>
+							<li><a href="#" onclick="gotoPage(${pageNo})">${pageNo}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -49,6 +49,7 @@
 		}
 		var pageSize = $("select[name='pageSize']").val();
 		$("#searchForm").append("<input type='hidden' name='pageSize' value='" + pageSize +"'>");
-		$("#searchForm").append("<input type='hidden' name='pageNo' value='" + pageNo +"'>").submit();
+		$("#searchForm").append("<input type='hidden' name='pageNo' value='" + pageNo +"'>");
+		$("#searchForm").submit();
 	}
 </script>

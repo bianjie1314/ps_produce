@@ -36,22 +36,25 @@
    
     <sql id="where_clause">
     	<if test="query.keyword != null and query.keyword != ''">
-			and (p.name like CONCAT('%',#{query.keyword},'%') or o.order_no like CONCAT('%',#{query.keyword},'%') )
+			and (p.sku like CONCAT('%',#{query.keyword},'%') or p.template_name like CONCAT('%',#{query.keyword},'%') or p.name like CONCAT('%',#{query.keyword},'%') or o.order_no like CONCAT('%',#{query.keyword},'%') )
 		</if>
-		<if test="query.statu !=null">
-		    and status=#{query.statu}
+		<if test="query.status !=null">
+		    and status in (${query.status})
 		</if>
+		
 		<if  test="query.start!=null and query.end!=null">
 		     and order_create_time &gt; #{query.start} and order_create_time &lt; #{query.end} 
 		</if>
 		<if test="query.orderUsername !=null and query.orderUsername!=''">
 		    and order_username=#{query.orderUsername}
 		</if>
-		<if test="query.id !=null and query.id !='' and query.statu=='3'">
+		<if test="query.id !=null and query.id !='' and query.status=='3'">
 		   and opt_user_id=#{query.id}
 		</if>
 		
     </sql>
+    
+    
 	<select id="queryOrderUser" resultType="string" >
 	    select distinct order_username from produce_order where 1=1
 	</select>
@@ -67,9 +70,11 @@
 			)
 	</insert>
 	<select id="findList" resultMap="orderResult">
+		
+	
 		SELECT 
 		
-			o.*,
+			a.*,
 			p.id as  'product.id' ,
 			p.order_id as  'product.orderId' ,
 			p.name as 'product.name',
@@ -79,25 +84,26 @@
 			p.ean as  'product.ean' ,
 			p.template_name as  'product.templateName' ,
 			p.image as  'product.image', 
-		    p.sku	 as  'product.sku' 			
-		FROM (select * from produce_order 	limit #{pageBean.beginIndex},#{pageBean.pageSize} ) o left join produce_product p on o.id=p.order_id
+		    p.sku	 as  'product.sku' 
+		 from (
+		SELECT    DISTINCT o.*			
+		FROM   produce_order  o left join produce_product p on o.id=p.order_id
 		<where>
 			<include refid="where_clause" />
-		</where>
-	
+		</where>  order by order_create_time desc limit #{pageBean.beginIndex},#{pageBean.pageSize}  
+		) a left join produce_product p on a.id=p.order_id
+		
 	</select>
 	
-	<select id="count" resultType="int">
+	<select id="count" resultType="Integer">
 		SELECT 
 			count(DISTINCT o.id)
 		
 			
-		FROM produce_order o 
+		FROM produce_order o  left join produce_product p on o.id=p.order_id
 		<where>
 			<include refid="where_clause" />
 		</where>
-		limit #{pageBean.beginIndex},#{pageBean.pageSize}
-		 <!-- LIMIT #{beginIndex},#{pageSize} -->
 	</select>
 	
 	<select id="findOne" resultMap="orderResult">
