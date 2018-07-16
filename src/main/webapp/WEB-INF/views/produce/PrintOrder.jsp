@@ -63,7 +63,9 @@
 						 <select type="text" name="orderUsername" id="category" class="form-control" placeholder="下单商户" >
 						  </select>
 					</div>
+				
 				</div>
+				<input type="hidden" id="status" name="status" value="${status} ">
 				<div class="form-group col-md-3">
 					<button class=" btn btn-primary " id="search">搜索</button>
 				</div>
@@ -83,7 +85,6 @@
 								<div class="col-md-3">下单商户：${order.orderUsername}</div>
 								<div class="col-md-3">下单时间：${order.orderCreateTime}</div>
 								<div class="col-md-4">
-									<button class=" btn btn-primary " id="cancle">取消订单</button>
 								</div>
 							</div>
 							<div class="row">

@@ -65,6 +65,7 @@
 						  </select>
 					</div>
 				</div>
+				<input type="hidden" id="status" name="status" value="${status} ">
 				<div class="form-group col-md-3">
 					<button class=" btn btn-primary " id="search">搜索</button>
 				</div>
