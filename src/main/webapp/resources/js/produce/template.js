@@ -106,10 +106,12 @@
             }, {
             	"title" : "模板效果图",
                 "mData" : function(data,type,row){
-                	imgs=data.tempImgs.split(';');
+                	imgs=data.tempImgs.split(',');
                 	var content="";
                 	for(var i=0;i<imgs.length;i++){
+                		if(imgs[i]){
                 		content+='<a href="' + imgs[i]+'" target="blank" data-gallery=""><img style="height: 50px;width: 50px; " alt=""  src="' + imgs[i]+ '"></a><span>&nbsp</span>';
+                		}
                 	}
                 	return content;
                 }

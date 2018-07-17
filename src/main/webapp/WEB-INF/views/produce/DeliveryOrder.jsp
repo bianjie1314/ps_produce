@@ -34,12 +34,14 @@
 			</c:if>
 			<ul class="nav nav-tabs">
 				<li role="presentation"<c:if test="${status==4}"> class="active" </c:if>> <a href="?status=4">待发货订单</a></li>
-				<c:if test="${status==4}"><li role="presentation"<c:if test="${status==5}"> class="active" </c:if>> <a href="?status=5">已发货订单</a></li></c:if>
+				<li role="presentation"<c:if test="${status==5}"> class="active" </c:if>> <a href="?status=5">已发货订单</a></li>
 				
 			</ul>
 			<div class=" col-md-3">	
+			<c:if test="${status==4}">
 			<button  style="margin-top: 10px;" id="addWaitDeliveryOrder" class="btn btn-primary">扫码添加订单</button>
 			<button style="margin-top: 10px ;" type="button" id="deliveryOrder" class="btn btn-primary">发货完成</button>
+			</c:if>
 			</div>			
 			<br>		
 			<form action="" id="searchForm" method="post"  accept-charset="UTF-8">
@@ -76,7 +78,7 @@
 			<c:if test="${pageBean.totalCount!=0}">
 				<c:forEach items="${pageBean.content}" var="order">
 				<tr  order-id="${order.id}">
-					<td style="width: 10px;padding-top: 15px;"><input class="isDelivery" type="checkbox" ></td>
+					<c:if test="${status==4}"><td style="width: 10px;padding-top: 15px;"><input class="isDelivery" type="checkbox" ></td></c:if>
 					<td class="parent">
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
