@@ -120,6 +120,7 @@
 									</c:forEach>
 								</div>
 								<div class="col-md-4 orderStatus">订单状态  ${fns:getOrderStatus(order.status)}</div>
+								<c:if test="${status==5}"><div class="col-md-4"><fmt:formatDate value="${order.shipDate}" type="date" pattern="yyyy-MM-dd HH:mm:ss"/></div></c:if>
 							</div>
 						</td>
 					</tr>

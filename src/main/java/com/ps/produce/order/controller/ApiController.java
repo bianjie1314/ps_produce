@@ -2,6 +2,9 @@ package com.ps.produce.order.controller;
 
 import java.io.IOException;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
@@ -98,9 +101,7 @@ public class ApiController {
 	}
 
 	public static void main(String [] arg) {
-		Gson gson =new Gson();
-		String body ="{\"orderNo\":\"18071712112850\",\"orderUsername\":\"商户1\",\"orderCreateTime\":\"2018-07-17 12:11:29\",\"expressTel\":\"我热污染\",\"expressAddress\":\"马来西亚 福建 丫耶丫耶\",\"callbackUrl\":\"http://10.101.10.112:8080/ps\",\"expressUsername\":\"222222\",\"expressFixedPhone\":\"34图34\",\"epressZipCode\":\"43她43他\",\"products\":[{\"templateName\":\"厂商1泳衣\",\"name\":\"厂商1泳衣  beach\",\"color\":\"\",\"size\":\"\",\"quantity\":1,\"ean\":\"213154\",\"image\":\"http://s3.cn-north-1.amazonaws.com.cn/photo-center-prov/output/1d0b38c405756f424ab3cf1c6f1c654a/946ee6a84911bb008bb14f8236648d04_res.jpg\",\"sku\":\"LNL-kUdPATqw3\",\"materials\":\"http://s3.cn-north-1.amazonaws.com.cn/photo-center-prov/images/91rr3AHARTasVhdqqVyNm4TGH9ub5wHb8VhZiE45/ODhhMDczZjVkMGYyMTI1ZWY1OGJlNDBiOGY4MTkxZjI.png,http://s3.cn-north-1.amazonaws.com.cn/photo-center-prov/images/91rr3AHARTasVhdqqVyNm4TGH9ub5wHb8VhZiE45/MTdjOWY4MDEyZjc1YjU5ZTBlMTQyYzUzMmY1OWM5Njg.png\"},{\"templateName\":\"厂商1泳衣\",\"name\":\"厂商1泳衣 rthy beach\",\"color\":\"\",\"size\":\"\",\"quantity\":1,\"ean\":\"\",\"image\":\"http://s3.cn-north-1.amazonaws.com.cn/photo-center-prov/output/8fc647b4f88f275443cc59e18aba79db/946ee6a84911bb008bb14f8236648d04_res.jpg\",\"sku\":\"LNL-6SA4oBrG7H45345346365435\",\"materials\":\"http://s3.cn-north-1.amazonaws.com.cn/photo-center-prov/images/91rr3AHARTasVhdqqVyNm4TGH9ub5wHb8VhZiE45/ODhhMDczZjVkMGYyMTI1ZWY1OGJlNDBiOGY4MTkxZjI.png,http://s3.cn-north-1.amazonaws.com.cn/photo-center-prov/images/91rr3AHARTasVhdqqVyNm4TGH9ub5wHb8VhZiE45/ODhhMDczZjVkMGYyMTI1ZWY1OGJlNDBiOGY4MTkxZjI.png,http://s3.cn-north-1.amazonaws.com.cn/photo-center-prov/images/91rr3AHARTasVhdqqVyNm4TGH9ub5wHb8VhZiE45/YTM5YTY5YTI5ZGZkYWIwYjc5NzQ2NmUxMmI4YjlhMTA.png,http://s3.cn-north-1.amazonaws.com.cn/photo-center-prov/images/91rr3AHARTasVhdqqVyNm4TGH9ub5wHb8VhZiE45/YjBjZjI0Yzc4ZDA2OWY0MWIzYjI1MTQ1ODg2ZTdhYTc.png,http://s3.cn-north-1.amazonaws.com.cn/photo-center-prov/images/91rr3AHARTasVhdqqVyNm4TGH9ub5wHb8VhZiE45/YjBjZjI0Yzc4ZDA2OWY0MWIzYjI1MTQ1ODg2ZTdhYTc.png\"}]}";
-		Order order = gson.fromJson(body, Order.class);
-		System.out.println(order);
+		
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));  
 	}
 }

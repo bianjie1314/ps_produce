@@ -1,5 +1,6 @@
 package com.ps.produce.order.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +74,7 @@ public class OrderService {
 		if (orderDao.findOneByOrderNo(orderNo) == 0) {
 			return -1;
 		}
-		return orderDao.addWaitMakeOrder(orderNo);
+		return orderDao.addWaitMakeOrder(orderNo,new Date());
 	}
 
 	public int addWaitShippingOrder(String orderNo) {
@@ -95,7 +96,7 @@ public class OrderService {
 
 	public void addMakeOrder(int value, String[] orderNo, String userName, long userId) {
 		for (int i = 0; i < orderNo.length; i++) {
-			orderDao.addMakeOrder(value, orderNo[i], userName, userId);
+			orderDao.addMakeOrder(value, orderNo[i], userName, userId,new Date());
 		}
 	}
 
@@ -130,7 +131,7 @@ public class OrderService {
 		for (int i = 0; i < orderNo.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderNo[i]));
 			Response response = StateUtils.changState(order.getOrderNo(), "2", "", "",order.getCallbackUrl());
-			orderDao.addPrintOrder(OrderStatus.confirm.getValue(), orderNo[i],new  Date());
+			orderDao.addPrintOrder(OrderStatus.confirm.getValue(), orderNo[i],new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 			}
 		return 0;
 	}
@@ -141,7 +142,7 @@ public class OrderService {
 			Order order = orderDao.findOne(Long.parseLong(orderId[i]));
 			Response response = StateUtils.changState(order.getOrderNo(), "3", "", "",order.getCallbackUrl());
 			if (response.getRet() == ResponseCode.SUCCESS.value()) {
-				orderDao.changOrderStatus(OrderStatus.shipping.getValue(), orderId[i]);
+				orderDao.addShippingOrder(OrderStatus.shipping.getValue(), orderId[i],new Date());
 				oldResponse.setRet(0);
             }else {
             	oldResponse.setRet(-1);

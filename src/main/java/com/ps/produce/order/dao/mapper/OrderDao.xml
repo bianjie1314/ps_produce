@@ -13,7 +13,8 @@
 		<result property="expressTel" column="express_tel"/>
 		<result property="expressFixedPhone" column="express_fixed_phone"/>
 		<result property="expressZipCode" column="express_zip_code"/> 
-		
+		<result property="shipDate" column="ship_date"/>
+		<result property="makeDate" column="make_date"/>
 		<result property="expressAddress" column="express_address"/>
 		<result property="status" column="status"/>
 		<result property="optUseranme" column="opt_useranme"/>
@@ -128,7 +129,7 @@
 	</select>
 	
 	<update id="addMakeOrder">
-	   update produce_order set opt_username=#{userName},opt_user_id=#{userId},status=#{status} where id=#{orderNo}
+	   update produce_order set opt_username=#{userName},opt_user_id=#{userId},status=#{status},make_date=#{date} where id=#{orderNo}
 	</update>
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO produce_order(
@@ -202,7 +203,7 @@
 		WHERE id = #{id}
 	</update>
 	<update id="addWaitMakeOrder">
-	update  produce_order set status=2 where order_no=#{orderNo} and status=1
+	update  produce_order set status=2,make_date=#{date} where order_no=#{orderNo} and status=1
 	</update>
 	<select id="findOneByOrderNo" resultType="int" >
 	 select count(1) from produce_order where order_no=#{orderNo}
@@ -241,5 +242,8 @@
 	</select>
 	<update id="addPrintOrder" >
 	   update produce_order set status=#{status},last_print_date=#{date},print_count=print_count+1 where id=#{orderId}
+	</update>
+	<update id="addShippingOrder">
+	update produce_order set status=#{status},ship_date=#{date} where id=#{orderId}
 	</update>
 </mapper>

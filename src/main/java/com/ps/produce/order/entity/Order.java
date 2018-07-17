@@ -35,9 +35,23 @@ public class Order  {
 	private Date createDate;
 	private String remarks;
 	private int printCount;
+	private Date shipDate;
+	private Date makeDate;
 	private String lastPrintDate;
 	public Long getId() {
 		return id;
+	}
+	public Date getShipDate() {
+		return shipDate;
+	}
+	public void setShipDate(Date shipDate) {
+		this.shipDate = shipDate;
+	}
+	public Date getMakeDate() {
+		return makeDate;
+	}
+	public void setMakeDate(Date makeDate) {
+		this.makeDate = makeDate;
 	}
 	public void setId(Long id) {
 		this.id = id;

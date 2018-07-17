@@ -123,6 +123,7 @@
 									</c:forEach>
 								</div>
 								<div class="col-md-4">订单状态  ${fns:getOrderStatus(order.status)}</div>
+								<c:if test="${status==3}"><div class="col-md-4" > <fmt:formatDate value="${order.makeDate}" type="date" pattern="yyyy-MM-dd HH:mm:ss"/></div></c:if> 
 							</div>
 						</td>
 					</tr>

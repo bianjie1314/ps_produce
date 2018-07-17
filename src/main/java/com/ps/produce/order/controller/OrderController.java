@@ -222,14 +222,14 @@ public class OrderController {
         	String msg="";
         	int status=orderService.findStatusByOrderId(orderId);
         	if(status==OrderStatus.cancel.getValue()) {
-        		msg="该订单已取消!";
+        		msg="该订单已取消";
         	}else if(status==OrderStatus.waitConfirm.getValue()) {
-        		msg="该订单未打印!";
+        		msg="该订单未打印";
         	} if(status==OrderStatus.waitMake.getValue()) {
-        		msg="该订单已添加!";
+        		msg="该订单已添加";
         	}
         	if(status>=OrderStatus.make.getValue()) {
-        		msg="该订单已制作!";
+        		msg="该订单已制作";
         	}
         	response.setRet(1);
         	response.setMsg(msg);
@@ -265,7 +265,7 @@ public class OrderController {
     	Long orderId=orderService.findOrderIdbyOrderNo(orderNo);
     	if(orderId==null) {
     		response.setRet(-1);
-    		response.setMsg("订单不存在");
+    		response.setMsg("暂无该订单发，请于订单管理员联系");
     		return response;
     	}
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
@@ -287,7 +287,7 @@ public class OrderController {
         	}else if(status==OrderStatus.waitConfirm.getValue()) {
         		msg="该订单未打印";
         	}else if(status==OrderStatus.confirm.getValue()) {
-        		msg="该订单未制作完成!";
+        		msg="该订单未制作完成";
         	}else if(status==OrderStatus.waitMake.getValue()) {
         		msg="该订单未制作完成";
         	}else if(status==OrderStatus.waitShipping.getValue()) {

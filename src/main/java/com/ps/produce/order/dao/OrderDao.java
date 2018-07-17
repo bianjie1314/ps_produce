@@ -24,10 +24,7 @@ public interface OrderDao {
 	public void delete(String id);
 
 	public void update(Order Order);
-
-
-
-	public List<Order> findList(@Param("pageBean") PageBean<Order> pageBean, @Param("query") OrderQuery query);
+    public List<Order> findList(@Param("pageBean") PageBean<Order> pageBean, @Param("query") OrderQuery query);
 
 	public int count(@Param("pageBean") PageBean<Order> pageBean,@Param("query")  OrderQuery query);
 
@@ -37,7 +34,7 @@ public interface OrderDao {
 
 	public int changOrderStatus(@Param("status")int confirm, @Param("orderId")String orderId);
 
-	public int addWaitMakeOrder(@Param("orderNo")String orderNo);
+	public int addWaitMakeOrder(@Param("orderNo")String orderNo, @Param("date")Date date);
 	
 	public int findOneByOrderNo(@Param("orderNo")String orderNo);
 
@@ -45,7 +42,7 @@ public interface OrderDao {
 
 	public int addShipInfo(@Param("order")Order order);
 
-	public void addMakeOrder(@Param("status")int value ,@Param("orderNo")String orderNo, @Param("userName")String userName, @Param("userId")long userId);
+	public void addMakeOrder(@Param("status")int value ,@Param("orderNo")String orderNo, @Param("userName")String userName, @Param("userId")long userId,@Param("date")Date date);
 
 	public String queryProductImg(@Param("productId")String productId);
 
@@ -57,6 +54,7 @@ public interface OrderDao {
 	public List<OrderLog> findOrderLogByOrderId(@Param("orderId")Long orderId);
 	public List<Order> findOrderByOrderIds(@Param("orderIds") String orderIds);
 	public int findStatusByOrderId(@Param("orderId")Long orderId);
-	public void addPrintOrder(@Param("status")int value,@Param("orderId") String orderId, @Param("date")Date date);
+	public void addPrintOrder(@Param("status")int value,@Param("orderId") String orderId, @Param("date")String string);
+	public void addShippingOrder(@Param("status")int value, @Param("orderId")String string, @Param("date")Date format);
 	
 }
