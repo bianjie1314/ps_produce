@@ -81,7 +81,7 @@
 								<div class="col-md-3">下单商户：${order.orderUsername}</div>
 								<div class="col-md-3">下单时间： <fmt:formatDate value="${order.orderCreateTime }" type="date" pattern="yyyy-MM-dd HH:mm:ss"/></div>
 								<div class="col-md-4">
-								    ${fns:checkStatus(order.status)}
+								   订单状态: ${fns:checkStatus(order.status)}
 								</div>
 							</div>							
 							<div class="row product" order-id="${order.id}">

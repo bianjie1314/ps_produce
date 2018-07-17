@@ -37,7 +37,7 @@ public class Order  {
 	private int printCount;
 	private Date shipDate;
 	private Date makeDate;
-	private String lastPrintDate;
+	private Date lastPrintDate;
 	public Long getId() {
 		return id;
 	}
@@ -170,10 +170,10 @@ public class Order  {
 	public void setPrintCount(int printCount) {
 		this.printCount = printCount;
 	}
-	public String getLastPrintDate() {
+	public Date getLastPrintDate() {
 		return lastPrintDate;
 	}
-	public void setLastPrintDate(String lastPrintDate) {
+	public void setLastPrintDate(Date lastPrintDate) {
 		this.lastPrintDate = lastPrintDate;
 	}
 	

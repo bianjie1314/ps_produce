@@ -121,7 +121,7 @@
 								<div class="col-md-4">订单状态  ${fns:getOrderStatus(order.status)}</div>
 								<c:if test="${status==1}">
 								<div class="col-md-4">打印次数：${order.printCount} </div>
-								<div class="col-md-4">最后一次打印时间：${order.lastPrintDate} </div>
+								<div class="col-md-4"><fmt:formatDate value="${order.lastPrintDate}" type="date" pattern="yyyy-MM-dd HH:mm:ss"/></div>
 								</c:if>
 								
 							</div>

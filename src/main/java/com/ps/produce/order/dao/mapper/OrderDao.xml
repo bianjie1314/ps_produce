@@ -241,7 +241,7 @@
 	select status from produce_order where id=#{orderId}
 	</select>
 	<update id="addPrintOrder" >
-	   update produce_order set status=#{status},last_print_date=#{date},print_count=print_count+1 where id=#{orderId}
+	   update produce_order set status=#{status},last_print_date=#{date},print_count=IFNULL(print_count,0)+1 where id=#{orderId}
 	</update>
 	<update id="addShippingOrder">
 	update produce_order set status=#{status},ship_date=#{date} where id=#{orderId}
