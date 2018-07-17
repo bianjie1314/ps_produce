@@ -257,10 +257,8 @@ table {
 
 
 .search-bar{
-	margin: 20px 0 10px;
+	margin-top: 10px;
 }
-
-
 
 .msg-popup{
 	    z-index: 1050;
