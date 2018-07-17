@@ -108,7 +108,7 @@
    	        $f.append('<div class="form-group" style="padding: 10px 50px;"><div class="input-group"><label class="input-group-addon">物流公司</label><input type="text"    id="shipName" class="form-control"/></div></div>');
    	        $f.append('<div class="form-group" style="padding: 10px 50px;"><div class="input-group"><label class="input-group-addon">运单编号</label><input type="text"    id="shipNo" class="form-control"/></div></div>');   
    	        $f.dialog({
-   	    		   title : "添加物流信息",
+   	    		title : "添加物流信息",
    	    		  
    	            onClose : function() {
    	            	$btn.button('reset');
@@ -119,6 +119,15 @@
    	            	   		return false;
    	                    var shipName =  $f.find('[id=shipName]').val();
    	                    var shipNo=  $f.find('[id=shipNo]').val();
+   	                   
+   	                    if(shipName==""){
+   	                    	$.messager.popup("请填写物流公司");
+   	                    	return fase;
+   	                    }
+   	                    else if(shipNo==""){
+   	                    	$.messager.popup("请填写物流编号");
+   	                    	return false;
+   	                    }
    	                    var param = {
    	                    		expressName : shipName,
    	                    		expressNo : shipNo,
