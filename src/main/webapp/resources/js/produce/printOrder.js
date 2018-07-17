@@ -21,12 +21,6 @@
     		}
     		
     		var status=$("#status").val();
-    		if(status==1){
-    			print(ctx+"/printPdf?orderIds="+orderIds.join());
-    			$btn.button('reset');
-    			return false;
-    			
-    		}
     		$.ajax({
                 url : ctx + "/order/confirmOrder",
                 type : "POST",

@@ -34,8 +34,22 @@ public class Order  {
 	private Date updateDate;
 	private Date createDate;
 	private String remarks;
+	private int printCount;
+	private String lastPrintDate;
 	
 	
+	public int getPrintCount() {
+		return printCount;
+	}
+	public void setPrintCount(int printCount) {
+		this.printCount = printCount;
+	}
+	public String getLastPrintDate() {
+		return lastPrintDate;
+	}
+	public void setLastPrintDate(String lastPrintDate) {
+		this.lastPrintDate = lastPrintDate;
+	}
 	public Date getUpdateDate() {
 		return updateDate;
 	}

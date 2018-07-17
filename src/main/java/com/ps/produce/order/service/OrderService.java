@@ -130,15 +130,9 @@ public class OrderService {
 		for (int i = 0; i < orderNo.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderNo[i]));
 			Response response = StateUtils.changState(order.getOrderNo(), "2", "", "",order.getCallbackUrl());
-			if (response.getRet() == ResponseCode.SUCCESS.value()) {
-				orderDao.changOrderStatus(OrderStatus.confirm.getValue(), orderNo[i]);
+			orderDao.addPrintOrder(OrderStatus.confirm.getValue(), orderNo[i],new  Date());
 			}
-			if (response.getRet() == ResponseCode.ERROR.value()) {
-				ret = ResponseCode.ERROR.value();
-			}
-
-		}
-		return ret;
+		return 0;
 	}
 
 	public Response addShipOrder(String[] orderId) {
