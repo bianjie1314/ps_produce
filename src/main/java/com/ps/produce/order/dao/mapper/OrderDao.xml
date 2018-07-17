@@ -228,4 +228,7 @@
 	<select id="findOrderIdbyOrderNo" resultType="Long">
 	 select id from produce_order where order_no=#{orderNo}
 	</select>
+	<select id="findStatusByOrderId" resultType="int">
+	select status from produce_order where id=#{orderId}
+	</select>
 </mapper>

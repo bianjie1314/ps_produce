@@ -221,8 +221,20 @@ public class OrderController {
         orderLog.setFlag(0);
         orderService.addLog(orderLog);
         if(result==0) {
+        	String msg="";
+        	int status=orderService.findStatusByOrderId(orderId);
+        	if(status==OrderStatus.cancel.getValue()) {
+        		msg="该订单已取消";
+        	}else if(status==OrderStatus.waitConfirm.getValue()) {
+        		msg="该订单未打印";
+        	}else if(status==OrderStatus.waitMake.getValue()) {
+        		msg="该订单已添加";
+        	}
+        	if(status>=OrderStatus.make.getValue()) {
+        		msg="该订单已制作";
+        	}
         	response.setRet(1);
-        	response.setMsg("已存在订单");
+        	response.setMsg(msg);
         }
     	return response;
     }
@@ -270,8 +282,21 @@ public class OrderController {
         orderLog.setFlag(0);
         orderService.addLog(orderLog);
         if(result==0) {
+        	String msg="";
+        	int status=orderService.findStatusByOrderId(orderId);
+        	if(status==OrderStatus.cancel.getValue()) {
+        		msg="该订单已取消";
+        	}else if(status==OrderStatus.waitConfirm.getValue()) {
+        		msg="该订单未打印";
+        	}else if(status==OrderStatus.waitMake.getValue()) {
+        		msg="该订单未制作完成";
+        	}else if(status==OrderStatus.waitShipping.getValue()) {
+        		msg="该订单已添加";
+        	}else if(status==OrderStatus.shipping.getValue()) {
+        		msg="该订单已发货";
+        	}
         	response.setRet(1);
-        	response.setMsg("已存在订单");
+        	response.setMsg(msg);
         }
         return response;
     }

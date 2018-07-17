@@ -172,7 +172,6 @@ function submit4(_this){
             		$.messager.popup(result.msg);
                 	}else{
                 		location.reload();
-                		
                 	}
             	},complete : function() {
                     

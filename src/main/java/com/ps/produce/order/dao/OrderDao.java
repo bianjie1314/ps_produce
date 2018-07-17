@@ -55,5 +55,6 @@ public interface OrderDao {
 
 	public List<OrderLog> findOrderLogByOrderId(@Param("orderId")Long orderId);
 	public List<Order> findOrderByOrderIds(@Param("orderIds") String orderIds);
+	public int findStatusByOrderId(@Param("orderId")Long orderId);
 	
 }
