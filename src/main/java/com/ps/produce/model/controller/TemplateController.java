@@ -38,7 +38,9 @@ public class TemplateController {
 	@ResponseBody
     public JsonObject<Template> source(@RequestParam(value = "iDisplayStart", defaultValue = "0") int iDisplayStart,
             @RequestParam(value = "iDisplayLength", defaultValue = "10000") int iDisplayLength, Model model,ServletRequest request) throws UnsupportedEncodingException{
-		
+
+        String sortCol = request.getParameter("iSortCol_0");
+        String sortType = request.getParameter("sSortDir_0");
 		String productType=request.getParameter("productType");
 		String productName=request.getParameter("productName");
 		String date=request.getParameter("date");
@@ -53,7 +55,9 @@ public class TemplateController {
 		endDate=dates[1]+" 23:59:59";
 		}
 		
-		List<Template> list=templateService.list(productType, productName, startDate, endDate);
+		List<Template> list=templateService.list(productType, productName, startDate, endDate, iDisplayStart, iDisplayLength,
+                sortType, sortCol);
+		   long count = templateService.count(productType, productName, startDate, endDate);
 		JsonObject<Template> result = new JsonObject<Template>();
 		result.setiTotalDisplayRecords(0);
 		result.setiTotalRecords(0);

@@ -15,9 +15,9 @@ public class TemplateService {
    private TemplateMapper templateMapper;
    
    
-   public List<Template> list(String productType,String productName,String startDate,String endDate){
+   /*public List<Template> list(String productType,String productName,String startDate,String endDate){
 	   return  templateMapper.list(productType, productName, startDate, endDate);
-   }
+   }*/
    public int update(Template template) {
 	   return templateMapper.update(template);
    }
@@ -31,5 +31,13 @@ public class TemplateService {
   public List<Map<String,Object>> queryType() {
 	// TODO Auto-generated method stub
 	return templateMapper.queryType();
+}
+public long count(String productType, String productName, String startDate, String endDate) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+public List<Template> list(String productType, String productName, String startDate, String endDate, int iDisplayStart,
+		int iDisplayLength, String sortType, String sortCol) {
+	   return  templateMapper.list(productType, productName, startDate, endDate,iDisplayStart,iDisplayLength,sortType,sortCol);
 }
 }
