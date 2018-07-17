@@ -38,10 +38,10 @@
 				
 			</ul>
 			<c:if test="${status==4}">
-				<div class="row">
+			<div class="row">
 			<div class=" col-md-3">	
-			<button  style="margin: 10px;" id="addWaitDeliveryOrder" class="btn btn-primary">扫码添加订单</button>
-			<button style="margin: 10px ;" type="button" id="deliveryOrder" class="btn btn-primary">发货完成</button>
+			<button  style="margin: 10px; 0px;" id="addWaitDeliveryOrder" class="btn btn-primary">扫码添加订单</button>
+			<button style="margin: 10px ; 0px;" type="button" id="deliveryOrder" class="btn btn-primary">发货完成</button>
 			</div>			
 			</div>		
 			</c:if>
