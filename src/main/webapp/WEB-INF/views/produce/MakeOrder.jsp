@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-<title>制作订单</title>
+<title>制作管理</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -103,7 +103,7 @@
 												<p>条形码：${product.ean}</p>
 											</div>
 											<div class="col-md-3">
-												<p>${product.templateName}</p>
+												<p>订购产品：${product.templateName}</p>
 												<p>订单量：${product.quantity}</p>
 												<p>Color：${product.color} Size：${product.size}</p>
 											</div>

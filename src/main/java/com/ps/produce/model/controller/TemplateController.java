@@ -30,13 +30,11 @@ public class TemplateController {
 	@Autowired
 	public TemplateService templateService;
 	
-	@RequiresPermissions("sys:user:view")
 	@RequestMapping(method=RequestMethod.GET)
 	public String user(Model model,PageBean<User> userPageBean) {
 		return "/produce/Template";
 	}
 	@RequestMapping(value = "/source")
-	@RequiresPermissions("sys:user:view")
 	@ResponseBody
     public JsonObject<Template> source(@RequestParam(value = "iDisplayStart", defaultValue = "0") int iDisplayStart,
             @RequestParam(value = "iDisplayLength", defaultValue = "10000") int iDisplayLength, Model model,ServletRequest request) throws UnsupportedEncodingException{
@@ -64,7 +62,6 @@ public class TemplateController {
 		
 	} 
 	@RequestMapping(value = "/queryType")
-	@RequiresPermissions("sys:user:view")
 	@ResponseBody
 	public List<Map<String,Object>> queryType(@RequestParam(value = "iDisplayStart", defaultValue = "0") int iDisplayStart,
     @RequestParam(value = "iDisplayLength", defaultValue = "10000") int iDisplayLength, Model model,ServletRequest request){

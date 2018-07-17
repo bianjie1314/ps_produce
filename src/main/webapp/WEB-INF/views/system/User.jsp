@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-<script src="${ctx}/resources/js/system/user.js"></script>
+<script src="${ctx}/resources/js/system/user.js?<%=(int)(Math.random() *1000000)%>"></script>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />

@@ -101,7 +101,7 @@
 												<p>条形码：${product.ean}</p>
 											</div>
 											<div class="col-md-3">
-												<p>${product.templateName}</p>
+												<p>订购产品：${product.templateName}</p>
 												<p>订单量：${product.quantity}</p>
 												<p>Color：${product.color} Size：${product.size}</p>
 											</div>
