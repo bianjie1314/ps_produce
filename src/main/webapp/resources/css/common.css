@@ -250,7 +250,9 @@ a:active {    cursor: pointer;}
 }
 
 
-
+.search-bar{
+	margin-top: 10px;
+}
 
 .msg-popup{
 	    z-index: 1050;

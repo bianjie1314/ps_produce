@@ -45,7 +45,7 @@
 			</div>
 			</c:if>		
 			<form action="" id="searchForm" method="post" accept-charset="UTF-8">
-			<input name="statu" value="${status}" style="visibility:hidden">
+			<input name="statu" value="${status}" type="hidden">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
 					<div class="input-group">
