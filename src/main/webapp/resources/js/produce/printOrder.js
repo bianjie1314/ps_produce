@@ -7,8 +7,7 @@
    
     function printOrder(){
     	$("#printOrder").click(function(e){
-    		
-            var checks=$('input:checkbox[class=isConfirm]:checked');
+    		var checks=$('input:checkbox[class=isConfirm]:checked');
     		var orderIds=[];
     		if(checks.length<1){
     			$.messager.popup("请选中订单!");

@@ -71,7 +71,7 @@
     
     function add() {
     	 $("#addOrder").click(function(){
-    		 var $btn = $(this).button('loading');
+    		 
     		 
     		 var $f = $('<div role="form"></div>');
     		 
@@ -80,7 +80,7 @@
     	    		   title : "添加订单",
     	    		  
     	            onClose : function() {
-    	            	$btn.button('reset');
+    	            	
     	                $(this).dialog("destroy");
     	            }, buttons : {
     	                "添加订单" : function(){
@@ -105,12 +105,12 @@
     	                    },
     	                    complete : function() {
     	                    	$f.dialog("destroy");
-    	                        $btn.button('reset');
+    	                       
     	                    }
     	                });}, 
     	                "取消" : function() {
     	                	 $(this).dialog("destroy");
-    	                	 $btn.button('reset');
+    	                	 
     	                }
     	            }
     	            
