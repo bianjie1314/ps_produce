@@ -115,8 +115,7 @@
    	    		title : "添加物流信息",
    	    		  
    	            onClose : function() {
-   	            	$btn.button('reset');
-   	                $(this).dialog("destroy");
+   	            	$(this).dialog("destroy");
    	            }, buttons : {
    	                "添加物流信息" : function() {
    	                	if(!$.validate($f))
@@ -129,7 +128,7 @@
    	                    	return fase;
    	                    }
    	                    else if(shipNo==""){
-   	                    	$.messager.popup("请填写物流编号");
+   	                    	$.messager.popup("请填写运单编号");
    	                    	return false;
    	                    }
    	                    var param = {
