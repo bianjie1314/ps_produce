@@ -69,6 +69,10 @@
     }
     
     function getDate(){
+    	var time=$('#reservation').val();
+    	if(time!=""){
+    		return false;
+    	}
  	   var d=new Date();
         var mydate=new Date(d.getTime()-86400000*7);
  	   var str = "" + mydate.getFullYear() + "-";
@@ -84,6 +88,8 @@
  }
 
     function queryOrderName(){
+    	var orderUsername=$("#category").attr('value');
+    	console.log(orderUsername);
     	$.ajax({
     		url : ctx + "/order/queryOrderUser",
     		type : "post",
@@ -93,6 +99,9 @@
     				content+='<option value='+d[item]+'>'+d[item]+'</option>';
     			}
     			$('#category').html(content);
+    			if(orderUsername){
+    	    		$('#category').find("option[value = '"+orderUsername+"']").attr("selected","selected");
+    	    	}
     		}
     	});
     }

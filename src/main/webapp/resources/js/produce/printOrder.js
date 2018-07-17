@@ -45,6 +45,10 @@
     	});  
     }
     function getDate(){
+    	var time=$('#reservation').val();
+    	if(time!=""){
+    		return false;
+    	}
  	   var d=new Date();
         var mydate=new Date(d.getTime()-86400000*7);
  	   var str = "" + mydate.getFullYear() + "-";

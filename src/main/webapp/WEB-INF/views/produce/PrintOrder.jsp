@@ -59,7 +59,7 @@
 				<div class="form-group col-md-2">
 					<div class="input-group">
 						<label class="input-group-addon">下单商户</label>
-						 <select type="text" name="orderUsername" id="category" class="form-control" placeholder="下单商户" >
+						 <select type="text" name="orderUsername" value="${query.orderUsername}"  id="category"  class="form-control" placeholder="下单商户" >
 						  </select>
 					</div>
 				

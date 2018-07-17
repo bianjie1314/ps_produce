@@ -34,7 +34,7 @@
 			</c:if>
 			<ul class="nav nav-tabs">
 				<li role="presentation"<c:if test="${status==4}"> class="active" </c:if>> <a href="?status=4">待发货订单</a></li>
-				<li role="presentation"<c:if test="${status==5}"> class="active" </c:if>> <a href="?status=5">已发货订单</a></li>
+				<c:if test="${status==4}"><li role="presentation"<c:if test="${status==5}"> class="active" </c:if>> <a href="?status=5">已发货订单</a></li></c:if>
 				
 			</ul>
 			<div class=" col-md-3">	
@@ -59,7 +59,7 @@
 				<div class="form-group col-md-2">
 					<div class="input-group">
 						<label class="input-group-addon">下单商户</label>
-						 <select type="text" name="orderUsername" id="category" class="form-control" placeholder="下单商户" >
+						<select type="text" name="orderUsername" value="${query.orderUsername}"  id="category"  class="form-control" placeholder="下单商户" >
 						  </select>
 					</div>
 				</div>

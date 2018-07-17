@@ -39,7 +39,7 @@
 			</ul>
 			<div class=" col-md-3">	
 			<button style="margin: 10px 0px;" id="addOrder" class="btn btn-primary">扫码添加订单</button>
-			<button style="margin: 10px 0px;" type="button" id="makeOrder" class="btn btn-primary">制作完成</button>
+			<c:if test="${status==2}"><button style="margin: 10px 0px;" type="button" id="makeOrder" class="btn btn-primary">制作完成</button></c:if>
 			</div>
 			
 			<br>		
@@ -61,7 +61,7 @@
 				<div class="form-group col-md-2">
 					<div class="input-group">
 						<label class="input-group-addon">下单商户</label>
-						 <select type="text" name="orderUsername" id="category" class="form-control" placeholder="下单商户" >
+						 <select type="text" name="orderUsername" value="${query.orderUsername}"  id="category"  class="form-control" placeholder="下单商户" >
 						  </select>
 					</div>
 				</div>
