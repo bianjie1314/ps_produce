@@ -34,17 +34,16 @@
 			</c:if>
 			<ul class="nav nav-tabs">
 				<li role="presentation"<c:if test="${status==2}"> class="active" </c:if>> <a href="?status=2">待制作订单</a></li>
-				<li role="presentation"<c:if test="${status==3}"> class="active" </c:if>> <a href="?status=3">已制作订单</a></li>
-				
+				<li role="presentation"<c:if test="${status==3}"> class="active" </c:if>> <a href="?status=3">已制作订单</a></li>				
 			</ul>
-			<div class=" col-md-3">	
 			<c:if test="${status==2}">
+			<div class="row">
+			<div class=" col-md-3">	
 			<button style="margin: 10px 0px;" id="addOrder" class="btn btn-primary">扫码添加订单</button>
 			<button style="margin: 10px 0px;" type="button" id="makeOrder" class="btn btn-primary">制作完成</button>
-			</c:if>
 			</div>
-			
-			<br>		
+			</div>
+			</c:if>		
 			<form action="" id="searchForm" method="post" accept-charset="UTF-8">
 			<input name="statu" value="${status}" style="visibility:hidden">
 			<div  class="row search-bar">
