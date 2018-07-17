@@ -135,7 +135,7 @@
 							<p>
 								<strong>商品信息</strong>
 							</p>
-							<p>商品名称：${product.name} 尺寸：${product.size}</p>
+							<p>商品名称：${product.name}	<c:if test="${not empty product.size}"> 尺寸：${product.size} </c:if></p>
 							<p>
 							<c:if test="${not empty product.color}">
 							颜色：${product.color}

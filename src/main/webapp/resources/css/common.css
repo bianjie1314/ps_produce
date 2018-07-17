@@ -234,28 +234,38 @@ a:active {    cursor: pointer;}
 .line{
 	border-bottom: 1px solid #e5e5e5;
 }
-.order-header {
-	padding-bottom: 9px;
-	margin: 10px 0 10px;
-	border-bottom: 1px solid #eee;
-}
-table {
-    white-space: normal;
-    line-height: normal;
-    font-weight: normal;
-    font-size: small;
-    font-style: normal;
-    color: -internal-quirk-inherit;
-    text-align: start;
-    font-variant: normal;
-}
 
-.order-item {
-	padding-bottom: 9px;
-	margin: 10px 0 10px;
+.tags{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	}
+.tags-panel{
+	    width: 100%;
+	    height:auto;
+	    max-height: 400px;
+	    overflow-y: auto;
+	    overflow-x: hidden;
+	    padding-bottom: 15px;
 }
 
 
-.search-bar{
-	margin: 30px 0 20px;
+
+
+.msg-popup{
+	    z-index: 1050;
+	     top: 0px; 
+    bottom: 0px; 
+}
+.msg-popup .modal-body{
+    position: relative; 
+    overflow: visible; 
+	 top: 0px; 
+    bottom: 0px; 
+}
+
+.msg-popup .modal-content{
+	  position: relative; 
+	 top: 0px; 
+    bottom: 0px; 
 }

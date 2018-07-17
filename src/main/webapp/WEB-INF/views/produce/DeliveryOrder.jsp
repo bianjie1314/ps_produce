@@ -37,13 +37,14 @@
 				<li role="presentation"<c:if test="${status==5}"> class="active" </c:if>> <a href="?status=5">已发货订单</a></li>
 				
 			</ul>
-			<div class=" col-md-3">	
 			<c:if test="${status==4}">
-			<button  style="margin-top: 10px;" id="addWaitDeliveryOrder" class="btn btn-primary">扫码添加订单</button>
-			<button style="margin-top: 10px ;" type="button" id="deliveryOrder" class="btn btn-primary">发货完成</button>
-			</c:if>
+				<div class="row">
+			<div class=" col-md-3">	
+			<button  style="margin: 10px;" id="addWaitDeliveryOrder" class="btn btn-primary">扫码添加订单</button>
+			<button style="margin: 10px ;" type="button" id="deliveryOrder" class="btn btn-primary">发货完成</button>
 			</div>			
-			<br>		
+			</div>		
+			</c:if>
 			<form action="" id="searchForm" method="post"  accept-charset="UTF-8">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				

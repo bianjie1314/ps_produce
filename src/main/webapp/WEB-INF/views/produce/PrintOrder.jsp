@@ -37,9 +37,11 @@
 				<li role="presentation" <c:if test="${status==1}"> class="active" </c:if>> <a href="?status=1"> 已打印订单</a></li>
 				
 			</ul>
+				<div class="row">
 			<div class=" col-md-3">
 			
 			<button style="margin-top: 10px ; type="button" id="printOrder" class="btn btn-primary">打印面单</button>
+			</div>
 			</div>
 			<form action="" id="searchForm" method="post" accept-charset="UTF-8">
 			<input name="statu" value="${status}" style="visibility:hidden">
