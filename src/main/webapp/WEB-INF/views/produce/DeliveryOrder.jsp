@@ -83,7 +83,7 @@
 								<div class="col-md-3">下单商户：${order.orderUsername}</div>
 								<div class="col-md-3">下单时间：${order.orderCreateTime}</div>
 								<div class="col-md-4">
-									${fns:addShippping(order.status)}
+									${fns:addShippping(order.status,order.expressNo,order.expressName)}
 								</div>
 							</div>
 							<div class="row">

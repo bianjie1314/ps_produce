@@ -38,11 +38,15 @@ public class OrderStatusUtils {
 		}
 		return "";
 	}
-	public static String addShippping(int value) {
+	public static String addShippping(int value,String expressNo,String expressName) {
+		String content="";
 		if(value==OrderStatus.waitShipping.getValue()) {
-		return "<button  class=\" btn btn-primary addShipInfo\">添加物流信息</button>";
+		   content="<button  class=\" btn btn-primary addShipInfo\">添加物流信息</button>";
+		   if(!StringUtils.isEmpty(expressNo)||!StringUtils.isEmpty(expressName)) {
+			   content="<p>物流编号:"+expressNo+"</p><p>物流公司:"+expressName+"</p>";
+		   } 
 		}
-		return "";
+		return content;
 	}
 
 	

@@ -22,6 +22,7 @@ public class OrderQuery implements Serializable{
 	private String start;
 	private String end;
 	
+	
 	public long getId() {
 		return id;
 	}

@@ -7,7 +7,8 @@
 		<result property="orderNo" column="order_no"/>
 		<result property="orderUsername" column="order_username"/>
 		<result property="orderCreateTime" column="order_create_time"/>
-		
+		<result property="expressName" column="express_name"/>
+		<result property="expressNo" column="express_no"/>
 		<result property="expressUsername" column="express_username"/>
 		<result property="expressTel" column="express_Tel"/>
 		<result property="expressAddress" column="express_address"/>
@@ -85,6 +86,7 @@
 			p.template_name as  'product.templateName' ,
 			p.image as  'product.image', 
 		    p.sku	 as  'product.sku' 
+		    
 		 from (
 		SELECT    DISTINCT o.*			
 		FROM   produce_order  o left join produce_product p on o.id=p.order_id
