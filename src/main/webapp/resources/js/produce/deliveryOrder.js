@@ -70,7 +70,10 @@
    	                	if(!$.validate($f))
    	            	   		return false;
    	                    var orderNo =  $f.find('[id=orderNo]').val();
-   	                    
+   	                    if(orderNo==""){
+ 	                	 $.messager.popup("请输入订单编号！");
+ 	                	 return false;
+ 	                   }
    	                    $.ajax({
    	                        url : ctx + "/order/waitShippingOrder",
    	                        type : "post",
@@ -162,7 +165,10 @@
 })(jQuery);
 function submit4(_this){
 	 var orderNo =  $(_this).find('[id=orderNo]').val();
-        
+	 if(orderNo==""){
+     	$.messager.popup("请输入订单编号！");
+     	return false;
+     }
         $.ajax({
             url : ctx + "/order/waitShippingOrder",
             type : "post",
