@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -140,6 +141,11 @@ public class OrderService {
 		Response oldResponse=new Response();
 		for (int i = 0; i < orderId.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderId[i]));
+			if(StringUtils.isEmpty(order.getExpressName())&&StringUtils.isEmpty(order.getExpressNo())) {
+				 oldResponse.setRet(-1);
+				 oldResponse.setMsg("请先添加物流信息");
+				 return oldResponse;
+			}
 			Response response = StateUtils.changState(order.getOrderNo(), "3", "", "",order.getCallbackUrl());
 			if (response.getRet() == ResponseCode.SUCCESS.value()) {
 				orderDao.addShippingOrder(OrderStatus.shipping.getValue(), orderId[i],new Date());

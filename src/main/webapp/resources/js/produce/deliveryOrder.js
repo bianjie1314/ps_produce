@@ -30,7 +30,7 @@
                 	location.reload();
                 	}else{
                 		$btn.button('reset');
-                		$.messager.popup("订单同步失败!");
+                		$.messager.popup(result.msg);
                 	}
                 },
                 error:function(){
