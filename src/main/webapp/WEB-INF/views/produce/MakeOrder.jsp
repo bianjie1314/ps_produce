@@ -83,16 +83,16 @@
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
 								<div class="col-md-3">下单商户：${order.orderUsername}</div>
-								<div class="col-md-3">下单时间：${order.orderCreateTime}</div>
+								<div class="col-md-3">下单时间： <fmt:formatDate value="${order.orderCreateTime }" type="date" pattern="yyyy-MM-dd HH:mm:ss"/></div>
 								<div class="col-md-4">
 									
 								</div>
 							</div>
-							<div class="row">
+							<div class="row product" order-id="${order.id}">
 								<div class="col-md-8">
 									<c:forEach items="${order.products}" var="product"
-										varStatus="stat">
-										<div class="row order-item">
+										varStatus="stat"> 
+										<div class="row order-item product" order-id="${order.id}">
 											<div class="col-md-2">
 												<img src="${product.image}"  style=" width: 100%;">
 											</div>
@@ -105,7 +105,12 @@
 											<div class="col-md-3">
 												<p>订购产品：${product.templateName}</p>
 												<p>订单量：${product.quantity}</p>
-												<p>Color：${product.color} Size：${product.size}</p>
+												<p><c:if test="${not empty product.color}">
+												Color：${product.color}
+												</c:if>
+												<c:if test="${not empty product.size}">
+												 Size：${product.size}
+												 </c:if></p>
 											</div>
 											<div class="col-md-3 "  product-id="${product.id}">
 												<button type="button" class="btn btn-primary downImg">下载素材</button>

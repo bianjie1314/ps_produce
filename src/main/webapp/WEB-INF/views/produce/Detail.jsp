@@ -49,7 +49,7 @@
 					</h4>
 					</p>
 					<p>订单编号：${order.orderNo} 下单商户：${order.orderUsername}</p>
-					<p>下单时间：${order.orderCreateTime}</p>
+					<p>下单时间： <fmt:formatDate value="${order.orderCreateTime }" type="date" pattern="yyyy-MM-dd HH:mm:ss"/></p>
 				</div>
 				<div class="col-md-6">
 					<p>
@@ -60,6 +60,10 @@
 					<p>用户姓名：${order.expressUsername}</p>
 					<p>联系电话：${order.expressTel}</p>
 					<p>收货地址：${order.expressAddress}</p>
+					<p>固定电话：${order.expressFixedPhone}</p>
+					
+					<p>邮编：${order.expressZipCode}</p>
+					
 
 				</div>
 				<div class="line"></div>
@@ -102,7 +106,7 @@
 									<c:forEach items="${orderLogs}" var="log" varStatus="stat">
 									<tr>
 									
-										<td> <fmt:formatDate value="${log.createDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>
+										<td> <fmt:formatDate value="${log.createDate }" type="date" pattern="yyyy-MM-dd HH:mm:ss"/>
 
 										</td>
 										<td> ${fns:getOrderStatus(log.status)}</td>
@@ -132,10 +136,19 @@
 								<strong>商品信息</strong>
 							</p>
 							<p>商品名称：${product.name} 尺寸：${product.size}</p>
-							<p>颜色：${product.color} 数量：${product.quantity}</p>
+							<p>
+							<c:if test="${not empty product.color}">
+							颜色：${product.color}
+							</c:if>
+							<c:if test="${not empty product.quantity}">
+							 数量：${product.quantity}
+							</c:if>
+							</p>
 
 							<p>
+								<c:if test="${not empty product.ean}">
 								<img src="${ctx}/barcode/${product.ean}">
+								</c:if>
 							</p>
 						</div>
 						

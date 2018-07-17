@@ -10,7 +10,10 @@
 		<result property="expressName" column="express_name"/>
 		<result property="expressNo" column="express_no"/>
 		<result property="expressUsername" column="express_username"/>
-		<result property="expressTel" column="express_Tel"/>
+		<result property="expressTel" column="express_tel"/>
+		<result property="expressFixedPhone" column="express_fixed_phone"/>
+		<result property="expressZipCode" column="express_zip_code"/> 
+		
 		<result property="expressAddress" column="express_address"/>
 		<result property="status" column="status"/>
 		<result property="optUseranme" column="opt_useranme"/>
@@ -133,6 +136,8 @@
 			order_create_time, 
 			express_username, 
 			express_tel, 
+			express_fixed_phone,
+			express_zip_code,
 			express_address,
 			callback_url,			
 			create_date, 
@@ -144,6 +149,8 @@
 			#{orderCreateTime}, 
 			#{expressUsername}, 
 			#{expressTel}, 
+			#{expressFixedPhone}, 
+			#{expressZipCode}, 
 			#{expressAddress}, 
 			#{callbackUrl}, 
 			#{createDate}, 

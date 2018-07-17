@@ -3,13 +3,10 @@
  */
 package com.ps.produce.order.entity;
 
-import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.ps.produce.base.entity.AbstractEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 订单
@@ -20,10 +17,13 @@ public class Order  {
 	private Long id;
 	private String orderNo;
 	private String orderUsername;
-	private String  orderCreateTime;
+	@DateTimeFormat(pattern ="yyyy-MM-dd HH:mm:ss")
+	private Date  orderCreateTime;
 	private String expressUsername;
 	private String expressTel;
 	private String expressAddress;
+	private String expressZipCode;
+	private String expressFixedPhone;
 	private Integer status;
 	private Long optUseranme;
 	private String optUserId;
@@ -34,8 +34,19 @@ public class Order  {
 	private Date updateDate;
 	private Date createDate;
 	private String remarks;
-	
-	
+		
+	public String getExpressZipCode() {
+		return expressZipCode;
+	}
+	public void setExpressZipCode(String expressZipCode) {
+		this.expressZipCode = expressZipCode;
+	}
+	public String getExpressFixedPhone() {
+		return expressFixedPhone;
+	}
+	public void setExpressFixedPhone(String expressFixedPhone) {
+		this.expressFixedPhone = expressFixedPhone;
+	}
 	public Date getUpdateDate() {
 		return updateDate;
 	}
@@ -91,10 +102,11 @@ public class Order  {
 	public void setOrderUsername(String orderUsername) {
 		this.orderUsername = orderUsername;
 	}
-	public String getOrderCreateTime() {
+	
+	public Date getOrderCreateTime() {
 		return orderCreateTime;
 	}
-	public void setOrderCreateTime(String orderCreateTime) {
+	public void setOrderCreateTime(Date orderCreateTime) {
 		this.orderCreateTime = orderCreateTime;
 	}
 	public String getExpressUsername() {
