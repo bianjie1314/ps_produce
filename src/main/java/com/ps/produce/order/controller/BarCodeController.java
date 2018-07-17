@@ -40,6 +40,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.ps.produce.order.entity.Order;
 import com.ps.produce.order.entity.Product;
 import com.ps.produce.order.service.OrderService;
+import com.ps.produce.support.utils.DateUtil;
+import com.ps.produce.support.utils.StringUtils;
 
 @Controller
 public class BarCodeController {
@@ -71,7 +73,7 @@ public class BarCodeController {
 		// 添加 中文信息
 		BaseFont bfCN = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", false);
 		// 设置字体大小
-		Font fontCN40 = new Font(bfCN, 11, Font.BOLD);
+		Font fontCN40 = new Font(bfCN, 10, Font.BOLD);
 		Font fontCN32 = new Font(bfCN, 10, Font.NORMAL);
 		Font fontCN30 = new Font(bfCN, 10, Font.NORMAL);
 
@@ -145,20 +147,23 @@ public class BarCodeController {
 			cell.setBorderWidth(0);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("用户姓名： %s",order.getExpressUsername()), new Font(fontCN32))));
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("用户姓名： %s",order.getExpressUsername()==null?"":order.getExpressUsername()), new Font(fontCN32))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cell.setPadding(5);
 			cell.setBorderWidth(0);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Paragraph(
-					new Paragraph(String.format("备注：%s",order.getRemarks()), new Font(fontCN30))));
+			//cell = new PdfPCell(new Paragraph(new Paragraph(String.format("备注：%s",order.getRemarks()==null?"":order.getRemarks()), new Font(fontCN30))));
+			cell = new PdfPCell(new Paragraph(new Paragraph("")));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cell.setRowspan(32);
 			cell.setBorderWidth(0);
 			table.addCell(cell);
-
-			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("下单时间： %s",order.getOrderCreateTime()), new Font(fontCN32))));
+			String orderCreateTime="";
+			if(order.getOrderCreateTime()!=null) {
+				orderCreateTime=DateUtil.DateToString(order.getOrderCreateTime(), "yyyy-MM-dd HH:mm:ss");
+			}
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("下单时间： %s",orderCreateTime), new Font(fontCN32))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cell.setPadding(5);
 			cell.setBorderWidth(0);
@@ -209,7 +214,7 @@ public class BarCodeController {
 				image128.scaleToFit(120, 120);
 				barcodeCell = new PdfPCell(image128);
 				barcodeCell.setColspan(2);
-				barcodeCell.setRowspan(2);
+				barcodeCell.setRowspan(4);
 				barcodeCell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				barcodeCell.setPadding(5);
 				cell.setPaddingTop(10);
@@ -217,34 +222,66 @@ public class BarCodeController {
 				barcodeCell.setBorderWidth(0);
 				table.addCell(barcodeCell);
 
-				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("商品信息：\n商品名称：%s \n 颜色 ： %s",p.getName(),p.getColor()), new Font(fontCN30))));
-				// cell.setPadding(5);
-				cell.setPaddingTop(10);
+
+				cell = new PdfPCell(new Paragraph(new Paragraph("商品信息", new Font(fontCN40))));
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+				cell.setColspan(2);
+				cell.setPadding(5);
 				cell.setBorderWidth(0);
 				table.addCell(cell);
-
-				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("尺寸名：%s\n数量：%s",p.getSize(),p.getQuantity()), new Font(fontCN30))));
-				// cell.setColspan(2);
+				
+				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("商品名称：%s ",p.getName()), new Font(fontCN30))));
+				// cell.setPadding(5);
+				cell.setPaddingTop(10);
+				cell.setPaddingBottom(10);
+				cell.setBorderWidth(0);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("  color ： %s",p.getColor()), new Font(fontCN30))));
 				// cell.setPadding(5);
 				cell.setPaddingTop(10);
 				cell.setPaddingBottom(10);
 				cell.setBorderWidth(0);
 				table.addCell(cell);
 
-				code128.setCode(p.getEan());
+				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("size：%s",p.getSize()), new Font(fontCN30))));
+				// cell.setColspan(2);
+				// cell.setPadding(5);
+				cell.setPaddingTop(10);
+				cell.setPaddingBottom(10);
+				cell.setBorderWidth(0);
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("数量：%s",p.getQuantity()), new Font(fontCN30))));
+				// cell.setColspan(2);
+				// cell.setPadding(5);
+				cell.setPaddingTop(10);
+				cell.setPaddingBottom(10);
+				cell.setBorderWidth(0);
+				table.addCell(cell);
+				if(StringUtils.isNoneBlank(p.getEan())) {
+					code128.setCode(p.getEan());
 
-				code128.setBarHeight(50f); // great! but what about width???
-				code128.setX(1f);
-				code128.setBaseline(20f);
-				code128.setSize(15);
+					code128.setBarHeight(50f); // great! but what about width???
+					code128.setX(1f);
+					code128.setBaseline(20f);
+					code128.setSize(15);
 
-				image128 = code128.createImageWithBarcode(cd, null, null);
-				barcodeCell = new PdfPCell(image128);
-				barcodeCell.setColspan(2);
-				barcodeCell.setHorizontalAlignment(Element.ALIGN_LEFT);
-				barcodeCell.setPadding(5);
-				barcodeCell.setBorderWidth(0);
-				table.addCell(barcodeCell);
+					image128 = code128.createImageWithBarcode(cd, null, null);
+					barcodeCell = new PdfPCell(image128);
+					barcodeCell.setColspan(2);
+					barcodeCell.setHorizontalAlignment(Element.ALIGN_LEFT);
+					barcodeCell.setPadding(5);
+					barcodeCell.setBorderWidth(0);
+					table.addCell(barcodeCell);
+				}else {
+					cell = new PdfPCell(new Paragraph(new Paragraph("", new Font(fontCN40))));
+					cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+					cell.setColspan(2);
+					cell.setBorderWidth(0);
+					table.addCell(cell);
+				}
+				
 
 				cell = new PdfPCell(new Paragraph(new Paragraph("", new Font(fontCN40))));
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
