@@ -95,13 +95,13 @@
 												<img src="${product.image}"  style=" width: 100%;">
 											</div>
 											<div class="col-md-3">
-												<p>订购产品：${product.name}</p>
+												<p>${product.name}</p>
 												<p>SKU：${product.sku}</p>
 
 												<p>条形码：${product.ean}</p>
 											</div>
 											<div class="col-md-3">
-												<p>${product.templateName}</p>
+												<p>订购产品：${product.templateName}</p>
 												<p>订单量：${product.quantity}</p>
 												<p><c:if test="${not empty product.color}">
 												Color：${product.color}
