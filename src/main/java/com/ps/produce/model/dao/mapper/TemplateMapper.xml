@@ -13,9 +13,24 @@
      <if test="startDate!=null and endDate!=null">
      and create_time &gt; #{startDate} and create_time &lt; #{endDate}
      </if>
-      order by create_time desc limit 0,10
+      order by create_time desc  LIMIT #{beginIndex},#{pageSize}
      
   </select>
+  
+   <select id="count"  resultType="long">
+     select count(id) from template where 1=1 
+     <if test="productType!=null">
+     and product_type=#{productType}
+     </if>
+     <if test="productName!=null">
+     and product_name=#{productName}
+     </if>
+     <if test="startDate!=null and endDate!=null">
+     and create_time &gt; #{startDate} and create_time &lt; #{endDate}
+     </if>
+     
+  </select>
+  
   <select id="queryType" resultType="map">
   select distinct product_type from template where 1=1 
   </select>
