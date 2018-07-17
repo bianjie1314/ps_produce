@@ -1,6 +1,8 @@
 package com.ps.produce.system.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ps.produce.exception.BusinessException;
 import com.ps.produce.shiro.ShiroUser;
 import com.ps.produce.support.ISecurityUtils;
 import com.ps.produce.support.MessageType;
 import com.ps.produce.support.ShowMessage;
 import com.ps.produce.support.utils.StringUtils;
+import com.ps.produce.system.entity.Menu;
 import com.ps.produce.system.entity.User;
 import com.ps.produce.system.service.UserService;
 
@@ -41,8 +43,20 @@ public class LoginController {
 		Subject subject = SecurityUtils.getSubject();  
 		ShiroUser shiroUser = (ShiroUser) subject.getPrincipal();
 		// 如果已经登录，则跳转到管理首页
+	
 		if(shiroUser != null){
-			return "redirect:/order/list";
+			subject.hasRole("userSB");
+			List<Menu> menus= ISecurityUtils.getMenuList();
+			String redirect="/home";
+			if(menus!=null&&!menus.isEmpty()) {
+				for(int i=menus.size()-1;i>=0;i--) {
+					if(StringUtils.isNoneBlank(menus.get(i).getHref())&&menus.get(i).getIsShow().equalsIgnoreCase("1"))
+					redirect=menus.get(i).getHref();
+				}
+				
+				
+			}
+			return "redirect:"+redirect;
 		}
 		return "/system/Login";
 	}
@@ -71,9 +85,17 @@ public class LoginController {
 			subUser.login(token);
 			ShiroUser shiroUser = ISecurityUtils.getCurrUser();
 			subUser.hasRole("userSB");
-			
-			
-			return "redirect:/order/list";
+			List<Menu> menus= ISecurityUtils.getMenuList();
+			String redirect="/home";
+			if(menus!=null&&!menus.isEmpty()) {
+				for(int i=menus.size()-1;i>=0;i--) {
+					if(StringUtils.isNoneBlank(menus.get(i).getHref())&&menus.get(i).getIsShow().equalsIgnoreCase("1"))
+					redirect=menus.get(i).getHref();
+				}
+				
+				
+			}
+			return "redirect:"+redirect;
 		} catch (DisabledAccountException e1) {
 			e1.printStackTrace();
 			ShowMessage.show(ra, MessageType.ISDANGERSHOW, "账号异常,请联系管理员");
