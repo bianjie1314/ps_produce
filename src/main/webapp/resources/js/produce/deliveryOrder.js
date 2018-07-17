@@ -26,7 +26,7 @@
                 type : "POST",
                  data:"orderId="+orderIds.join(),
                 success : function(result) {
-                	if(result==0){
+                	if(result.ret==0){
                 	location.reload();
                 	}else{
                 		$btn.button('reset');

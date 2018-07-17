@@ -38,8 +38,10 @@
 				
 			</ul>
 			<div class=" col-md-3">	
+			<c:if test="${status==2}">
 			<button style="margin: 10px 0px;" id="addOrder" class="btn btn-primary">扫码添加订单</button>
-			<c:if test="${status==2}"><button style="margin: 10px 0px;" type="button" id="makeOrder" class="btn btn-primary">制作完成</button></c:if>
+			<button style="margin: 10px 0px;" type="button" id="makeOrder" class="btn btn-primary">制作完成</button>
+			</c:if>
 			</div>
 			
 			<br>		
@@ -78,7 +80,7 @@
 			<c:if test="${pageBean.totalCount!=0}">
 				<c:forEach items="${pageBean.content}" var="order">
 					<tr  order-id="${order.id}">
-					<td style="width: 10px;padding-top: 15px;"><input class="isMake" type="checkbox" ></td>
+				<c:if test="${status==2}">	<td style="width: 10px;padding-top: 15px;"><input class="isMake" type="checkbox" ></td></c:if>
 						<td>
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
