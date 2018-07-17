@@ -175,4 +175,9 @@ public class OrderService {
 	public Long findOrderIdbyOrderNo(String orderNo) {
 		return orderDao.findOrderIdbyOrderNo(orderNo);
 	}
+
+	public int findStatusByOrderId(Long orderId) {
+		// TODO Auto-generated method stub
+		return orderDao.findStatusByOrderId(orderId);
+	}
 }

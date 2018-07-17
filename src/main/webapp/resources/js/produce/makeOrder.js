@@ -91,10 +91,9 @@
     	                    data : "orderNo="+orderNo,
     	                    success : function(result) {
     	                        if (result.ret!=0 ) {
-    	                        	
     	                        	$.messager.popup(result.msg);
     	                        }else{ 
-    	                        location.reload();
+    	                            location.reload();
     	                        }
     	                    },
     	                    complete : function() {
@@ -127,6 +126,8 @@ function submit2(_this){
         success : function(result) {
             if(result.ret!=0){
             	$.messager.popup(result.msg);
+            }else{
+            	$.messager.popup("添加订单成功");
             }
         },
         complete : function() {
