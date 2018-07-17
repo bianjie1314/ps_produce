@@ -222,14 +222,14 @@ public class OrderController {
         	String msg="";
         	int status=orderService.findStatusByOrderId(orderId);
         	if(status==OrderStatus.cancel.getValue()) {
-        		msg="该订单已取消";
+        		msg="该订单已取消!";
         	}else if(status==OrderStatus.waitConfirm.getValue()) {
-        		msg="该订单未打印";
-        	}else if(status==OrderStatus.waitMake.getValue()) {
-        		msg="该订单已添加";
+        		msg="该订单未打印!";
+        	} if(status==OrderStatus.waitMake.getValue()) {
+        		msg="该订单已添加!";
         	}
         	if(status>=OrderStatus.make.getValue()) {
-        		msg="该订单已制作";
+        		msg="该订单已制作!";
         	}
         	response.setRet(1);
         	response.setMsg(msg);
@@ -286,6 +286,8 @@ public class OrderController {
         		msg="该订单已取消";
         	}else if(status==OrderStatus.waitConfirm.getValue()) {
         		msg="该订单未打印";
+        	}else if(status==OrderStatus.confirm.getValue()) {
+        		msg="该订单未制作完成!";
         	}else if(status==OrderStatus.waitMake.getValue()) {
         		msg="该订单未制作完成";
         	}else if(status==OrderStatus.waitShipping.getValue()) {
