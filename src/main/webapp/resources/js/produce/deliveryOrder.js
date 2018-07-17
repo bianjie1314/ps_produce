@@ -60,14 +60,14 @@
  }
     function add() {
    	 $("#addWaitDeliveryOrder").click(function(){
-   		var $btn = $(this).button('loading')
+   		
    		 var $f = $('<div role="form"></div>');
    	        $f.append('<form onSubmit="submit4(this) ;return false;"><div class="form-group" style="padding: 10px 50px;"><div class="input-group"><label class="input-group-addon">订单编号</label><input type="text"    id="orderNo" class="form-control"/></div></div></form>');
    	           $f.dialog({
    	    		   title : "添加订单",
    	    		  
    	            onClose : function() {
-   	                $btn.button('reset')
+   	               
    	                $(this).dialog("destroy");
    	            }, buttons : {
    	                "添加订单" : function() {
@@ -83,25 +83,22 @@
    	                        type : "post",
    	                        data : "orderNo="+orderNo,
    	                        success : function(result) {
-   	                        	if (result!= 0) {
+   	                        	if (result.ret!= 0) {
    	                        		$.messager.popup(result.msg);
-   	                            	
-   	                                
-   	                            } else {
+   	                            	 } else {
    	                            	location.reload();
    	                            }
    	                        },
    	                        complete : function() {
    	                            $f.dialog("destroy");
-   	                            $btn.button('reset')
+   	                           
    	                          
    	                        }
    	                    });
    	                    
    	                }, "取消" : function() {
-   	                     
-   	                	 $(this).dialog("destroy");
-   	                	 $btn.button('reset')
+   	                     $(this).dialog("destroy");
+   	                	 
    	                }
    	            }
    	        });
@@ -118,8 +115,7 @@
    	    		title : "添加物流信息",
    	    		  
    	            onClose : function() {
-   	            	$btn.button('reset');
-   	                $(this).dialog("destroy");
+   	            	$(this).dialog("destroy");
    	            }, buttons : {
    	                "添加物流信息" : function() {
    	                	if(!$.validate($f))
@@ -132,7 +128,7 @@
    	                    	return fase;
    	                    }
    	                    else if(shipNo==""){
-   	                    	$.messager.popup("请填写物流编号");
+   	                    	$.messager.popup("请填写运单编号");
    	                    	return false;
    	                    }
    	                    var param = {
@@ -147,9 +143,8 @@
                             dataType : 'json',
                             data : JSON.stringify(param),
    	                        success : function(result) {
-   	                        	if (result!= 0) {
+   	                        	if (result.ret!=0) {
    	                        		$.messager.popup(result.msg);
-   	                            	
    	                            }else{
    	                            	location.reload();
    	                            }
@@ -185,6 +180,5 @@ function submit4(_this){
                 	}
             	},complete : function() {
                     
-                  }});
-               
+                  }});             
 }

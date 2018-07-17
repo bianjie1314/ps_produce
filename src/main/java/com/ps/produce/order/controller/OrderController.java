@@ -297,7 +297,9 @@ public class OrderController {
         	}
         	response.setRet(1);
         	response.setMsg(msg);
-        }
+        }else {
+        	response.setRet(0);
+        	}
         return response;
     }
     @ResponseBody
