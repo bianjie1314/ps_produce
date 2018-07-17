@@ -22,9 +22,6 @@ import com.ps.produce.system.entity.Dict;
  * @version 2013-5-29
  */
 public class OrderStatusUtils {
-	
-	
-	
 	public static String getLabel(int value){
 		String label="";
 		for (OrderStatus status : OrderStatus.values()) {

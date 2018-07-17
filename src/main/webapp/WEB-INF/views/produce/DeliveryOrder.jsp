@@ -77,7 +77,7 @@
 				<c:forEach items="${pageBean.content}" var="order">
 				<tr  order-id="${order.id}">
 					<td style="width: 10px;padding-top: 15px;"><input class="isDelivery" type="checkbox" ></td>
-					<td>
+					<td class="parent">
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
 								<div class="col-md-3">下单商户：${order.orderUsername}</div>
@@ -111,7 +111,7 @@
 										</c:if>
 									</c:forEach>
 								</div>
-								<div class="col-md-4">订单状态  ${fns:getOrderStatus(order.status)}</div>
+								<div class="col-md-4 orderStatus">订单状态  ${fns:getOrderStatus(order.status)}</div>
 							</div>
 						</td>
 					</tr>

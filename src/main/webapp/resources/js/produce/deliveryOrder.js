@@ -63,6 +63,7 @@
    	    		   title : "添加订单",
    	    		  
    	            onClose : function() {
+   	                $btn.button('reset')
    	                $(this).dialog("destroy");
    	            }, buttons : {
    	                "添加订单" : function() {

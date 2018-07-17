@@ -21,7 +21,6 @@
         	var btn=$(this);
         	var $btn1= $(this).button('loading');
         	var orderId= $(this).closest('tr').eq(0).attr('order-id');
-        	var div= $(this).parents(".parent").find(".status1");
         	var $f = $('<div role="form">确认取消订单？</div>');
         	$f.dialog({
 	    		   title : "添加订单",
@@ -33,7 +32,7 @@
 	            }, buttons : {
 	                "取消订单" : function(){
 	                	if(!$.validate($f))
-	               		return false;
+	               		return false; 	
 	                	$.ajax({
 	                        url : ctx + "/order/cancalOrder",
 	                        type : "POST",

@@ -13,7 +13,8 @@ public enum OrderStatus {
 	waitMake("待制作",2),
 	make("已制作",3),
 	waitShipping ("待发货",4),
-	shipping ("已发货",5),
+	addShipInfo("已添加物流信息",5),
+	shipping ("已发货",6),
 
     ;
 

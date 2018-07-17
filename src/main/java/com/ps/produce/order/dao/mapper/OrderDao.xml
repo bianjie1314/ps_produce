@@ -169,7 +169,7 @@
 			</foreach>
 	</insert>
 	<update id="addShipInfo">
-	    update produce_order set express_name=#{order.expressName} , express_no=#{order.expressNo} , status=5 where id=#{order.id}
+	    update produce_order set express_name=#{order.expressName} , express_no=#{order.expressNo} where id=#{order.id}
 	</update>
 	<update id="changOrderStatus">
 	    update produce_order set status=#{status} where id=#{orderId}
