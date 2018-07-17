@@ -19,7 +19,8 @@
 		<result property="optUseranme" column="opt_useranme"/>
 		<result property="optUserId" column="opt_user_id"/>
 		<result property="callbackUrl" column="callback_url"/>
-				
+		<result property="printCount" column="print_count"/>	
+		<result property="lastPrintDate" column="last_print_date"/>	
 		<result property="remarks" column="remarks"/>
 		<result property="updateDate" column="update_date"/>
 		<result property="createDate" column="create_date"/>
@@ -238,4 +239,7 @@
 	<select id="findStatusByOrderId" resultType="int">
 	select status from produce_order where id=#{orderId}
 	</select>
+	<update id="addPrintOrder" >
+	   update produce_order set status=#{status},last_print_date=#{date},print_count=print_count+1 where id=#{orderId}
+	</update>
 </mapper>

@@ -34,65 +34,17 @@ public class Order  {
 	private Date updateDate;
 	private Date createDate;
 	private String remarks;
-		
-	public String getExpressZipCode() {
-		return expressZipCode;
-	}
-	public void setExpressZipCode(String expressZipCode) {
-		this.expressZipCode = expressZipCode;
-	}
-	public String getExpressFixedPhone() {
-		return expressFixedPhone;
-	}
-	public void setExpressFixedPhone(String expressFixedPhone) {
-		this.expressFixedPhone = expressFixedPhone;
-	}
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
+	private int printCount;
+	private String lastPrintDate;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getExpressName() {
-		return expressName;
-	}
-	public void setExpressName(String expressName) {
-		this.expressName = expressName;
-	}
-	public String getExpressNo() {
-		return expressNo;
-	}
-	public void setExpressNo(String expressNo) {
-		this.expressNo = expressNo;
-	}
-	public List<Product> getProducts() {
-		return products;
-	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
 	public String getOrderNo() {
 		return orderNo;
 	}
-	
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
@@ -102,7 +54,6 @@ public class Order  {
 	public void setOrderUsername(String orderUsername) {
 		this.orderUsername = orderUsername;
 	}
-	
 	public Date getOrderCreateTime() {
 		return orderCreateTime;
 	}
@@ -127,6 +78,18 @@ public class Order  {
 	public void setExpressAddress(String expressAddress) {
 		this.expressAddress = expressAddress;
 	}
+	public String getExpressZipCode() {
+		return expressZipCode;
+	}
+	public void setExpressZipCode(String expressZipCode) {
+		this.expressZipCode = expressZipCode;
+	}
+	public String getExpressFixedPhone() {
+		return expressFixedPhone;
+	}
+	public void setExpressFixedPhone(String expressFixedPhone) {
+		this.expressFixedPhone = expressFixedPhone;
+	}
 	public Integer getStatus() {
 		return status;
 	}
@@ -150,6 +113,54 @@ public class Order  {
 	}
 	public void setCallbackUrl(String callbackUrl) {
 		this.callbackUrl = callbackUrl;
+	}
+	public List<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+	public String getExpressName() {
+		return expressName;
+	}
+	public void setExpressName(String expressName) {
+		this.expressName = expressName;
+	}
+	public String getExpressNo() {
+		return expressNo;
+	}
+	public void setExpressNo(String expressNo) {
+		this.expressNo = expressNo;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	public int getPrintCount() {
+		return printCount;
+	}
+	public void setPrintCount(int printCount) {
+		this.printCount = printCount;
+	}
+	public String getLastPrintDate() {
+		return lastPrintDate;
+	}
+	public void setLastPrintDate(String lastPrintDate) {
+		this.lastPrintDate = lastPrintDate;
 	}
 	
 	

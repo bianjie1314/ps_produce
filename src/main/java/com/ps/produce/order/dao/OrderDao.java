@@ -1,5 +1,6 @@
 package com.ps.produce.order.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -56,5 +57,6 @@ public interface OrderDao {
 	public List<OrderLog> findOrderLogByOrderId(@Param("orderId")Long orderId);
 	public List<Order> findOrderByOrderIds(@Param("orderIds") String orderIds);
 	public int findStatusByOrderId(@Param("orderId")Long orderId);
+	public void addPrintOrder(@Param("status")int value,@Param("orderId") String orderId, @Param("date")Date date);
 	
 }

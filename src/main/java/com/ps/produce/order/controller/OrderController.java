@@ -193,8 +193,6 @@ public class OrderController {
         	orderLog.setFlag(0);
         	orderService.addLog(orderLog);
     	}
-    	
-    	
     	int ret=orderService.confirmOrder(orderNo);
     	return ret;
     }
