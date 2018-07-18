@@ -36,8 +36,8 @@ public long count(String productType, String productName, String startDate, Stri
 	// TODO Auto-generated method stub
 	return 0;
 }
-public List<Template> list(String productType, String productName, String startDate, String endDate, int iDisplayStart,
+public List<Template> list(String productType, String productName,String sku, String startDate, String endDate, int iDisplayStart,
 		int iDisplayLength, String sortType, String sortCol) {
-	   return  templateMapper.list(productType, productName, startDate, endDate,iDisplayStart,iDisplayLength,sortType,sortCol);
+	   return  templateMapper.list(productType, productName,sku, startDate, endDate,iDisplayStart,iDisplayLength,sortType,sortCol);
 }
 }

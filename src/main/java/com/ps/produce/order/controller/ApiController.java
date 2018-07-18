@@ -77,8 +77,8 @@ public class ApiController {
 		}
 		
 		return res;
-	}
-
+	} 
+    
 	@RequestMapping(value = "template/add")
 	@ResponseBody
 	public Response addTemplate(  HttpServletRequest request) {
@@ -102,6 +102,6 @@ public class ApiController {
 
 	public static void main(String [] arg) {
 		
-        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));  
+          
 	}
 }

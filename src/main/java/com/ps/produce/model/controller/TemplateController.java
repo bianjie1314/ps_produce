@@ -43,19 +43,21 @@ public class TemplateController {
         String sortType = request.getParameter("sSortDir_0");
 		String productType=request.getParameter("productType");
 		String productName=request.getParameter("productName");
+		String sku=request.getParameter("sku");
 		String date=request.getParameter("date");
 		productType= productType==null?null:URLDecoder.decode(productType,"UTF-8");
 		productName=productName==null?null:URLDecoder.decode(productName, "UTF-8");
+		sku=sku==null?null:URLDecoder.decode(sku,"UTF-8");
 		date=date==null?null:URLDecoder.decode(date,"UTF-8");
 		String startDate="";
 		String endDate="";
 		if(!StringUtils.isEmpty(date)) {
 		String[] dates=date.split("~");
-		startDate=dates[0];
+		startDate=dates[0]+" 00:00:00";
 		endDate=dates[1]+" 23:59:59";
 		}
 		
-		List<Template> list=templateService.list(productType, productName, startDate, endDate, iDisplayStart, iDisplayLength,
+		List<Template> list=templateService.list(productType, productName,sku, startDate, endDate, iDisplayStart, iDisplayLength,
                 sortType, sortCol);
 		   long count = templateService.count(productType, productName, startDate, endDate);
 		JsonObject<Template> result = new JsonObject<Template>();

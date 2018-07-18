@@ -43,7 +43,7 @@ public class OrderStatusUtils {
 		if(value==OrderStatus.waitShipping.getValue()) {
 		   content="<button  class=\" btn btn-primary addShipInfo\">添加物流信息</button>";
 		   if(!StringUtils.isEmpty(expressNo)||!StringUtils.isEmpty(expressName)) {
-			   content="<p>物流编号:"+expressNo+"</p><p>物流公司:"+expressName+"</p>";
+			   content="<p>运单编号:"+expressNo+"</p><p>物流公司:"+expressName+"</p>";
 		   } 
 		}
 		return content;

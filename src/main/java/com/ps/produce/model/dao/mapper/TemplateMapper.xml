@@ -8,10 +8,13 @@
      and product_type=#{productType}
      </if>
      <if test="productName!=null">
-     and product_name=#{productName}
+     and product_name like CONCAT('%',#{productName},'%')
      </if>
-     <if test="startDate!=null and endDate!=null">
-     and create_time &gt; #{startDate} and create_time &lt; #{endDate}
+     <if test="sku!=null">
+     and sku like CONCAT('%',#{sku},'%')
+     </if>
+     <if test="startDate!=null  and endDate!=null and startDate!='' and endDate!=''">
+     and create_time &gt;= #{startDate} and create_time &lt;= #{endDate}
      </if>
       order by create_time desc  LIMIT #{beginIndex},#{pageSize}
      
@@ -23,10 +26,10 @@
      and product_type=#{productType}
      </if>
      <if test="productName!=null">
-     and product_name=#{productName}
+     and product_name CONCAT('%',#{productName},'%')
      </if>
      <if test="startDate!=null and endDate!=null">
-     and create_time &gt; #{startDate} and create_time &lt; #{endDate}
+     and create_time &gt;= #{startDate} and create_time &lt;= #{endDate}
      </if>
      
   </select>

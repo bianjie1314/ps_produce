@@ -1,6 +1,6 @@
 (function($) {
     $(function() {
-    	getDate();
+    	
         initUI();
         queryType();
         $.myAjax({
@@ -20,7 +20,7 @@
 	   	});
        
     });
-    function getDate(){
+   /* function getDate(){
     	   var d=new Date();
            var mydate=new Date(d.getTime()-86400000*7);
     	   var str = "" + mydate.getFullYear() + "-";
@@ -33,7 +33,7 @@
     	   var a=str+" ~ "+str1;
     	   $('#reservation').val(a);
     	   
-    }
+    }*/
     function queryType(){
     	   
     	$.ajax({
@@ -74,12 +74,16 @@
             "fnServerData" : function(sSource, aoData, fnCallback) {
             	var productType=$('[name=category]').val();
             	var productName=$('[name=productName]').val();
+            	var sku=$('[name=sku]').val();
             	var date=$('#reservation').val();
             	if(productType){                	
                     aoData.push({ "name": "productType", "value":encodeURI(productType)});
                 }
                 if(productName){                	
                     aoData.push({ "name": "productName", "value":encodeURI(productName)});
+                }
+                if(sku){
+                	aoData.push({"name":"sku","value":encodeURI(sku)});
                 }
                 if(date){                	
                     aoData.push({ "name": "date", "value":encodeURI(date)});
@@ -136,10 +140,10 @@
        $('#add').click(function() {
     	   var $btn = $(this).button('loading');
            var $f = $('<div role="form"></div>');
-           $f.append('<p>申请更多模板请与我们的客服联系</p>');
+           $f.append('<p>申请更多模板请与我们的客服联系：3599397360</p>');
         
     	   $f.dialog({
-               title : "修改字典",
+               title : "创建模板",
                onClose : function() {
                    $(this).dialog("destroy");
                    $btn.button('reset');
