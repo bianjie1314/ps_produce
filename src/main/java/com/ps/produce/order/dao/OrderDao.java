@@ -54,7 +54,7 @@ public interface OrderDao {
 	public List<OrderLog> findOrderLogByOrderId(@Param("orderId")Long orderId);
 	public List<Order> findOrderByOrderIds(@Param("orderIds") String orderIds);
 	public int findStatusByOrderId(@Param("orderId")Long orderId);
-	public void addPrintOrder(@Param("status")int value,@Param("orderId") String orderId, @Param("date")String string);
+	public void addPrintOrder(@Param("status")int value,@Param("orderId") String orderId, @Param("date")Date string);
 	public void addShippingOrder(@Param("status")int value, @Param("orderId")String string, @Param("date")Date format);
 	
 }

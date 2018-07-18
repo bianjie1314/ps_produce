@@ -132,7 +132,7 @@ public class OrderService {
 		for (int i = 0; i < orderNo.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderNo[i]));
 			Response response = StateUtils.changState(order.getOrderNo(), "2", "", "",order.getCallbackUrl());
-			orderDao.addPrintOrder(OrderStatus.confirm.getValue(), orderNo[i],new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			orderDao.addPrintOrder(OrderStatus.confirm.getValue(), orderNo[i],new Date());
 			}
 		return 0;
 	}
