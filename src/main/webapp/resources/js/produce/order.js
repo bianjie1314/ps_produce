@@ -39,8 +39,7 @@
 	                        success : function(result) {
 	                        	if(result==0){
 	                        	$f.dialog("destroy");	
-	                        	btn.remove();
-	                        	div.text("订单状态 已取消");
+	                        	btn.parents(".parent").remove();
 	                        	}
 	                        	else{
 	                        		$.messager.popup("订单同步失败!");
