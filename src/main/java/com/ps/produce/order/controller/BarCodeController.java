@@ -83,10 +83,10 @@ public class BarCodeController {
 
 			PdfPCell cell = null;
 			// 创建需要填入文档的元素
-			PdfPTable table = new PdfPTable(4);
+			PdfPTable table = new PdfPTable(5);
 			table.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.setWidthPercentage(98);
-			table.setWidths(new int[] { 25, 25, 25, 25 });
+			table.setWidths(new int[] { 30, 20, 11, 11, 28 });
 
 
 			PdfContentByte cd = writer.getDirectContent();
@@ -108,29 +108,33 @@ public class BarCodeController {
 
 			cell = new PdfPCell(new Paragraph(new Paragraph("", new Font(fontCN40))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-			cell.setColspan(2);
+			cell.setColspan(3);
 			cell.setPadding(5);
 			cell.setBorderWidth(0);
 
 			table.addCell(cell);
+			
+			
 			// 横线
 			cell = new PdfPCell(new Paragraph(new Paragraph("", new Font(fontCN40))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-			cell.setColspan(4);
+			cell.setColspan(5);
 			cell.setPadding(0.1F);
 			cell.setBorderColor(BaseColor.LIGHT_GRAY);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Paragraph(new Paragraph("订单详情：", new Font(fontCN40))));
+			
+			
+			cell = new PdfPCell(new Paragraph(new Paragraph("订单详情:", new Font(fontCN40))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cell.setColspan(2);
 			cell.setPadding(5);
 			cell.setBorderWidth(0);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Paragraph(new Paragraph("用户信息：", new Font(fontCN40))));
+			cell = new PdfPCell(new Paragraph(new Paragraph("用户信息:", new Font(fontCN40))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-			cell.setColspan(2);
+			cell.setColspan(3);
 			cell.setPadding(5);
 			cell.setBorderWidth(0);
 			table.addCell(cell);
@@ -147,10 +151,25 @@ public class BarCodeController {
 			cell.setBorderWidth(0);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("用户姓名： %s",order.getExpressUsername()==null?"":order.getExpressUsername()), new Font(fontCN32))));
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("用户姓名："), new Font(fontCN32))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cell.setPadding(5);
-			cell.setColspan(2);
+			cell.setColspan(1);
+			cell.setBorderWidth(0);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("%s",order.getExpressUsername()==null?"":order.getExpressUsername()), new Font(fontCN32))));
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPadding(5);
+			cell.setColspan(1);
+			cell.setBorderWidth(0);
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("备注： %s",order.getRemarks()), new Font(fontCN32))));
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setColspan(1);
+			cell.setRowspan(2);
+			cell.setPadding(5);
 			cell.setBorderWidth(0);
 			table.addCell(cell);
 
@@ -169,35 +188,52 @@ public class BarCodeController {
 
 		
 
-			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("联系方式： %s",order.getExpressTel()), new Font(fontCN32))));
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("联系方式："), new Font(fontCN32))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-			cell.setColspan(2);
+			cell.setColspan(1);
 			cell.setPadding(5);
 			cell.setBorderWidth(0);
 			table.addCell(cell);
 
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format(" %s",order.getExpressTel()), new Font(fontCN32))));
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setColspan(1);
+			cell.setPadding(5);
+			cell.setBorderWidth(0);
+			table.addCell(cell);
+			
 			cell = new PdfPCell(new Paragraph(new Paragraph("", new Font(fontCN32))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cell.setPadding(5);
 			cell.setColspan(2);
-
-			cell.setBorderWidth(0);
+            cell.setBorderWidth(0);
 			table.addCell(cell);
-
+			
+			
 			
 
-			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("收货地址：%s",order.getExpressAddress()), new Font(fontCN32))));
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("收货地址：%s",""), new Font(fontCN32))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cell.setPadding(5);
-			cell.setColspan(2);
+			cell.setColspan(1);
 			cell.setPaddingBottom(10);
 			cell.setBorderWidth(0);
 			table.addCell(cell);
-
+			
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("%s",order.getExpressAddress()), new Font(fontCN32))));
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setPadding(5);
+			cell.setColspan(2);
+		
+			cell.setPaddingBottom(10);
+			cell.setBorderWidth(0);
+			table.addCell(cell);
+			
+			
 			// 横线
 			cell = new PdfPCell(new Paragraph(new Paragraph("", new Font(fontCN40))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-			cell.setColspan(4);
+			cell.setColspan(5);
 			cell.setPadding(0.1F);
 			cell.setBorderColor(BaseColor.LIGHT_GRAY);
 			table.addCell(cell);
@@ -206,7 +242,7 @@ public class BarCodeController {
 				image128.scaleToFit(120, 120);
 				barcodeCell = new PdfPCell(image128);
 				barcodeCell.setColspan(2);
-				barcodeCell.setRowspan(4);
+				barcodeCell.setRowspan(5);
 				barcodeCell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				barcodeCell.setPadding(5);
 				cell.setPaddingTop(10);
@@ -217,38 +253,56 @@ public class BarCodeController {
 
 				cell = new PdfPCell(new Paragraph(new Paragraph("商品信息", new Font(fontCN40))));
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-				cell.setColspan(2);
+				cell.setColspan(3);
 				cell.setPadding(5);
 				cell.setBorderWidth(0);
 				table.addCell(cell);
 				
 				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("商品名称：%s ",p.getName()), new Font(fontCN30))));
 				// cell.setPadding(5);
-				cell.setPaddingTop(10);
-				cell.setPaddingBottom(10);
+				cell.setColspan(2);
+				cell.setPaddingTop(4);
+				cell.setPaddingBottom(4);
+				cell.setBorderWidth(0);
+				table.addCell(cell);
+				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("模板名称：%s ",p.getTemplateName()), new Font(fontCN30))));
+				// cell.setPadding(5);
+				cell.setPaddingTop(4);
+				cell.setPaddingBottom(4);
 				cell.setBorderWidth(0);
 				table.addCell(cell);
 				
+				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("sku：%s",p.getSku()), new Font(fontCN30))));
+				// cell.setColspan(2);
+				// cell.setPadding(5);
+				cell.setColspan(2);
+
+				cell.setPaddingTop(4);
+				cell.setPaddingBottom(4);
+				cell.setBorderWidth(0);
+				table.addCell(cell);
 			
 				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("尺寸：%s",p.getSize()), new Font(fontCN30))));
 				// cell.setColspan(2);
 				// cell.setPadding(5);
-				cell.setPaddingTop(10);
-				cell.setPaddingBottom(10);
+				cell.setPaddingTop(4);
+				cell.setPaddingBottom(4);
 				cell.setBorderWidth(0);
 				table.addCell(cell);
 				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("颜色： %s",p.getColor()), new Font(fontCN30))));
 				// cell.setPadding(5);
-				cell.setPaddingTop(10);
-				cell.setPaddingBottom(10);
+				cell.setColspan(2);
+
+				cell.setPaddingTop(4);
+				cell.setPaddingBottom(4);
 				cell.setBorderWidth(0);
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("数量：%s",p.getQuantity()), new Font(fontCN30))));
 				// cell.setColspan(2);
 				// cell.setPadding(5);
-				cell.setPaddingTop(10);
-				cell.setPaddingBottom(10);
+				cell.setPaddingTop(4);
+				cell.setPaddingBottom(4);
 				cell.setBorderWidth(0);
 				table.addCell(cell);
 				if(StringUtils.isNoneBlank(p.getEan())) {
@@ -261,7 +315,7 @@ public class BarCodeController {
 
 					image128 = code128.createImageWithBarcode(cd, null, null);
 					barcodeCell = new PdfPCell(image128);
-					barcodeCell.setColspan(2);
+					barcodeCell.setColspan(3);
 					barcodeCell.setHorizontalAlignment(Element.ALIGN_LEFT);
 					barcodeCell.setPadding(5);
 					barcodeCell.setBorderWidth(0);
@@ -269,7 +323,7 @@ public class BarCodeController {
 				}else {
 					cell = new PdfPCell(new Paragraph(new Paragraph("", new Font(fontCN40))));
 					cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-					cell.setColspan(2);
+					cell.setColspan(3);
 					cell.setBorderWidth(0);
 					table.addCell(cell);
 				}
@@ -277,7 +331,7 @@ public class BarCodeController {
 
 				cell = new PdfPCell(new Paragraph(new Paragraph("", new Font(fontCN40))));
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-				cell.setColspan(4);
+				cell.setColspan(5);
 				cell.setPadding(0.1F);
 				cell.setBorderColor(BaseColor.LIGHT_GRAY);
 
