@@ -54,7 +54,7 @@
 		<if test="query.orderUsername !=null and query.orderUsername!=''">
 		    and order_username=#{query.orderUsername}
 		</if>
-		<if test="query.id !=null and query.id !='' and query.status=='3'">
+		<if test="query.id !=null and query.id !='' ">
 		   and opt_user_id=#{query.id}
 		</if>
 		
@@ -121,6 +121,7 @@
 			p.name as 'product.name',
 			p.color as  'product.color' ,
 			p.size as  'product.size' ,
+			p.sku as 'product.sku',
 			p.quantity as  'product.quantity' ,
 			p.ean as  'product.ean' ,
 			p.template_name as  'product.templateName' ,
@@ -230,6 +231,7 @@
 			p.size as  'product.size' ,
 			p.quantity as  'product.quantity' ,
 			p.ean as  'product.ean' ,
+			p.sku as 'product.sku',
 			p.template_name as  'product.templateName' ,
 			p.image as  'product.image' 			
 		FROM produce_order o left join produce_product p on o.id=p.order_id where o.id in (${orderIds})
@@ -241,9 +243,16 @@
 	select status from produce_order where id=#{orderId}
 	</select>
 	<update id="addPrintOrder" >
-	   update produce_order set status=#{status},last_print_date=#{date},print_count=IFNULL(print_count,0)+1 where id=#{orderId}
+	   update produce_order set 
+	   <if test="status==0">
+	   status=#{status},
+	   </if>
+	   last_print_date=#{date},print_count=IFNULL(print_count,0)+1 where id=#{orderId}
 	</update>
 	<update id="addShippingOrder">
 	update produce_order set status=#{status},ship_date=#{date} where id=#{orderId}
 	</update>
+	<select id="findOneExpressNo" resultType="int">
+	   select count(1) from produce_order where  express_no=#{expressNo}
+	</select>
 </mapper>

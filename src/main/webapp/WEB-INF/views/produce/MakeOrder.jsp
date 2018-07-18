@@ -33,10 +33,10 @@
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
 			<ul class="nav nav-tabs">
-				<li role="presentation"<c:if test="${status==2}"> class="active" </c:if>> <a href="?status=2">待制作订单</a></li>
-				<li role="presentation"<c:if test="${status==3}"> class="active" </c:if>> <a href="?status=3">已制作订单</a></li>				
+				<li role="presentation"<c:if test="${status=='2'}"> class="active" </c:if>> <a href="?status=2">待制作订单</a></li>
+				<li role="presentation"<c:if test="${status=='3,4,5'}"> class="active" </c:if>> <a href="?status=3,4,5">已制作订单</a></li>				
 			</ul>
-			<c:if test="${status==2}">
+			<c:if test="${status=='2'}">
 			<div class="row">
 			<div class=" col-md-3">	
 			<button style="margin: 10px 0px;" id="addOrder" class="btn btn-primary">扫码添加订单</button>
@@ -79,7 +79,7 @@
 			<c:if test="${pageBean.totalCount!=0}">
 				<c:forEach items="${pageBean.content}" var="order">
 					<tr  order-id="${order.id}">
-				<c:if test="${status==2}">	<td style="width: 10px;padding-top: 15px;"><input class="isMake" type="checkbox" ></td></c:if>
+				<c:if test="${status=='2'}">	<td style="width: 10px;padding-top: 15px;"><input class="isMake" type="checkbox" ></td></c:if>
 						<td>
 							<div class="row order-header">
 								<div class="col-md-2">单号：${order.orderNo}</div>
@@ -123,7 +123,7 @@
 									</c:forEach>
 								</div>
 								<div class="col-md-4">订单状态  ${fns:getOrderStatus(order.status)}</div>
-								<c:if test="${status==3}"><div class="col-md-4" > <fmt:formatDate value="${order.makeDate}" type="date" pattern="yyyy-MM-dd HH:mm:ss"/></div></c:if> 
+								<c:if test="${status=='3,4,5'}"><div class="col-md-4" > <fmt:formatDate value="${order.makeDate}" type="date" pattern="yyyy-MM-dd HH:mm:ss"/></div></c:if> 
 							</div>
 						</td>
 					</tr>
@@ -131,7 +131,6 @@
 				</c:if>
 			</table>
 			<%@ include file="/WEB-INF/views/include/paging.jsp" %>
-			
 		</div>
 		<jsp:include page="../include/footer.jsp" />
 	</div>

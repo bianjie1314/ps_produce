@@ -173,9 +173,11 @@ function submit4(_this){
             type : "post",
             data : "orderNo="+orderNo,
             success : function(result) {
-            	if (result!= 0) {
+	            
+            	if (result.ret!= 0) {
             		$.messager.popup(result.msg);
-                	}else{
+                	
+            	}else{
                 		location.reload();
                 	}
             	},complete : function() {

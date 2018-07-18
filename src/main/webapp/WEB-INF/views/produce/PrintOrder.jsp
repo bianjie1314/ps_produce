@@ -33,9 +33,8 @@
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
 			<ul class="nav nav-tabs">
-				<li role="presentation" <c:if test="${status==0}"> class="active" </c:if>> <a href="?status=0">待打印订单</a></li>
-				<li role="presentation" <c:if test="${status==1}"> class="active" </c:if>> <a href="?status=1"> 已打印订单</a></li>
-				
+				<li role="presentation" <c:if test="${status=='0'}"> class="active" </c:if>> <a href="?status=0">待打印订单</a></li>
+				<li role="presentation" <c:if test="${status=='1,2,3,4,5'}"> class="active" </c:if>> <a href="?status=1,2,3,4,5"> 已打印订单</a></li>				
 			</ul>
 			<div class="row">
 			<div class=" col-md-3">
@@ -44,7 +43,7 @@
 			</div>
 			</div>
 			<form action="" id="searchForm" method="post" accept-charset="UTF-8">
-			<input name="statu" value="${status}" style="visibility:hidden">
+			<input name="statu" value="${status}" type="hidden">
 			<div  class="row search-bar">
 				<div class=" col-md-3">				
 					<div class="input-group">
@@ -119,7 +118,7 @@
 									</c:forEach>
 								</div>
 								<div class="col-md-4">订单状态  ${fns:getOrderStatus(order.status)}</div>
-								<c:if test="${status==1}">
+								<c:if test="${status=='1,2,3,4,5'}">
 								<div class="col-md-4">打印次数：${order.printCount} </div>
 								<div class="col-md-4"><fmt:formatDate value="${order.lastPrintDate}" type="date" pattern="yyyy-MM-dd HH:mm:ss"/></div>
 								</c:if>

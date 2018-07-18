@@ -143,8 +143,14 @@
 							<c:if test="${not empty product.quantity}">
 							 数量：${product.quantity}
 							</c:if>
+							<c:if test="${not empty product.sku}">
+							 sku：${product.sku}
+							</c:if>
+							<c:if test="${not empty product.templateName}">
+							 模板名称：${product.templateName}
+							</c:if>
 							</p>
-
+                              
 							<p>
 								<c:if test="${not empty product.ean}">
 								<img src="${ctx}/barcode/${product.ean}">

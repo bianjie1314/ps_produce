@@ -85,14 +85,26 @@ public class OrderService {
 		return orderDao.addWaitShippingOrder(orderNo);
 	}
 
-	public int addShipInfo(Order order) {
+	public Response addShipInfo(Order order) {
 		Order oldOrder = orderDao.findOne(order.getId());
-		Response response = StateUtils.changState(oldOrder.getOrderNo(), "3", order.getExpressNo(),
+		Response response=new Response();
+		int orderCount=orderDao.findOneExpressNo(order.getExpressNo());
+		if(orderCount>0) {
+			response.setRet(1);
+			response.setMsg("该完物流信息已添加");
+			return response;
+		}
+		response = StateUtils.changState(oldOrder.getOrderNo(), "3", order.getExpressNo(),
 				order.getExpressName(),oldOrder.getCallbackUrl());
 		if (response.getRet() == ResponseCode.SUCCESS.value()) {
-			orderDao.addShipInfo(order);
+			int count=orderDao.addShipInfo(order);
+			if(count==1) {
+			response.setRet(0);}
+		}else {
+			response.setRet(1);
+			response.setMsg("订单同步异常");
 		}
-		return response.getRet();
+		return response;
 	}
 
 	public void addMakeOrder(int value, String[] orderNo, String userName, long userId) {

@@ -114,8 +114,8 @@ public class OrderController {
     
     @ResponseBody
 	@RequestMapping(value = "/addShipInfo", method = RequestMethod.POST)
-	public int addShipInfo( @RequestBody Order order) throws IOException {
-    	int result=orderService.addShipInfo(order);
+	public Response addShipInfo( @RequestBody Order order) throws IOException {
+    	Response response=orderService.addShipInfo(order);
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	long userId=u.getId();
     	String userName=u.getUsername();
@@ -127,7 +127,7 @@ public class OrderController {
 		orderLog.setRemarks("物流公司："+order.getExpressName()+"  物流编号:"+order.getExpressName());
 		orderLog.setFlag(0);
 		orderService.addLog(orderLog);
-     return result;
+     return response;
 	}
     @ResponseBody
 	@RequestMapping(value = "/queryOrderUser")
@@ -184,17 +184,25 @@ public class OrderController {
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	long userId=u.getId();
     	String userName=u.getUsername();
+    	int ret=orderService.confirmOrder(orderNo);
     	for(int i=0;i<orderNo.length;i++) {
     		OrderLog orderLog=new OrderLog();
         	orderLog.setOptUserId(userId);
         	orderLog.setOptUsername(userName);
+        	Order order =orderService.findOne(Long.parseLong(orderNo[i]));
+        	if(order.getStatus()==0) {
         	orderLog.setOrderId(Long.parseLong(orderNo[i]));
         	orderLog.setStatus(OrderStatus.confirm.getValue());
         	orderLog.setRemarks("确认订单");
+        	}else {
+        		orderLog.setOrderId(Long.parseLong(orderNo[i]));
+        		orderLog.setStatus(order.getStatus());
+        		orderLog.setRemarks("打印订单");
+        	}
         	orderLog.setFlag(0);
         	orderService.addLog(orderLog);
     	}
-    	int ret=orderService.confirmOrder(orderNo);
+    	
     	return ret;
     }
     @ResponseBody

@@ -29,7 +29,7 @@
 				</select>
 			</li>
 			<li>总记录：${pageBean.totalCount}</li>
-			<li>共${pageBean.totalPage}页</li>
+			<li id="pageBeanCount" >共${pageBean.totalPage}页</li>
 			<li><input id="inputPageNo" type="text" style="width:38px;height:20px" placeholder="页码" /><a href="javascript:void(0)" onclick="gotoPage(-100)">跳转</a><span id='pageNoWarn' style='color: #a94442'></span></li>
 		</ul>
 		</nav>
@@ -37,6 +37,14 @@
 </div>
 <script type="text/javascript">
 	function gotoPage(pageNo){
+		if(pageNo==0){
+			return false;
+		}
+		var pageCountText=$("#pageBeanCount").text();
+		pageCount=pageCountText.replace(/[^0-9]/ig, "");
+		if(pageNo>pageCount){
+			return;
+		}
 		if(pageNo == -100){
 			var tempPageNo = $("#inputPageNo").val();
 			tempPageNo = $.trim(tempPageNo);
