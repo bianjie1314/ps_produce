@@ -254,7 +254,7 @@ public class OrderController {
     public String makeOrder(@RequestParam(value="orderId")String orderId,ServletRequest request) {
     	String[] orderNo=orderId.split(",");
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-    	String userName=u.getOsUsername();
+    	String userName=u.getUsername();
     	long userId=u.getId();
     	for(int i=0;i<orderNo.length;i++) {
     		OrderLog orderLog=new OrderLog();
@@ -324,7 +324,7 @@ public class OrderController {
     	String[] orderNo=orderIds.split(",");
     	Response response =orderService.addShipOrder(orderNo);
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-    	String userName=u.getOsUsername();
+    	String userName=u.getUsername();
     	long userId=u.getId();
     	for(int i=0;i<orderNo.length;i++) {
     		OrderLog orderLog=new OrderLog();

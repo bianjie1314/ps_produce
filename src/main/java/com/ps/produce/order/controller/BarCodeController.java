@@ -353,6 +353,7 @@ public class BarCodeController {
 		byte[] bytes = baos.toByteArray();
 		final HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/pdf");
+		headers.add("Access-Control-Allow-Origin", "*");
 		return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.CREATED);
 
 	}

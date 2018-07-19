@@ -144,7 +144,7 @@
 									</div>
 							</div>
 							
-							<div class="row" style="margin-top: 10px;">
+							<div class="row" >
 								<div class="col-md-12">
 							<c:if test="${not empty product.templateName}"> 模板名称：${product.templateName}</c:if>
 								</div>
