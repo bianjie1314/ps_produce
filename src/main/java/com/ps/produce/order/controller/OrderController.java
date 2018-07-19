@@ -124,7 +124,7 @@ public class OrderController {
 		orderLog.setOptUserId(userId);
 		orderLog.setOptUsername(userName);
 		orderLog.setOrderId(order.getId());
-		orderLog.setStatus(OrderStatus.cancel.getValue());
+		orderLog.setStatus(OrderStatus.waitShipping.getValue());
 		orderLog.setRemarks("物流公司："+order.getExpressName()+"<br> 运单编号： "+order.getExpressNo());
 		orderLog.setFlag(0);
 		orderService.addLog(orderLog);}
@@ -232,20 +232,21 @@ public class OrderController {
         	}
         	else if(status>=OrderStatus.make.getValue()) {
         		msg="该订单已制作";
-        	}else {
-        		
-            	OrderLog orderLog=new OrderLog();
-                orderLog.setOptUserId(userId);
-                orderLog.setOptUsername(userName);
-                orderLog.setOrderId(orderId);
-                orderLog.setStatus(OrderStatus.waitMake.getValue());
-                orderLog.setRemarks("添加等待制作订单");
-                orderLog.setFlag(0);
-                orderService.addLog(orderLog);
         	}
         	response.setRet(1);
         	response.setMsg(msg);
         }
+    	else if(result==1){
+    		
+        	OrderLog orderLog=new OrderLog();
+            orderLog.setOptUserId(userId);
+            orderLog.setOptUsername(userName);
+            orderLog.setOrderId(orderId);
+            orderLog.setStatus(OrderStatus.waitMake.getValue());
+            orderLog.setRemarks("添加等待制作订单");
+            orderLog.setFlag(0);
+            orderService.addLog(orderLog);
+    	}
     	return response;
     }
     @ResponseBody
@@ -321,7 +322,7 @@ public class OrderController {
 	@RequestMapping(value = "/ShippingOrder")
     public Response ShippingOrder(@RequestParam(value="orderId")String orderIds,ServletRequest request) {
     	String[] orderNo=orderIds.split(",");
-    	 Response response =orderService.addShipOrder(orderNo);
+    	Response response =orderService.addShipOrder(orderNo);
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	String userName=u.getOsUsername();
     	long userId=u.getId();

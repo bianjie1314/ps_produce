@@ -92,7 +92,7 @@ public class OrderService {
 		int orderCount=orderDao.findOneExpressNo(order.getExpressNo());
 		if(orderCount>0) {
 			response.setRet(1);
-			response.setMsg("该完物流信息已添加");
+			response.setMsg("该物流信息已添加");
 			return response;
 		}
 		response = StateUtils.changState(oldOrder.getOrderNo(), "3", order.getExpressNo(),
