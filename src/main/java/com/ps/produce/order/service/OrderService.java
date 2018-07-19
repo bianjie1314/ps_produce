@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,18 +72,18 @@ public class OrderService {
 
 	}
 
-	public int addWaitMakeOrder(String orderNo) {
+	public int addWaitMakeOrder(String orderNo, String userName, long userId) {
 		if (orderDao.findOneByOrderNo(orderNo) == 0) {
 			return -1;
 		}
-		return orderDao.addWaitMakeOrder(orderNo,new Date());
+		return orderDao.addWaitMakeOrder(orderNo,new Date(),userName,userId);
 	}
 
-	public int addWaitShippingOrder(String orderNo) {
+	public int addWaitShippingOrder(String orderNo,String optUsername,Long optUserId) {
 		if (orderDao.findOneByOrderNo(orderNo) == 0) {
 			return -1;
 		}
-		return orderDao.addWaitShippingOrder(orderNo);
+		return orderDao.addWaitShippingOrder(orderNo,optUsername,optUserId);
 	}
 
 	public Response addShipInfo(Order order) {
@@ -144,7 +145,7 @@ public class OrderService {
 		for (int i = 0; i < orderNo.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderNo[i]));
 			Response response = StateUtils.changState(order.getOrderNo(), "2", "", "",order.getCallbackUrl());
-			orderDao.addPrintOrder(OrderStatus.confirm.getValue(), orderNo[i],new Date());
+			orderDao.addPrintOrder(order.getStatus(), orderNo[i],new Date());
 			}
 		return 0;
 	}

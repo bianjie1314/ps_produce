@@ -34,11 +34,11 @@ public interface OrderDao {
 
 	public int changOrderStatus(@Param("status")int confirm, @Param("orderId")String orderId);
 
-	public int addWaitMakeOrder(@Param("orderNo")String orderNo, @Param("date")Date date);
+	public int addWaitMakeOrder(@Param("orderNo")String orderNo, @Param("date")Date date, @Param("userName")String userName,@Param("userId") long userId);
 	
 	public int findOneByOrderNo(@Param("orderNo")String orderNo);
 
-	public int addWaitShippingOrder(@Param("orderNo")String orderNo);
+	public int addWaitShippingOrder(@Param("orderNo")String orderNo,@Param("userName")String optUsername,@Param("userId")long optUserId);
 
 	public int addShipInfo(@Param("order")Order order);
 
