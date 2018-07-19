@@ -132,30 +132,49 @@
 							<img src="${product.image}" style="max-width: 200px;">
 						</div>
 						<div class="col-md-8">
-							<p>
+							<div class="row">
+							<div class="col-md-12">
 								<strong>商品信息</strong>
-							</p>
-							<p>商品名称：${product.name}	<c:if test="${not empty product.size}"> 尺寸：${product.size} </c:if></p>
-							<p>
-							<c:if test="${not empty product.color}">
-							颜色：${product.color}
-							</c:if>
-							<c:if test="${not empty product.quantity}">
-							 数量：${product.quantity}
-							</c:if>
-							<c:if test="${not empty product.sku}">
-							 sku：${product.sku}
-							</c:if>
-							<c:if test="${not empty product.templateName}">
-							 模板名称：${product.templateName}
-							</c:if>
-							</p>
+								</div>
+							</div>
+							
+							<div class="row" style="margin-top: 10px;">
+							<div class="col-md-12">
+								商品名称：${product.name}	
+									</div>
+							</div>
+							
+							<div class="row" style="margin-top: 10px;">
+								<div class="col-md-12">
+							<c:if test="${not empty product.templateName}"> 模板名称：${product.templateName}</c:if>
+								</div>
+							</div>
+						
+						
+							<div class="row">
+							<div class="col-md-4">
+							<c:if test="${not empty product.sku}">  SKU：${product.sku}</c:if>
+							</div>
+							<div class="col-md-8">
+							<c:if test="${not empty product.size}"> 尺寸：${product.size} </c:if>
+							</div>
+							</div>
                               
-							<p>
+                          	<div class="row">
+                             <div class="col-md-4">
+                             <c:if test="${not empty product.quantity}"> 数量：${product.quantity}</c:if>
+                             </div>
+                               <div class="col-md-8">
+                             <c:if test="${not empty product.color}">颜色：${product.color}</c:if>
+                             	</div>
+                           </div>
+								<div class="row">
+								 <div class="col-md-12">
 								<c:if test="${not empty product.ean}">
 								<img src="${ctx}/barcode/${product.ean}">
 								</c:if>
-							</p>
+								</div>
+							  </div>
 						</div>
 						
 						<%-- <div class="col-md-3">
