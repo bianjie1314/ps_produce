@@ -165,7 +165,7 @@ public class BarCodeController {
 			cell.setBorderWidth(0);
 			table.addCell(cell);
 			
-			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("备注： %s",order.getRemarks()), new Font(fontCN32))));
+			cell = new PdfPCell(new Paragraph(new Paragraph(String.format("备注： %s",order.getRemarks()==null?"":order.getRemarks()), new Font(fontCN32))));
 			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cell.setColspan(1);
 			cell.setRowspan(2);
@@ -242,7 +242,7 @@ public class BarCodeController {
 				image128.scaleToFit(120, 120);
 				barcodeCell = new PdfPCell(image128);
 				barcodeCell.setColspan(2);
-				barcodeCell.setRowspan(5);
+				barcodeCell.setRowspan(6);
 				barcodeCell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				barcodeCell.setPadding(5);
 				cell.setPaddingTop(10);
@@ -260,13 +260,14 @@ public class BarCodeController {
 				
 				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("商品名称：%s ",p.getName()), new Font(fontCN30))));
 				// cell.setPadding(5);
-				cell.setColspan(2);
+				cell.setColspan(3);
 				cell.setPaddingTop(4);
 				cell.setPaddingBottom(4);
 				cell.setBorderWidth(0);
 				table.addCell(cell);
 				cell = new PdfPCell(new Paragraph(new Paragraph(String.format("模板名称：%s ",p.getTemplateName()), new Font(fontCN30))));
 				// cell.setPadding(5);
+				cell.setColspan(3);
 				cell.setPaddingTop(4);
 				cell.setPaddingBottom(4);
 				cell.setBorderWidth(0);

@@ -78,7 +78,6 @@
 		        	iframe.focus();
 		        	iframe.contentWindow.print();
 		        	iframe.style.display="none";
-		//         	setTimeout(function(){ document.body.removeChild(iframe);},10000);
 		        }
 		    }();
 		    document.body.appendChild(iframe);
