@@ -204,7 +204,7 @@
 		WHERE id = #{id}
 	</update>
 	<update id="addWaitMakeOrder">
-	update  produce_order set status=2,make_date=#{date} where order_no=#{orderNo} and status=1
+	update  produce_order set status=2,make_date=#{date},opt_user_id=#{userId},opt_username=#{userName} where order_no=#{orderNo} and status=1
 	</update>
 	<select id="findOneByOrderNo" resultType="int" >
 	 select count(1) from produce_order where order_no=#{orderNo}
@@ -213,7 +213,7 @@
 		delete from order WHERE id = #{id}
 	</update>
 	<update id="addWaitShippingOrder">
-	  update  produce_order set status=4 where order_no=#{orderNo} and status=3
+	  update  produce_order set status=4,opt_user_id=#{userId},opt_username=#{userName} where order_no=#{orderNo} and status=3
 	</update>
 	
 	<select id="findOrderLogByOrderId" resultType="com.ps.produce.order.entity.OrderLog" >
@@ -245,7 +245,7 @@
 	<update id="addPrintOrder" >
 	   update produce_order set 
 	   <if test="status==0">
-	   status=#{status},
+	   status=1,
 	   </if>
 	   last_print_date=#{date},print_count=IFNULL(print_count,0)+1 where id=#{orderId}
 	</update>

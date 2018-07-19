@@ -116,6 +116,7 @@ public class OrderController {
 	@RequestMapping(value = "/addShipInfo", method = RequestMethod.POST)
 	public Response addShipInfo( @RequestBody Order order) throws IOException {
     	Response response=orderService.addShipInfo(order);
+    	if(response.getRet()==0) {
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	long userId=u.getId();
     	String userName=u.getUsername();
@@ -124,9 +125,9 @@ public class OrderController {
 		orderLog.setOptUsername(userName);
 		orderLog.setOrderId(order.getId());
 		orderLog.setStatus(OrderStatus.cancel.getValue());
-		orderLog.setRemarks("物流公司："+order.getExpressName()+"  物流编号:"+order.getExpressName());
+		orderLog.setRemarks("物流公司："+order.getExpressName()+"<br> 运单编号： "+order.getExpressNo());
 		orderLog.setFlag(0);
-		orderService.addLog(orderLog);
+		orderService.addLog(orderLog);}
      return response;
 	}
     @ResponseBody
@@ -208,37 +209,39 @@ public class OrderController {
     @ResponseBody
 	@RequestMapping(value = "/waitMakeOrder")
     public Response waitMakeOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
-    	Response response = new Response();
-    	int result=orderService.addWaitMakeOrder(orderNo);
     	Long orderId=orderService.findOrderIdbyOrderNo(orderNo);
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	long userId=u.getId();
+    	String userName=u.getUsername();
+    	Response response = new Response();
+    	int result=orderService.addWaitMakeOrder(orderNo,userName,userId);
     	if(orderId==null){
     		response.setRet(-1);
     		response.setMsg("订单不存在");
     		return response;
     	}
-    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-    	long userId=u.getId();
-    	String userName=u.getUsername();
-    	OrderLog orderLog=new OrderLog();
-        orderLog.setOptUserId(userId);
-        orderLog.setOptUsername(userName);
-        orderLog.setOrderId(orderId);
-        orderLog.setStatus(OrderStatus.waitMake.getValue());
-        orderLog.setRemarks("添加等待制作订单");
-        orderLog.setFlag(0);
-        orderService.addLog(orderLog);
-        if(result==0) {
+    	if(result==0) {
         	String msg="";
         	int status=orderService.findStatusByOrderId(orderId);
         	if(status==OrderStatus.cancel.getValue()) {
         		msg="该订单已取消";
         	}else if(status==OrderStatus.waitConfirm.getValue()) {
         		msg="该订单未打印";
-        	} if(status==OrderStatus.waitMake.getValue()) {
+        	}else if(status==OrderStatus.waitMake.getValue()) {
         		msg="该订单已添加";
         	}
-        	if(status>=OrderStatus.make.getValue()) {
+        	else if(status>=OrderStatus.make.getValue()) {
         		msg="该订单已制作";
+        	}else {
+        		
+            	OrderLog orderLog=new OrderLog();
+                orderLog.setOptUserId(userId);
+                orderLog.setOptUsername(userName);
+                orderLog.setOrderId(orderId);
+                orderLog.setStatus(OrderStatus.waitMake.getValue());
+                orderLog.setRemarks("添加等待制作订单");
+                orderLog.setFlag(0);
+                orderService.addLog(orderLog);
         	}
         	response.setRet(1);
         	response.setMsg(msg);
@@ -269,7 +272,11 @@ public class OrderController {
     @ResponseBody
 	@RequestMapping(value = "/waitShippingOrder")
     public Response waitShippingOrder(@RequestParam(value="orderNo")String orderNo,ServletRequest request) {
-    	int result =orderService.addWaitShippingOrder(orderNo);
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	long userId=u.getId();
+    	String userName=u.getUsername();
+    	
+    	int result =orderService.addWaitShippingOrder(orderNo,userName,userId);
     	Response response = new Response();
     	Long orderId=orderService.findOrderIdbyOrderNo(orderNo);
     	if(orderId==null) {
@@ -277,17 +284,16 @@ public class OrderController {
     		response.setMsg("暂无该订单发，请于订单管理员联系");
     		return response;
     	}
-    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-    	long userId=u.getId();
-    	String userName=u.getUsername();
+    	if(result==1) {
     	OrderLog orderLog=new OrderLog();
-        orderLog.setOptUserId(userId);
+    	orderLog.setOptUserId(userId);
         orderLog.setOptUsername(userName);
         orderLog.setOrderId(orderId);
         orderLog.setStatus(OrderStatus.waitShipping.getValue());
         orderLog.setRemarks("添加等待发货订单");
         orderLog.setFlag(0);
         orderService.addLog(orderLog);
+        }
         if(result==0) {
         	String msg="";
         	int status=orderService.findStatusByOrderId(orderId);

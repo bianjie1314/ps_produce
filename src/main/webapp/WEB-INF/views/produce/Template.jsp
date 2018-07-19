@@ -49,17 +49,18 @@
 						 <input type="text" name="productName" class="form-control" placeholder="名称" required>
 					</div>
 				</div>
+				<div class="form-group col-sm-3">
+	                     <div class="input-prepend input-group">
+	                         <span class="add-on input-group-addon">创建时间：<i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text"  style="max-width: 230px" name="reservation" id="reservation" class="form-control"/> 
+	                 	 </div>
+					</div>	
 				<div class="form-group col-md-3">
 					<div class="input-group">
 						<label class="input-group-addon">SKU</label>
 						 <input type="text" name="sku" class="form-control" placeholder="sku" required>
 					</div>
 				</div>
-				<div class="form-group col-sm-3">
-	                     <div class="input-prepend input-group">
-	                         <span class="add-on input-group-addon">创建时间：<i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text"  style="width: 230px" name="reservation" id="reservation" class="form-control"/> 
-	                 	 </div>
-					</div>	
+				
 				<div class="form-group col-md-3">
 					<button  class=" btn btn-primary " id="search">搜索</button>
                 </div>
