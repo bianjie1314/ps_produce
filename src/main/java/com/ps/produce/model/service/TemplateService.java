@@ -29,15 +29,16 @@ public class TemplateService {
    }
    
   public List<Map<String,Object>> queryType() {
-	// TODO Auto-generated method stub
 	return templateMapper.queryType();
 }
-public long count(String productType, String productName, String startDate, String endDate) {
-	// TODO Auto-generated method stub
-	return 0;
+public long count(String productType, String productName,String sku, String startDate, String endDate) {
+	return templateMapper.count(productType, productName,sku, startDate, endDate);
 }
-public List<Template> list(String productType, String productName,String sku, String startDate, String endDate, int iDisplayStart,
-		int iDisplayLength, String sortType, String sortCol) {
+public List<Template> list(String productType, String productName,String sku, String startDate, String endDate, int iDisplayStart,int iDisplayLength, String sortType, String sortCol) {
 	   return  templateMapper.list(productType, productName,sku, startDate, endDate,iDisplayStart,iDisplayLength,sortType,sortCol);
+}
+public void delete(Template template) {
+	  templateMapper.deleteBySKU(template);
+	
 }
 }

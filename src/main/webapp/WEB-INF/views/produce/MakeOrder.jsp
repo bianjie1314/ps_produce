@@ -113,9 +113,10 @@
 												 Size：${product.size}
 												 </c:if></p>
 											</div>
-											<div class="col-md-3 "  product-id="${product.id}">
+											<div class="col-md-3 "  product-id="${product.id}" product-materials="${product.materials}">
 												<button type="button" class="btn btn-primary downImg">下载素材</button>
 											</div>
+											
 										</div>
 										<c:if test="${!stat.last}">
 											<div class="line"></div>

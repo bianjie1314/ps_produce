@@ -85,7 +85,7 @@
    	                        success : function(result) {
    	                        	if (result.ret!= 0) {
    	                        		$.messager.popup(result.msg);
-   	                            	 } else {
+   	                            } else {
    	                            	location.reload();
    	                            }
    	                        },
@@ -174,12 +174,14 @@ function submit4(_this){
             data : "orderNo="+orderNo,
             success : function(result) {
 	            
-            	if (result.ret!= 0) {
-            		$.messager.popup(result.msg);
-                	
-            	}else{
-                		location.reload();
-                	}
+            	 if(result.ret!=0){
+                 	$.messager.popup(result.msg);
+
+                 }else{
+                 	$.messager.popup("添加订单成功");
+               	  $(_this).find('#orderNo').val('');
+
+                 }
             	},complete : function() {
                     
                   }});             

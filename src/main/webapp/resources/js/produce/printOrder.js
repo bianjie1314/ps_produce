@@ -26,9 +26,9 @@
                  data:"orderId="+orderIds.join(),
                 success : function(result) {
                 	//location.reload();
-                	if(result==0){
-                	print(ctx+"/printPdf?orderIds="+orderIds.join());
-                	$btn.button('reset');
+                	if(result.ret==0){
+                		print(ctx+"/printPdf?orderIds="+orderIds.join());
+                		$btn.button('reset');
                 	}else{
                 		$btn.button('reset');
                 		$.messager.popup("订单同步失败!");

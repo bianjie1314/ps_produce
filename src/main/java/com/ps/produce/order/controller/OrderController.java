@@ -99,6 +99,7 @@ public class OrderController {
     		start=times[0];
     		end=times[1];
     	}
+    	if(!u.getUsername().equalsIgnoreCase("admin"))//管理员可以看所有
     	query.setId(userId);
     	query.setStart(start);
     	query.setEnd(end+" 23:59:59");
@@ -149,6 +150,10 @@ public class OrderController {
     	}
     	query.setStart(start);
     	query.setEnd(end+" 23:59:59");
+    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+    	if(!u.getUsername().equalsIgnoreCase("admin"))//管理员可以看所有
+        	query.setId(u.getId());
+
     	if(!StringUtils.isEmpty(status)) 
     	query.setStatus(status);
     	pageBean = orderService.find(pageBean,query);
@@ -174,37 +179,43 @@ public class OrderController {
         	orderLog.setFlag(0);
         	orderService.addLog(orderLog);
     	}
-    	int ret =orderService.canalOrder(OrderStatus.cancel.getValue(),orderNo);
+    	int ret =orderService.cancleOrder(OrderStatus.cancel.getValue(),orderNo);
     	return ret;
     }
     
     @ResponseBody
 	@RequestMapping(value = "/confirmOrder")
-    public int confirmOrder(String orderId,ServletRequest request) {
-    	String[] orderNo=orderId.split(",");
-    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-    	long userId=u.getId();
-    	String userName=u.getUsername();
-    	int ret=orderService.confirmOrder(orderNo);
-    	for(int i=0;i<orderNo.length;i++) {
-    		OrderLog orderLog=new OrderLog();
-        	orderLog.setOptUserId(userId);
-        	orderLog.setOptUsername(userName);
-        	Order order =orderService.findOne(Long.parseLong(orderNo[i]));
-        	if(order.getStatus()==0) {
-        	orderLog.setOrderId(Long.parseLong(orderNo[i]));
-        	orderLog.setStatus(OrderStatus.confirm.getValue());
-        	orderLog.setRemarks("确认订单");
-        	}else {
-        		orderLog.setOrderId(Long.parseLong(orderNo[i]));
-        		orderLog.setStatus(order.getStatus());
-        		orderLog.setRemarks("打印订单");
-        	}
-        	orderLog.setFlag(0);
-        	orderService.addLog(orderLog);
-    	}
+    public Response confirmOrder(String orderId,ServletRequest request) {
+    	Response response = new Response ();
+    	try {
+	    	String[] orderNo=orderId.split(",");
+	    	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+	    	long userId=u.getId();
+	    	String userName=u.getUsername();
+	    	 response = orderService.confirmOrder(orderNo);
+	    	for(int i=0;i<orderNo.length;i++) {
+	    		OrderLog orderLog=new OrderLog();
+	        	orderLog.setOptUserId(userId);
+	        	orderLog.setOptUsername(userName);
+	        	Order order =orderService.findOne(Long.parseLong(orderNo[i]));
+	        	if(order.getStatus()==0) {
+	        	 orderLog.setOrderId(Long.parseLong(orderNo[i]));
+	        	   orderLog.setStatus(OrderStatus.confirm.getValue());
+	        	 orderLog.setRemarks("确认订单");
+	        	}else {
+	        		orderLog.setOrderId(Long.parseLong(orderNo[i]));
+	        		orderLog.setStatus(order.getStatus());
+	        		orderLog.setRemarks("打印订单");
+	        	}
+	        	orderLog.setFlag(0);
+	        	orderService.addLog(orderLog);
+	    	}
+    	}catch (Exception e) {
+    		response.setRet(ResponseCode.ERROR.value());
+    		response.setMsg("订单更新状态失败");
+		}
     	
-    	return ret;
+    	return response;
     }
     @ResponseBody
 	@RequestMapping(value = "/waitMakeOrder")
@@ -323,6 +334,10 @@ public class OrderController {
     public Response ShippingOrder(@RequestParam(value="orderId")String orderIds,ServletRequest request) {
     	String[] orderNo=orderIds.split(",");
     	Response response =orderService.addShipOrder(orderNo);
+    	if(response.getRet()!=0) {
+        	return response;
+
+    	}
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     	String userName=u.getUsername();
     	long userId=u.getId();
@@ -342,6 +357,8 @@ public class OrderController {
     @RequestMapping(value="/downImg")
     public String downImg(@RequestParam(value="productId")String productId,ServletRequest  request,HttpServletResponse response) {
     	String imgUrls=orderService.querProductImg(productId);
+    	if(StringUtils.isBlank(imgUrls))
+    		return "该订单无素材";
     	ZipImgs.zipImgs(response, imgUrls);
     	return null;
     }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ps.produce.base.entity.query.model.OrderQuery;
 import com.ps.produce.base.entity.query.model.PageBean;
+import com.ps.produce.exception.BusinessException;
 import com.ps.produce.order.dao.OrderDao;
 import com.ps.produce.order.entity.Order;
 import com.ps.produce.order.entity.OrderLog;
@@ -95,8 +96,6 @@ public class OrderService {
 			response.setMsg("该物流信息已添加");
 			return response;
 		}
-		response = StateUtils.changState(oldOrder.getOrderNo(), "3", order.getExpressNo(),
-				order.getExpressName(),oldOrder.getCallbackUrl());
 		if (response.getRet() == ResponseCode.SUCCESS.value()) {
 			int count=orderDao.addShipInfo(order);
 			if(count==1) {
@@ -123,7 +122,7 @@ public class OrderService {
 
 	}
 
-	public int canalOrder(int value, String[] orderNo) {
+	public int cancleOrder(int value, String[] orderNo) {
 		int ret = ResponseCode.SUCCESS.value();
 		for (int i = 0; i < orderNo.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderNo[i]));
@@ -140,14 +139,16 @@ public class OrderService {
 		return ret;
 	}
 
-	public int confirmOrder(String[] orderNo) {
-		int ret = ResponseCode.SUCCESS.value();
+	public Response confirmOrder(String[] orderNo) {
+		Response res = new Response();
 		for (int i = 0; i < orderNo.length; i++) {
 			Order order = orderDao.findOne(Long.parseLong(orderNo[i]));
 			Response response = StateUtils.changState(order.getOrderNo(), "2", "", "",order.getCallbackUrl());
+			if(response.getRet()!=ResponseCode.SUCCESS.value())
+				throw new BusinessException(ResponseCode.ERROR);
 			orderDao.addPrintOrder(order.getStatus(), orderNo[i],new Date());
-			}
-		return 0;
+		}
+		return res;
 	}
 
 	public Response addShipOrder(String[] orderId) {
@@ -159,13 +160,15 @@ public class OrderService {
 				 oldResponse.setMsg("请先添加物流信息");
 				 return oldResponse;
 			}
-			Response response = StateUtils.changState(order.getOrderNo(), "3", "", "",order.getCallbackUrl());
+			Response response = StateUtils.changState(order.getOrderNo(), "3", order.getExpressNo(),order.getExpressName(),order.getCallbackUrl());
 			if (response.getRet() == ResponseCode.SUCCESS.value()) {
 				orderDao.addShippingOrder(OrderStatus.shipping.getValue(), orderId[i],new Date());
 				oldResponse.setRet(0);
             }else {
             	oldResponse.setRet(-1);
-            	oldResponse.setMsg("数据同步错误");
+            	oldResponse.setMsg("订单同步异常");
+        		return oldResponse;
+
             }
 			
 			

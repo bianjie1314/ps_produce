@@ -37,6 +37,8 @@
 			<result property="templateName" column="product.templateName"/>
 			<result property="image" column="product.image"/>
 			<result property="sku" column="product.sku"/>
+			<result property="materials" column="product.materials"/>
+			
 		</collection> 
 	</resultMap>
    
@@ -55,7 +57,7 @@
 		    and order_username=#{query.orderUsername}
 		</if>
 		<if test="query.id !=null and query.id !='' ">
-		   and opt_user_id=#{query.id}
+		   and (opt_user_id=#{query.id} or opt_make_user_id=#{query.id})
 		</if>
 		
     </sql>
@@ -90,6 +92,7 @@
 			p.ean as  'product.ean' ,
 			p.template_name as  'product.templateName' ,
 			p.image as  'product.image', 
+			p.materials as  'product.materials', 			
 		    p.sku	 as  'product.sku' 
 		    
 		 from (
@@ -187,7 +190,7 @@
 	    update produce_order set status=#{status} where id=#{orderId}
 	</update>
 	<update id="cancle" >
-	    update produce_order set status=-1 where order_no=#{order.orderNo} and status=0
+	    update produce_order set status=-1 where order_no=#{order.orderNo}
 	</update>
 	
 	<select id="queryProductImg" resultType="String" >
@@ -213,7 +216,7 @@
 		delete from order WHERE id = #{id}
 	</update>
 	<update id="addWaitShippingOrder">
-	  update  produce_order set status=4,opt_user_id=#{userId},opt_username=#{userName} where order_no=#{orderNo} and status=3
+	  update  produce_order set status=4,opt_make_user_id=#{userId},opt_make_username=#{userName} where order_no=#{orderNo} and status=3
 	</update>
 	
 	<select id="findOrderLogByOrderId" resultType="com.ps.produce.order.entity.OrderLog" >

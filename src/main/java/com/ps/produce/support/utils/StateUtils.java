@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.ps.produce.order.dto.OrderParam;
 import com.ps.produce.support.Response;
+import com.ps.produce.support.ResponseCode;
 import com.ps.produce.support.SignatureUtils;
 
 public class StateUtils {
@@ -19,8 +20,16 @@ public class StateUtils {
     	String data =gson.toJson(o);
     	String url=urlHead+"/ps/orders/sync";
     	url = SignatureUtils.signatureUrl(url, data, "dce7b60efaee20cc");
+    	Response res = new Response();
+    	try {
     	String response=HttpClientUtil.doPostJson(url,data);
-        return  gson.fromJson(response,Response.class);
+    	res=  gson.fromJson(response,Response.class);
+    	}catch(Exception e){
+    		res.setRet(ResponseCode.ERROR.value());
+    		res.setMsg("订单同步异常");
+    	}
+    	return res;
+      
     }
 	public static void main(String[] args) {
 		

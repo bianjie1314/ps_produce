@@ -129,9 +129,6 @@
 			table.ajax.reload();
 		});
        
-       var toolbar =$('<ul class="dropdown-menu"></ul>');
-       toolbar.append('<li><a href="#" id="del">删除</a></li>');
-       toolbar.append('<li><a href="#" id="edit">修改</a></li>');
     
        $("div.toolbar-btn").append('<button  class=" btn btn-primary " id="add">创建模板</button> ');
        $("div.toolbar-btn").append(toolbar);
@@ -140,7 +137,7 @@
        $('#add').click(function() {
     	   var $btn = $(this).button('loading');
            var $f = $('<div role="form"></div>');
-           $f.append('<p>申请更多模板请与我们的客服联系：3599397360</p>');
+           $f.append('<p>申请更多模板请与我们的客服联系：<br >QQ:3599397360</p>');
         
     	   $f.dialog({
                title : "创建模板",

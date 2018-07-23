@@ -59,10 +59,10 @@ public class TemplateController {
 		
 		List<Template> list=templateService.list(productType, productName,sku, startDate, endDate, iDisplayStart, iDisplayLength,
                 sortType, sortCol);
-		   long count = templateService.count(productType, productName, startDate, endDate);
+		   long count = templateService.count(productType, productName,sku, startDate, endDate);
 		JsonObject<Template> result = new JsonObject<Template>();
-		result.setiTotalDisplayRecords(0);
-		result.setiTotalRecords(0);
+		result.setiTotalDisplayRecords(count);
+		result.setiTotalRecords(count);
 		result.setAaData(list);
 		return result;
 		

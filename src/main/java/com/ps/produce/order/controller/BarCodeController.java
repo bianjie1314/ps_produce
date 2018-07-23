@@ -237,7 +237,9 @@ public class BarCodeController {
 			cell.setPadding(0.1F);
 			cell.setBorderColor(BaseColor.LIGHT_GRAY);
 			table.addCell(cell);
-			for(Product p:order.getProducts()) {
+			List<Product> products =order.getProducts();
+			for(int i=0;i<products.size();i++) {
+				Product p=products.get(i);
 				image128 = Image.getInstance(p.getImage());
 				image128.scaleToFit(120, 120);
 				barcodeCell = new PdfPCell(image128);
@@ -335,8 +337,18 @@ public class BarCodeController {
 				cell.setColspan(5);
 				cell.setPadding(0.1F);
 				cell.setBorderColor(BaseColor.LIGHT_GRAY);
+			
+				if(i==2) {
+					document.add(table);
+					document.newPage();
+					 table = new PdfPTable(5);
+					table.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.setWidthPercentage(98);
+					table.setWidths(new int[] { 30, 20, 11, 11, 28 });
 
+				}
 				table.addCell(cell);
+				
 			}
 			
 			

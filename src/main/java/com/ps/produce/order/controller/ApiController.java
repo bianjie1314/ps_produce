@@ -2,9 +2,6 @@ package com.ps.produce.order.controller;
 
 import java.io.IOException;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
@@ -22,6 +19,7 @@ import com.ps.produce.order.service.OrderService;
 import com.ps.produce.support.Response;
 import com.ps.produce.support.ResponseCode;
 import com.ps.produce.support.SignatureUtils;
+import com.ps.produce.support.utils.HttpClientUtil;
 
 @Controller
 @RequestMapping(value = "/api")
@@ -99,9 +97,61 @@ public class ApiController {
 	
 		return res;
 	}
+	
+	@RequestMapping(value = "template/delete")
+	@ResponseBody
+	public Response deleteTemplate(  HttpServletRequest request) {
+		Response res = new Response();
+		try {
+			String body = IOUtils.toString(request.getInputStream(),"utf-8" );
+			System.out.println("revice template "+body);
+			SignatureUtils.checkSign(request, body);
+			Gson gson = new Gson();
+			Template template = gson.fromJson(body, Template.class);
+			templateService.delete(template);
+		} catch (IOException e) {
+			res.setMsg(e.getMessage());
+			res.setResponseCode(ResponseCode.ERROR);
+			e.printStackTrace();
+		}
+
+	
+		return res;
+	}
 
 	public static void main(String [] arg) {
 		
-          
+		test();
 	}
+	
+	  public static void test() {
+	    	Gson gson = new Gson();
+	    	Template t=new Template();
+	    	t.setProductName("产品名称12");
+	    	t.setProductType("产品类别12");
+	    	t.setSku("sku");
+	    	t.setTempImgs("https://assets.gitee.com/assets/qrcode-weixin-8ab7378f5545710bdb3ad5c9d17fedfe.jpg,https://assets.gitee.com/assets/qrcode-weixin-8ab7378f5545710bdb3ad5c9d17fedfe.jpg");
+			 String data = gson.toJson(t);
+			 String url ="http://127.0.0.1:8080/ps_produce/api/template/add";
+
+			url = SignatureUtils.signatureUrl(url, data, "dce7b60efaee20cc");
+			System.out.println(url);
+			System.out.println(data);
+			String reponse = HttpClientUtil.doPostJson(url, data);
+			System.out.println(reponse);
+	    }
+	
+	  public static void test2() {
+	    	Gson gson = new Gson();
+	    	Template t=new Template();
+	    	t.setSku("厂商1黑胶地垫");
+			 String data = gson.toJson(t);
+			 String url ="http://127.0.0.1:8080/ps_produce/api/template/delete";
+
+			url = SignatureUtils.signatureUrl(url, data, "dce7b60efaee20cc");
+			System.out.println(url);
+			System.out.println(data);
+			String reponse = HttpClientUtil.doPostJson(url, data);
+			System.out.println(reponse);
+	    }
 }

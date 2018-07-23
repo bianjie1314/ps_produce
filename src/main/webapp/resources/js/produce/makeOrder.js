@@ -55,6 +55,13 @@
     	$(".downImg").click(function(){
     		var $btn = $(this).button('loading');
     		var productId= $(this).closest('div').eq(0).attr('product-id');
+    		var materials= $(this).closest('div').eq(0).attr('product-materials');
+    		if(!materials){
+    			  $btn.button('reset');
+    			$.messager.popup("该订单无素材！");
+    			return false;
+    		}
+    	
     		var temp = document.createElement("form");        
 		    temp.action = ctx+"/order/downImg";        
 		    temp.method = "post";
@@ -87,7 +94,7 @@
     	                	
     	                	if(!$.validate($f))
     	               		return false;
-    	                var orderNo =  $f.find('[id=orderNo]').val();
+    	                var orderNo =  $f.find('#orderNo').val();
     	                if(orderNo==""){
     	                	$.messager.popup("请输入订单编号！");
     	                	return false;
@@ -99,6 +106,7 @@
     	                    success : function(result) {
     	                        if (result.ret!=0 ) {
     	                        	$.messager.popup(result.msg);
+
     	                        }else{ 
     	                            location.reload();
     	                        }
@@ -136,8 +144,11 @@ function submit2(_this){
         success : function(result) {
             if(result.ret!=0){
             	$.messager.popup(result.msg);
+
             }else{
             	$.messager.popup("添加订单成功");
+          	  $(_this).find('#orderNo').val('');
+
             }
         },
         complete : function() {

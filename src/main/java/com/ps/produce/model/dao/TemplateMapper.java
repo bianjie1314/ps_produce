@@ -13,4 +13,6 @@ public interface TemplateMapper {
     int insert(Template record);
     int delete(@Param("id")int id);
 	List<Map<String,Object>> queryType();
+	long count(@Param("productType")String productType,@Param("productName")String ProductName,@Param("sku")String sku,@Param("startDate")String startDate,@Param("endDate")String endDate);
+	void deleteBySKU(Template template);
 }
