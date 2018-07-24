@@ -122,8 +122,8 @@
        $('#add').click(function() {
     	    var $f = $('<div role="form"></div>');
            $f.append('<div class="form-group"><div class="input-group"><label class="input-group-addon">用户名</label><input type="text" dialog-id="username" class="form-control"></div></div></div>');
-           $f.append('<div class="form-group"><div class="input-group"><label class="input-group-addon">密码</label><input type="text" dialog-id="password" class="form-control"></div></div></div>');
-           $f.append('<div class="form-group"><div class="input-group"><label class="input-group-addon">确认密码</label><input type="number" dialog-id="confirmPassword" class="form-control"></div></div></div>');
+           $f.append('<div class="form-group"><div class="input-group"><label class="input-group-addon">密码</label><input type="password" dialog-id="password" class="form-control"></div></div></div>');
+           $f.append('<div class="form-group"><div class="input-group"><label class="input-group-addon">确认密码</label><input type="password" dialog-id="confirmPassword" class="form-control"></div></div></div>');
            
     	   $f.dialog({
                title : "添加用户",
