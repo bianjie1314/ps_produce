@@ -44,6 +44,13 @@
     <example>${fns:getOrderStatus(value)}</example>  
   </function>
   <function>
+    <description>获取请假状态</description>
+    <name>getLeaveStatus</name>
+    <function-class>com.ps.produce.support.utils.LeaveStateUtils</function-class>
+    <function-signature>java.lang.String getLabel(int)</function-signature>
+    <example>${fns:getLeaveStatus(value)}</example>  
+  </function>
+  <function>
     <description>添加物流信息</description>
     <name>addShippping</name>
     <function-class>com.ps.produce.support.utils.OrderStatusUtils</function-class>
@@ -57,7 +64,13 @@
     <function-signature>java.lang.String checkStatus(int)</function-signature>
     <example>${fns:checkStatus(value)}</example>  
   </function>
-  
+  <function>
+    <description>获取请假状态</description>
+    <name>checkLeaveStatus</name>
+    <function-class>com.ps.produce.support.utils.LeaveStateUtils</function-class>
+    <function-signature>java.lang.String checkStatus(int)</function-signature>
+    <example>${fns:checkLeaveStatus(value)}</example>  
+  </function>
   <function>
     <description>获取字典标签(多个)</description>
     <name>getDictLabels</name>

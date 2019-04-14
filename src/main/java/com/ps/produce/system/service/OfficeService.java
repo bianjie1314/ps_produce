@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
 import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.base.service.BaseService;
 import com.ps.produce.support.ISecurityUtils;
@@ -14,7 +16,8 @@ import com.ps.produce.system.entity.Office;
 
 @Service
 public class OfficeService extends BaseService<OfficeDao, Office>{
-
+    @Autowired
+    private OfficeDao officeDao;
 	public PageBean<Office> findOffice(PageBean<Office> officePageBean) {
 		// 生成数据权限过滤条件（dsf为dataScopeFilter的简写，在xml中使用 ${sqlMap.dsf}调用权限SQL）
 		officePageBean.getSqlMap().put("dsf", dataScopeFilter(ISecurityUtils.getCurrUser(), "o", "a"));
@@ -92,5 +95,22 @@ public class OfficeService extends BaseService<OfficeDao, Office>{
 		office.setName(newOffice.getName());
 		office.setParent(newOffice.getParent());
 		return office;
+	}
+
+	public List<Office> getOffice() {
+		
+		List<Office> list=dao.getOffice();
+		List<Office> newList=Lists.newArrayList();
+		for(Office office:list) {
+			if(office.getParentIds().split(",").length>2) {
+				newList.add(office);
+			}
+		}
+		return newList;
+	}
+
+	public Office find(long officeId) {
+		// TODO Auto-generated method stub
+		return officeDao.find(officeId);
 	}
 }

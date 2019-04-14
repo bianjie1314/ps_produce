@@ -21,15 +21,11 @@
     </properties>
 
     <dependencies>
+        
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-sqs</artifactId>
-            <version>1.10.32</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-s3</artifactId>
-            <version>1.10.15</version>
+         <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+           <version>2.3.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -37,16 +33,7 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-<dependency>
-    <groupId>com.itextpdf</groupId>
-    <artifactId>itextpdf</artifactId>
-    <version>5.5.13</version>
-</dependency>
-<dependency>
-    <groupId>com.itextpdf</groupId>
-    <artifactId>itext-asian</artifactId>
-    <version>5.2.0</version>
-</dependency>
+
 
         <!-- SECURITY -->
         <dependency>
@@ -323,6 +310,7 @@
  
 
            <dependencies>
+
 
               <dependency>
 

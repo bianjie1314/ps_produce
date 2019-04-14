@@ -15,9 +15,7 @@ public class ShiroUser implements Serializable {
 	private static final long serialVersionUID = -7925207867724622649L;
 	private Long id;
 	private String username;
-	private String osUsername;
-	private Long osUserId;
-
+	private String name;
 	@JsonIgnore
 	private String salt;
 	private int type;
@@ -25,18 +23,16 @@ public class ShiroUser implements Serializable {
 	private List<String> permissions;
 	private Office office;
 	
-	  public ShiroUser(Long id,Long osUserId,  String username,String osUsername) {
+	  public ShiroUser(Long id,  String username,String name) {
 	        this.id = id;
 	        this.username = username;
-	        this.osUsername=osUsername;
-	        this.osUserId = osUserId;
+	        this.name=name;
 	    }
 	  
 	  public ShiroUser(Long id,  String username) {
 	        this.id = id;
 	        this.username = username;
-	        this.osUsername="admin";//管理员直接数据库登陆
-	        this.osUserId = 1l;
+	        
 	    }
 
 	
@@ -48,25 +44,25 @@ public class ShiroUser implements Serializable {
 		this.office = office;
 	}
 
-	public String getOsUsername() {
-		return osUsername;
+	
+
+
+	
+
+
+	
+
+
+	
+
+
+	public String getName() {
+		return name;
 	}
 
-
-	public void setOsUsername(String osUsername) {
-		this.osUsername = osUsername;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-
-	public long getOsUserId() {
-		return osUserId;
-	}
-
-
-	public void setOsUserId(long osUserId) {
-		this.osUserId = osUserId;
-	}
-
 
 	public int getType() {
 		return type;
@@ -152,4 +148,6 @@ public class ShiroUser implements Serializable {
 	public void setPermissions(List<String> permissions) {
 		this.permissions = permissions;
 	}
+
+	
 }

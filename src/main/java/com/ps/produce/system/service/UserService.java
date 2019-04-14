@@ -3,6 +3,7 @@ package com.ps.produce.system.service;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +23,7 @@ import com.ps.produce.support.ISecurityUtils;
 import com.ps.produce.support.Password;
 import com.ps.produce.system.dao.RoleDao;
 import com.ps.produce.system.dao.UserDao;
+import com.ps.produce.system.entity.Distribution;
 import com.ps.produce.system.entity.Office;
 import com.ps.produce.system.entity.User;
 
@@ -55,12 +57,22 @@ public class UserService extends BaseService<UserDao, User> {
 		userPageBean.setContent(users);
 		return userPageBean;
 	}
-
 	public List<User> findUsers() {
 		PageBean<User> userPageBean = new PageBean<User>();
 		// 生成数据权限过滤条件（dsf为dataScopeFilter的简写，在xml中使用 ${sqlMap.dsf}调用权限SQL）
 		userPageBean.getSqlMap().put("dsf", BaseService.dataScopeFilter(ISecurityUtils.getCurrUser(), "o", "a"));
 		List<User> users = userDao.findByPage(userPageBean);
+		return users;
+	}
+	public List<User> findUsers(int roleId) {
+		PageBean<User> userPageBean = new PageBean<User>();
+		List<User> users=null;
+		try {
+			users = userDao.findByRoleId(userPageBean,roleId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return users;
 	}
 
@@ -77,8 +89,7 @@ public class UserService extends BaseService<UserDao, User> {
 			userDao.insert(user);
 		} else {
 			user.setId(old.getId());
-			user.setOsUserId(old.getOsUserId());
-			user.setOsUsername(old.getOsUsername());
+			user.setName(old.getName());
 		}
 
 	}
@@ -97,12 +108,7 @@ public class UserService extends BaseService<UserDao, User> {
 			userDao.update(user);
 		}
 
-		// 删除角色关联
-		userDao.deleteUserRole(user);
-		// 重新赋权限
-		if (CollectionUtils.isNotEmpty(user.getRoleList())) {
-			userDao.insertUserRole(user);
-		}
+		
 	}
 
 	/**
@@ -128,6 +134,10 @@ public class UserService extends BaseService<UserDao, User> {
 		user.preInsert();
 		this.entryptPassword(user);
 		this.userDao.insert(user);
+		if (CollectionUtils.isNotEmpty(user.getRoleList())) {
+			userDao.insertUserRole(user);
+			}
+		
 
 	}
 
@@ -148,8 +158,67 @@ public class UserService extends BaseService<UserDao, User> {
 	private void entryptPassword(User user) {
 		byte[] salt = Digests.generateSalt(8);
 		user.setSalt(Encodes.encodeHex(salt));
-
+ 
 		byte[] hashPassword = Digests.sha1(user.getPassword().getBytes(), salt, HASH_INTERATIONS);
 		user.setPassword(Encodes.encodeHex(hashPassword));
+	}
+	public static void main(String[] args) {
+		byte[] salt = Digests.generateSalt(8);
+		System.out.print(Encodes.encodeHex(salt));
+		byte[] hashPassword = Digests.sha1("123456".getBytes(), salt, HASH_INTERATIONS);
+		System.out.println("|||||||");
+		System.out.print(Encodes.encodeHex(hashPassword));
+	}
+
+	public void add(User user, int roleId) {
+		// TODO Auto-generated method stub
+		try {
+			user.preInsert();
+			this.entryptPassword(user);
+			this.userDao.insert(user);
+			
+			userDao.insertRoleAndUser(user.getId(),roleId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	public List<User> findCou() {
+		// TODO Auto-generated method stub
+		
+		return userDao.findCou();
+	}
+
+	public int distribution(Distribution d) {
+		// TODO Auto-generated method stub
+		if(userDao.findD(d)==0) {
+		return userDao.distribution(d);
+		}
+		return 0;
+	}
+
+	public List<Map<String,Object>> queryTea(long l) {
+		// TODO Auto-generated method stub
+		return userDao.queryTea(l);
+	}
+
+	public List<Map<String, Object>> queryTea(long id, long courseId) {
+		// TODO Auto-generated method stub
+		return userDao.queryTea1(id,courseId);
+	}
+
+	public void updateDis(Distribution d) {
+		if(userDao.findD(d)==1) {
+			 userDao.updateDis(d);
+		}
+		 userDao.distribution(d);
+	}
+
+	public List<Map<String, Object>> queryClazz(Distribution d) {
+		// TODO Auto-generated method stub
+		return userDao.queryclazz(d);
 	}
 }

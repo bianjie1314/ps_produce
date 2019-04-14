@@ -113,7 +113,7 @@ public class LoginController {
 	@RequestMapping(value = "/bind")
 	public String bind(Model model ) {
 		ShiroUser user = ISecurityUtils.getCurrUser();
-		  if(user==null||StringUtils.isNotBlank(user.getOsUsername())) {
+		  if(user==null) {
 			  return "redirect:login";  		  
 		  }else {
 			  model.addAttribute("username", user.getUsername());

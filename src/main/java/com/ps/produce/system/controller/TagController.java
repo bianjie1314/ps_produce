@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.ps.produce.system.controller;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,18 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * 标签Controller
- * @author ThinkGem
- * @version 2013-3-23
- */
 @Controller
 @RequestMapping(value = "/tag")
 public class TagController {
-	
-	/**
-	 * 树结构选择标签（treeselect.tag）
-	 */
 	@RequestMapping(value = "treeselect")
 	public String treeselect(HttpServletRequest request, Model model) {
 		model.addAttribute("url", request.getParameter("url")); 	// 树结构数据URL

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ps.produce.score.dao.ScoreDao">
+  
+    <select id="findScore" resultType="map">
+      select s.*,su.name,s.state as state,c.course_name as courseName,so.name as officeName from score s left join course c on s.course_id =c.id left join sys_user su on s.stu_id=su.id left join sys_office so on s.office_id =so.id where 1=1
+      <if test="tId!=null and tId!=''">
+      and  c.tId=#{tId}
+      </if>
+      <if test="officeId!=null and officeId!=''">
+      and office_id =#{officeId} 
+      </if>
+      
+      <if test="search!=null and search!=''">
+      and (su.username like CONCAT('%',#{search},'%') or c.course_name like CONCAT('%',#{search},'%') or so.name like CONCAT('%',#{search},'%') )
+      </if>
+      LIMIT #{beginIndex},#{pageSize}
+    </select>
+    <insert id="saveScore" >
+    insert into score (score,course_id,stu_id,create_date,opt_id,office_id,clazz_id,state) values(#{score},#{courseId},#{stuId},#{createDate},#{optId},#{officeId},#{clazzId},#{state})
+    </insert>
+    <select id="getScore" resultType="Map">
+    select s.*,c.course_name from score s left join course c  on s.course_id=c.id where stu_id=#{stuId} and s.course_id in 
+		<foreach collection="ids" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+    </select>
+    <update id="editScore">
+    update score set office_id=#{officeId},stu_id=#{stuId},course_id=#{courseId},score=#{score} ,clazz_id=#{clazzId} where id=#{id}
+    </update>
+    <delete id="delete">
+    delete from score where id=#{id}
+    </delete>
+    
+    
+    <select id="find" resultType="com.ps.produce.score.entity.Score">
+    select * from score where stu_id=#{stuId} and course_id=#{courseId}
+    
+    </select>
+</mapper>

@@ -24,7 +24,7 @@ import com.ps.produce.system.entity.Office;
 import com.ps.produce.system.entity.User;
 import com.ps.produce.system.service.OfficeService;
 import com.ps.produce.system.service.UserService;
-
+//专业管理
 @Controller
 @RequestMapping(value="/system/office")
 public class OfficeController {
@@ -33,13 +33,13 @@ public class OfficeController {
 	private OfficeService officeService;
 	@Autowired
 	private UserService userService;
-
+     //跳转专业管理列表
 	@RequestMapping(method=RequestMethod.GET)
 	public String office(Model model,PageBean<Office> officePageBean) {
 		model.addAttribute("title", "机构管理");
 		return "/system/Office";
 	}
-	
+	//获取专业list
 	@RequiresPermissions("sys:office:view")
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public String officeList(Model model,Office office) {
@@ -48,7 +48,7 @@ public class OfficeController {
 		return "/system/OfficeList";
 	}
 	
-	/**
+	/**修改专业信息
 	 * @param office
 	 * @param model
 	 * @return
@@ -79,6 +79,8 @@ public class OfficeController {
 				office.setCode(office.getParent().getCode() + StringUtils.leftPad(String.valueOf(size > 0 ? size+1 : 1), 3, "0"));
 			}
 		}
+		List<User> cous=userService.findCou();
+		model.addAttribute("cous",cous);
 		model.addAttribute("office", office);
 		return "/system/OfficeForm";
 	}
@@ -112,7 +114,7 @@ public class OfficeController {
 	}
 	
 	/**
-	 * 获取部门JSON数据。
+	 * 获取专业JSON数据。
 	 * @param extId 排除的ID
 	 * @param response
 	 * @return

@@ -80,7 +80,7 @@ body {
 			<div class="login-title ">
 				<!-- <span class="glyphicon glyphicon-leaf" ></span> -->
 				<img class="img " id="u9_img" src="${ctx}/resources/images/u9.png">
-				紫光生产系统
+				工院教务系统
 			</div>
 			<div class="login-form">
 				<c:if test="${not empty isDangerShow}">

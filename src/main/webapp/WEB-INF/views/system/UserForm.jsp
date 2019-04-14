@@ -15,13 +15,42 @@
 <script src="${ctx}/resources/jquery-validation/1.11.1/jquery.validate.min.js" type="text/javascript"></script>
 <link href="${ctx}/resources/jquery-jbox/2.3/Skins/Bootstrap/jbox.min.css" rel="stylesheet" />
 <script src="${ctx}/resources/jquery-jbox/2.3/jquery.jBox-2.3.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var clazzs=${clazzs};
+	var clazzId=${user.clazzId}
+</script>
 <style type="text/css">
 	#jbox-content {
 		width:300px;
 	}
 </style>
 <script type="text/javascript">
+    function loadClazz(){
+    	var officeId=$("#officeId").val();
+        var clazzId=$("#clazz").val(); 
+    	$("#clazz").html('');
+    	for(i in clazzs){
+    		var c=clazzs[i]
+    		if(c.officeId==officeId){
+    			$("#clazz").append('<option value="'+c.id+'">'+c.clazzName+'</option>')
+    		}
+    		
+    	}
+    	$("#clazz").val(clazzId)
+    }
 	$(document).ready(function() {
+		
+		var officeId=$("#officeId").val();
+		$("#clazz").html('');
+		for(i in clazzs){
+    		var c=clazzs[i]
+    		if(c.officeId==officeId){
+    			$("#clazz").append('<option value="">请选择</option>');
+    			$("#clazz").append('<option value="'+c.id+'">'+c.clazzName+'</option>')
+    		}
+    		
+    	}
+		$("#clazz").val(clazzId);
 		$("#name").focus();
 		$("#inputForm").validate({
 			submitHandler: function(form){
@@ -55,16 +84,24 @@
 					<button data-dismiss="alert" class="close">×</button>${error}</div>
 			</c:if>
 			
-			<form:form id="inputForm" modelAttribute="user" action="${ctx}/system/user/save" method="post" class="form-horizontal">
+			<form:form id="inputForm" modelAttribute="user" action="${ctx}/system/user/save/14" method="post" class="form-horizontal">
 				<form:hidden path="id"/>
 				<div class="control-group">
-				<label class="control-label">归属部门:</label>
+				<label class="control-label">专业:</label>
 					<div class="controls">
 		                <sys:treeselect id="office" name="office.id" value="${user.office.id}" labelName="office.name" labelValue="${user.office.name}"
-							title="部门" url="/system/office/treeData?type=2" cssClass="required" notAllowSelectParent="true"/>
+							title="专业" url="/system/office/treeData?type=2" cssClass="required" notAllowSelectParent="true"/>
 					</div>
 				</div>
+				<div class="control-group">
+				<label class="control-label">班级:</label>
+					<div class="controls">
+		               <form:select class="selectpicker" path="clazzId" id="clazz" onclick="loadClazz()" >
+				</form:select>
+				</div>
+				</div>
 				
+			  
 				<%-- <div class="control-group">
 					<label class="control-label">工号:</label>
 					<div class="controls">
@@ -100,13 +137,7 @@
 <!-- 						<span class="help-inline"><font color="red">*</font> “是”代表此账号允许登录，“否”则表示此账号不允许登录</span> -->
 <!-- 					</div> -->
 <!-- 				</div> -->
-				<div class="control-group">
-					<label class="control-label">用户角色:</label>
-					<div class="controls">
-						<form:checkboxes path="roleIdList" items="${allRoles}" itemLabel="name" itemValue="id" htmlEscape="false" class="required"/>
-						<span class="help-inline"><font color="red">*</font> </span>
-					</div>
-				</div>
+				
 				<div class="control-group">
 					<label class="control-label">备注:</label>
 					<div class="controls">
@@ -114,7 +145,7 @@
 					</div>
 				</div>
 				<div class="form-actions">
-					<shiro:hasPermission name="sys:user:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
+					<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
 					<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 				</div>	
 			</form:form>

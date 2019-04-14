@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ps.produce.timetable.dao.TimeTableDao">
+    <sql id="where_clause">
+    </sql>
+	
+	
+	
+	<select id="getStuTimeTable" resultType="map">
+	 select t.*,c.course_name as courseName,su.name as teaName from time_table t left join course c on t.course_id=c.id left join sys_user su on c.tId=su.id where t.clazz_id=#{clazzId} and t.term=#{term} and t.del_flag=0
+	</select>
+	<select id="getTeaTimeTable" resultType="map">
+	select t.*,c.course_name as courseName,su.name as teaName from time_table t left join course c on t.course_id=c.id left join sys_user su on c.tId=su.id where c.tId=#{tId}
+	</select>
+	<select id="findTimeList" resultType="map">
+    select t.*,c.course_name as courseName,su.name as teaName from time_table t left join course c on t.course_id=c.id left join sys_user su on t.tea_id=su.id where t.del_flag=0 
+    <if test="search!=null and search!=''"> and (su.username like CONCAT('%',#{search},'%') or c.course_name like CONCAT('%',#{search},'%') or so.name like CONCAT('%',#{search},'%') ) </if>
+     order by day asc,sort asc LIMIT #{beginIndex},#{pageSize} 
+     </select>
+	<select id="findList" resultType="map">
+	select t.*,c.course_name as courseName ,so.name as officename from de_course t left join course c on t.course_id=c.id LEFT JOIN sys_office so on so.id=t.office_id
+	where 1=1
+	<if test="search!=null and search!=''">
+      and ( c.course_name like CONCAT('%',#{search},'%') or so.name like CONCAT('%',#{search},'%') )
+     </if>
+      LIMIT #{beginIndex},#{pageSize}
+      </select>
+      <insert id="save">
+       insert into time_table(course_id,classroom,office_id,day,del_flag,sort,clazz_id,term,tea_id) values(#{courseId},#{classroom},#{officeId},#{day},#{delFlag},#{sort},#{clazzId},#{term},#{teaId})
+      </insert>
+      <insert id="saveDe">
+      insert into de_course(course_id,office_id,term) values(#{courseId},#{officeId},#{term})
+      </insert>
+      <delete id="delete">
+       delete from de_course  where id=#{id}
+      </delete>
+      <delete id="delete1">
+       delete from time_table  where id=#{id}
+      </delete>
+      <update id="update">
+       update time_table set course_id=#{courseId},classroom=#{classroom},tea_id=#{teaId},office_id=#{officeId},day=#{day},sort=#{sort},clazz_id=#{clazzId},term=#{term} where id=#{id}
+      </update>
+      <update id="updateDe">
+       update de_course set course_id=#{courseId},office_id=#{officeId},term=#{term} where id=#{id}
+      </update>
+      <select id="getCourseId" resultType="int">
+          select course_id from time_table  where clazz_id=#{clazzId} and term=#{term}      
+      </select>
+      <select id="getAllTimeTable" resultType="map">
+      select t.*,c.course_name as courseName,su.name as teaName from time_table t left join course c on t.course_id=c.id left join sys_user su on c.tId=su.id where t.clazz_id=#{clazzId} and t.term=#{term} and t.del_flag=0
+      </select>
+      
+      <select id="queryCourse" resultType="map">
+      select dc.course_id as courseId,c.course_name from de_course dc left join course c on dc.course_id=c.id where  office_id=#{officeId} 
+      <if test="term!=0">
+      and  dc.term=#{term}
+      </if>
+      <if test="teaId!=0">
+      and dc.teaId=#{teadId}
+      </if>
+      
+      </select>
+</mapper>

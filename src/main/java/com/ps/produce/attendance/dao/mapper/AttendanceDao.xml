@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ps.produce.attendance.dao.AttendanceDao">
+	
+	<insert id="saveAtt">
+	   INSERT INTO attendance_record(
+		    stu_id,
+			opt_id, 
+			stu_name,
+			remarks, 
+			createDate, 
+			absence_time, 
+			office_id, 
+			office_name,
+			course_id,
+			course_name,
+			clazz_id
+		) VALUES (	
+			#{stuId}, 
+			#{optId}, 
+			#{stuName}, 
+			#{remarks}, 
+			#{createDate}, 
+			#{absenceTime}, 
+			#{officeId}, 
+			#{officeName},
+			#{courseId},
+			#{courseName},
+			#{clazzId}
+		)
+	</insert>
+	<update id="eidtAtt">
+	update attendance_record set remarks=#{remarks},absence_time=#{absenceTime},office_id=#{officeId},office_name=#{officeName},stu_name=#{stuName},
+	stu_id=#{stuId},course_name=#{courseName},course_id=#{courseId}, clazz_id=#{clazzId} where id=#{id}
+	</update>
+	<delete id="detele">
+	delete from attendance_record where id=#{id}
+	</delete>
+	
+	
+	
+	<select id="findAttendances" resultType="com.ps.produce.attendance.entity.Attendance">
+	     select ar.*,ssc.clazz_id from attendance_record  ar left join sys_stu_clazz ssc on ar.stu_id=ssc.user_id
+	</select>
+</mapper>

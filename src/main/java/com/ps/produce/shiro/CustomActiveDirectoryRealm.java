@@ -58,8 +58,8 @@ public class CustomActiveDirectoryRealm extends ActiveDirectoryRealm {
 	    	User user = new User();
 	    	user.setUsername(username);
 	    	userService.saveUser(user);
-	 
-	        return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),user.getOsUserId(),user.getUsername(),user.getOsUsername()), password, getName());
+	        String name=userService.findByLoginName(username).getName();
+	        return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),user.getUsername(),name), password, getName());
 	   
 	    	
 			

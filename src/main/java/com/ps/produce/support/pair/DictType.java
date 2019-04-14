@@ -21,7 +21,9 @@ public enum DictType {
     overseasWarehouseType("海外仓类型"),
     encyclopediaType("百科主题"),
     infringementType("侵权类型"),
-    favorLevelType("关注等级")
+    favorLevelType("关注等级"),
+    platformn("平台"),
+    bindNumberType("绑定账号类型")
     ;
 
     private final String label;

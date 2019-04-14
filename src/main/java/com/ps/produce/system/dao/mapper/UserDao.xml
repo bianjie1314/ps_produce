@@ -4,15 +4,13 @@
 	
 	 <resultMap id="userResult" type="com.ps.produce.system.entity.User">
 		<id property="id" column="id" />
+		<result property="clazzId" column="clazz_id" />
 		<result property="username" column="username" />
 		<result property="password" column="password" />
-		<result property="no" column="no" />
 		<result property="email" column="email" />
+		<result property="name" column="name" />
 		<result property="phone" column="phone" />
 		<result property="salt" column="salt" />
-		<result property="userType" column="user_type" />
-		<result property="osUsername" column="os_username" />
-		<result property="osUserId" column="os_user_id" />
 		<result property="remarks" column="remarks" />
 		<result property="createDate" column="create_date" />
 		<result property="updateDate" column="update_date" />
@@ -20,6 +18,7 @@
 		<association property="office" javaType="com.ps.produce.system.entity.Office">
 			<id property="id" column="office.id" />
 			<result property="name" column="office.name" />
+			<result property="master" column="office.master" />
 			<result property="parentIds" column="office.parentIds" />
 			<association property="parent" javaType="com.ps.produce.system.entity.Office">
 				<id property="id" column="office.parent.id" />
@@ -35,32 +34,31 @@
     	a.id,
     	a.office_id AS "office.id",
     	a.username,
+    	a.name ,
     	a.password,
-    	a.no,
-		a.email,
+    	a.email,
 		a.phone,
 		a.salt,
-		a.user_type,
 		a.remarks,
-		a.os_user_id,
-		a.os_username,
 		a.create_date,
 		a.update_date,
 		a.del_flag,
+		ssc.clazz_id,
     	o.name AS "office.name",
     	o.parent_id AS "office.parent.id",
-    	o.parent_ids AS "office.parentIds"
+    	o.parent_ids AS "office.parentIds",
+    	o.master  
     </sql>
     
     <sql id="userJoins">
-		LEFT JOIN sys_office o ON o.id = a.office_id
+		LEFT JOIN sys_office o ON o.id = a.office_id left join sys_stu_clazz ssc on a.id=ssc.user_id
     </sql>
 	
 	<!-- 根据编号获得用户 -->
 	<select id="get" resultType="com.ps.produce.system.entity.User">
 		SELECT
 			<include refid="userColumns"/>
-		FROM sys_user a
+		FROM sys_user a 
 		<include refid="userJoins"/>
 		WHERE a.id = #{id}
 	</select>
@@ -75,6 +73,22 @@
 	</select>
 	
 	<!-- 分页查询用户信息 -->
+	
+	<select id="findByRoleId" resultMap="userResult">
+	   SELECT
+			<include refid="userColumns"/>,
+			r.id as "roleList.id",
+			r.name as "roleList.name"
+		FROM sys_user a
+		<include refid="userJoins"/>
+		LEFT JOIN sys_user_role ur ON a.id = ur.user_id
+		LEFT JOIN sys_role r ON ur.role_id = r.id
+
+		WHERE a.del_flag = 0
+		and ur.role_id=#{roleId}
+		ORDER BY a.username 
+	    
+	</select>
 	<select id="findByPage" resultMap="userResult">
 		SELECT
 			<include refid="userColumns"/>,
@@ -126,7 +140,6 @@
 		UPDATE sys_user SET 
 			office_id = #{office.id}, 
 			username = #{username}, 			
-			no = #{no}, 
 			email = #{email}, 
 			phone = #{phone}, 
 			update_date = #{updateDate}, 
@@ -145,8 +158,7 @@
 	<update id="saveOSInfo">
 		UPDATE sys_user SET 
 			office_id = #{office.id}, 
-			os_username = #{osUsername},
-			os_user_id = #{osUserId}
+			
 		WHERE id = #{id}
 	</update>
 	
@@ -163,6 +175,14 @@
 			(#{id},#{role.id})
 		</foreach>
 	</insert>
+	<insert id ="insertRoleAndUser">
+	 insert into sys_user_role(user_id,role_id)
+	 values
+	 (#{id},#{roleId})
+	</insert>
+	<select id="findCou" resultType="com.ps.produce.system.entity.User">
+	   select * from sys_user su  LEFT JOIN sys_user_role ur on su.id=ur.user_id where role_id=11
+	</select>
 	<!-- 插入用户 -->
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO sys_user(
@@ -170,7 +190,7 @@
 			username,
 			password, 
 			salt,
-			no, 
+			name, 
 			email, 
 			phone, 
 			create_date, 
@@ -181,7 +201,7 @@
 			#{username}, 
 			#{password}, 
 			#{salt}, 
-			#{no}, 
+			#{name}, 
 			#{email}, 
 			#{phone}, 
 			#{createDate}, 
@@ -206,5 +226,31 @@
 		<if test="username!=null and username!=''">
 			and username like CONCAT('%', #{username}, '%')
 		</if>
+	</select>
+	<insert id="distribution">
+	  insert into clazz_course_tea (tea_id,course_id,clazz_id) values(#{teaId},#{courseId},#{clazzId})
+	</insert>
+	<select id="queryTea" resultType="map">
+	 select tea_id as teaId ,su.name  from clazz_course_tea  cct left join sys_user su on cct.tea_id=su.id where course_id=#{courseId}
+	</select>
+	<select id="queryTea1" resultType="map">
+	 select tea_id as teaId ,su.name  from clazz_course_tea  cct left join sys_user su on cct.tea_id=su.id where course_id=#{courseId} and tea_id={id}
+	</select>
+	<select id="queryclazz" resultType="map">
+	select DISTINCT clazz_id as clazzId ,c.clazz_name  from clazz_course_tea  cct left join clazz c on c.id=cct.clazz_id where 1=1
+	<if test="teaId!=0">
+	and tea_id=#{teaId}
+	</if>
+	</select>
+	<select id="findD" resultType="int">
+	select count(*) from clazz_course_tea where tea_id=#{teaId} and course_id=#{courseId}
+	</select>
+	
+	<update id="updateDis">
+	update clazz_course_tea set clazz_id=#{clazzId} where course_id=#{courseId} and tea_id=#{teaId}
+	
+	</update>
+	<select id="findDis" resultType="int">
+	 select count(*) from clazz_course_tea where course_id=#{courseId} and tea_id=#{teaId}
 	</select>
 </mapper>

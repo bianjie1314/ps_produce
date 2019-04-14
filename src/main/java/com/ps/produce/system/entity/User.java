@@ -16,17 +16,16 @@ public class User extends AbstractEntity {
 	private Office office;	// 归属部门
 	private String username;// 登录名
 	private String password;// 密码
-	private String no;		// 工号
 	private String email;	// 邮箱
 	private String phone;	// 电话
 	private String userType;// 用户类型
 	private String loginFlag;	// 是否允许登陆
-	
+    private String name;
+	private long clazzId;
 	private String salt;
 	
 	private Role role;	// 根据角色查询用户条件
-	private String osUsername;
-	private Long osUserId;
+	
 	
 	private List<Role> roleList = Lists.newArrayList(); // 拥有角色列表
 
@@ -38,21 +37,24 @@ public class User extends AbstractEntity {
 		super();
 		this.role = role;
 	}
-
-	public String getOsUsername() {
-		return osUsername;
+    
+	public long getClazzId() {
+		return clazzId;
 	}
 
-	public void setOsUsername(String osUsername) {
-		this.osUsername = osUsername;
+	public void setClazzId(long clazzId) {
+		this.clazzId = clazzId;
 	}
 
-	public Long getOsUserId() {
-		return osUserId;
+	
+
+	
+	public String getName() {
+		return name;
 	}
 
-	public void setOsUserId(Long osUserId) {
-		this.osUserId = osUserId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getLoginFlag() {
@@ -79,13 +81,7 @@ public class User extends AbstractEntity {
 		this.password = password;
 	}
 
-	public String getNo() {
-		return no;
-	}
-
-	public void setNo(String no) {
-		this.no = no;
-	}
+	
 
 	public String getUsername() {
 		return username;

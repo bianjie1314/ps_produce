@@ -13,8 +13,7 @@ import com.google.common.collect.Maps;
 import com.ps.produce.support.SpringContextHolder;
 import com.ps.produce.support.pair.AmazonSite;
 import com.ps.produce.support.pair.OrderStatus;
-import com.ps.produce.system.dao.DictDao;
-import com.ps.produce.system.entity.Dict;
+
 
 /**
  * 字典工具类

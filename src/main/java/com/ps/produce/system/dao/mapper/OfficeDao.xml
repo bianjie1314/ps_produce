@@ -85,7 +85,13 @@
 			parent_id = #{parent.id}, 
 			parent_ids = #{parentIds}
 		WHERE id = #{id}
-	</update>	
+	</update>
+	<select id="getOffice" resultType="com.ps.produce.system.entity.Office">
+	 select * from sys_office where del_flag=0 and parent_id !=0
+	</select>
+	<select id="find" resultType="com.ps.produce.system.entity.Office">
+	 select * from sys_office where id=#{officeId}
+	</select>	
 	<select id="findAllList" resultType="com.ps.produce.system.entity.Office">
 		SELECT
 			<include refid="officeColumns"/>

@@ -49,7 +49,7 @@ public class RoleController {
         result.setAaData(roles);
         return result;
     }
-	
+	//修改角色
 	@RequiresPermissions("sys:role:edit")
 	@RequestMapping(value="/form",method=RequestMethod.GET)
 	public String getRole(Model model,Role role) {

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ps.produce.leave.dao.LeaveDao">
+   <sql id="where_clause">
+         and stu_id=#{id}
+    	 <if test="query.keyword != null and query.keyword != ''">
+			and (stu_name like CONCAT('%',#{query.keyword},'%') or opt_name like CONCAT('%',#{query.keyword},'%'))
+		</if>
+		<if test="query.status !=null">
+		    and status in (${query.status})
+		</if>
+		
+		<if  test="query.start!=null and query.end!=null">
+		     and start_time &gt;='${query.start}' and end_time &lt;='${query.end}'
+		</if>
+		
+		
+		
+    </sql>
+    
+    <sql id="where_clause1">
+         and opt_id=#{id}
+    	 <if test="query.keyword != null and query.keyword != ''">
+			and (stu_name like CONCAT('%',#{query.keyword},'%') or opt_name like CONCAT('%',#{query.keyword},'%'))
+		</if>
+		<if test="query.status !=null">
+		    and status in (${query.status})
+		</if>
+		
+		<if  test="query.start!=null and query.end!=null">
+		     and start_time &gt;='${query.start}' and end_time &lt;='${query.end}' 
+		</if>
+			
+    </sql>
+    <update id="updateCanal" >
+      update leave_info set rejection=#{rejection} ,update_date=#{updateDate},status=2 where id=#{leaveId}
+    </update>
+    <update id="sureLeave">
+       update leave_info set update_date=#{date},status=1 where id=#{leaveId}
+    </update>
+    
+   <select id="findList" resultType="com.ps.produce.leave.entity.Leave">
+   select * from leave_info 
+   <where>
+		<include refid="where_clause" />
+	</where>  
+	order by create_date desc limit #{pageBean.beginIndex},#{pageBean.pageSize}  
+           
+   </select>
+   <select id="findListbyCou" resultType="com.ps.produce.leave.entity.Leave">
+       select * from leave_info 
+   <where>
+		<include refid="where_clause1" />
+	</where>    order by create_date desc limit #{pageBean.beginIndex},#{pageBean.pageSize}  
+         
+   </select>
+   
+   <select id="count" resultType="int">
+   select count(id) from leave_info 
+   <where>
+		<include refid="where_clause" />
+	</where>   
+       
+   </select>
+   <select id="countbyCou" resultType="int">
+   select count(id) from leave_info 
+   <where>
+		<include refid="where_clause1" />
+	</where>   
+       
+   </select>
+   <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+     insert into  leave_info(stu_id,opt_id,remarks,start_time,end_time,create_date,stu_name) values(#{stuId},#{optId},#{remarks},#{startTime},#{endTime},#{createDate},#{stuName})
+   </insert>
+</mapper>
