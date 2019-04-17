@@ -1,43 +1,30 @@
 package com.ps.produce.system.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletRequest;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.ps.produce.base.entity.query.model.PageBean;
-import com.ps.produce.base.entity.query.model.ScoreQuery;
 import com.ps.produce.clazz.entity.Clazz;
 import com.ps.produce.clazz.service.ClazzService;
 import com.ps.produce.exception.BusinessException;
 import com.ps.produce.shiro.ShiroUser;
-import com.ps.produce.support.ISecurityUtils;
-import com.ps.produce.support.JsonObject;
-import com.ps.produce.support.Password;
-import com.ps.produce.support.Response;
-import com.ps.produce.support.ResponseCode;
+import com.ps.produce.support.*;
 import com.ps.produce.system.entity.Distribution;
 import com.ps.produce.system.entity.User;
 import com.ps.produce.system.service.CourseService;
 import com.ps.produce.system.service.RoleService;
 import com.ps.produce.system.service.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.ServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value="/system/user")
@@ -192,13 +179,13 @@ public class UserController {
 	}*/
 	
 	
-	  /*@RequestMapping(method = RequestMethod.POST, value = "/add/{roleId}")
+	@RequestMapping(method = RequestMethod.POST, value = "/add/{roleId}")
 	    @ResponseBody
 	    public Response add(@RequestBody User user,@PathVariable int roleId) {     
 		  userService.add(user,roleId);
 		  return new Response().setResponseCode(ResponseCode.SUCCESS);
 	       
-	    }*/
+	}
 	  //修改密码
 	  @RequestMapping(value="cp",method = RequestMethod.POST)
 		public String changePassword(Model model,Password password) {

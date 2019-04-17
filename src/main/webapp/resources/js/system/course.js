@@ -87,7 +87,7 @@
 			      };
 			      $.messager.confirm("", "确认选中"+ids.length+"删除？", function() { 
 			    	  $.ajax({
-				 		   url : ctx + "/system/dict/del",
+				 		   url : ctx + "/system/course/del",
 				 		   type:"post",			 		  
 				           data :"ids="+ids.join(),
 				 		   success : function(d) {	
