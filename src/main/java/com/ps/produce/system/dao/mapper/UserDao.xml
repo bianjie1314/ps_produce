@@ -210,13 +210,13 @@
 			#{delFlag}
 		)
 	</insert>
-	<update id="deleteBatch">
-		update sys_user set del_flag=#{delFlag} where
+	<delete id="deleteBatch">
+		delete from  sys_user  where
 		id in
 		<foreach collection="ids" item="id" open="(" close=")" separator=",">
 			#{id}
 		</foreach>
-	</update>
+	</delete>
 	<select id="getById" resultType="com.ps.produce.system.entity.User">
 		select * from sys_user where id=#{id}
 		
