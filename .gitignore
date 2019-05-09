@@ -1,0 +1,17 @@
+/target/
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+.settings
+.classpath
+.project
+
+out
+gen
+/.idea/
+src/main/java/com/ps/produce/leave/dto/
+src/main/java/com/ps/produce/score/dto/
+src/main/java/com/ps/produce/timetable/dto/
