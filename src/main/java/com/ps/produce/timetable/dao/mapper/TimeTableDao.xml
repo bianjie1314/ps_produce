@@ -10,7 +10,7 @@
 	 select t.*,c.course_name as courseName,su.name as teaName from time_table t left join course c on t.course_id=c.id left join sys_user su on c.tId=su.id where t.clazz_id=#{clazzId} and t.term=#{term} and t.del_flag=0
 	</select>
 	<select id="getTeaTimeTable" resultType="map">
-	select t.*,c.course_name as courseName,su.name as teaName from time_table t left join course c on t.course_id=c.id left join sys_user su on c.tId=su.id where t.tea_id=#{tId} and t.term=#{term} and t.del_flag=0
+	select t.*,c.course_name as courseName,su.name as teaName from time_table t left join course c on t.course_id=c.id left join sys_user su on t.tea_id=su.id where t.tea_id=#{tId} and t.term=#{term} and t.del_flag=0
 	</select>
 	<select id="findTimeList" resultType="map">
     select t.*,c.course_name as courseName,su.name as teaName from time_table t left join course c on t.course_id=c.id left join sys_user su on t.tea_id=su.id where t.del_flag=0 
