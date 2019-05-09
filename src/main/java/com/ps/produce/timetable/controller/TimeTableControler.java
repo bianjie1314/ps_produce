@@ -1,44 +1,13 @@
 package com.ps.produce.timetable.controller;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
-import com.ps.produce.attendance.dto.AttQuery;
-import com.ps.produce.attendance.entity.Attendance;
 import com.ps.produce.base.entity.query.model.PageBean;
 import com.ps.produce.clazz.entity.Clazz;
 import com.ps.produce.clazz.service.ClazzService;
-import com.ps.produce.leave.entity.Leave;
 import com.ps.produce.shiro.ShiroUser;
-import com.ps.produce.support.ISecurityUtils;
 import com.ps.produce.support.JsonObject;
 import com.ps.produce.support.Response;
-import com.ps.produce.support.ResponseCode;
-import com.ps.produce.support.pair.DictType;
-import com.ps.produce.system.entity.Course;
 import com.ps.produce.system.entity.Distribution;
 import com.ps.produce.system.entity.Office;
 import com.ps.produce.system.service.CourseService;
@@ -46,6 +15,21 @@ import com.ps.produce.system.service.OfficeService;
 import com.ps.produce.system.service.UserService;
 import com.ps.produce.timetable.entity.TimeTable;
 import com.ps.produce.timetable.service.TimeTableService;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 //课程表管理
@@ -113,7 +97,9 @@ public class TimeTableControler {
 		    else
 			pageBean.setContent(timeTableService.getStuTimeTable(id,Integer.parseInt(term)));
 			}else if(u.getRoles().get(0).getId()==13) {
-			  pageBean.setContent(timeTableService.getTeaTimeTable(u.getId()));
+				if(StringUtils.isEmpty(term))
+					term="1";
+			  pageBean.setContent(timeTableService.getTeaTimeTable(u.getId(),Integer.parseInt(term)));
 			}else {
 				model.addAttribute("clazzs",g.toJson(list));
 				model.addAttribute("offices", offices);

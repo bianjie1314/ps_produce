@@ -1,23 +1,14 @@
 package com.ps.produce.timetable.service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import com.ps.produce.timetable.dao.TimeTableDao;
+import com.ps.produce.timetable.entity.TimeTable;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.gson.JsonElement;
-import com.ps.produce.support.pair.DictType;
-import com.ps.produce.support.utils.NoUtil;
-import com.ps.produce.system.dao.CourseDao;
-import com.ps.produce.system.entity.Course;
-import com.ps.produce.timetable.dao.TimeTableDao;
-import com.ps.produce.timetable.entity.TimeTable;
+import java.util.List;
+import java.util.Map;
 
 
 
@@ -37,9 +28,9 @@ public class TimeTableService {
 		return timeTableDao.getStuTimeTable(officeId,term);
 	}
 	//根据教师id获取 教师课程安排
-	public List<Map<String,Object>> getTeaTimeTable(Long tId) {
+	public List<Map<String,Object>> getTeaTimeTable(Long tId,Integer term) {
 		// TODO Auto-generated method stub
-		return timeTableDao.getTeaTimeTable(tId);
+		return timeTableDao.getTeaTimeTable(tId,term);
 	}
 
     //

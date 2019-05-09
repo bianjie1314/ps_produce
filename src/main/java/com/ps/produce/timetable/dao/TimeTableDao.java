@@ -19,7 +19,7 @@ public interface TimeTableDao {
 
 	public List<Map<String,Object>> getStuTimeTable(@Param("clazzId")Long officeId,@Param("term")int term);
 
-	public List<Map<String, Object>> getTeaTimeTable(@Param("tId")Long tId);
+	public List<Map<String, Object>> getTeaTimeTable(@Param("tId")Long tId,@Param("term")Integer term);
 
 	public List<Map<String,Object>> findList(@Param("param") Map<String, String> param,@Param("search") String search, @Param("beginIndex")int beginIndex,@Param("pageSize") int pageSize,@Param("sortType")String sortType,@Param("sortCol") String sortCol);
 	public List<Map<String,Object>> findTimeList(@Param("param") Map<String, String> param,@Param("search") String search, @Param("beginIndex")int beginIndex,@Param("pageSize") int pageSize,@Param("sortType")String sortType,@Param("sortCol") String sortCol);
