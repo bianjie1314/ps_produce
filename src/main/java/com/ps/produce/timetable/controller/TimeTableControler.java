@@ -140,7 +140,7 @@ public class TimeTableControler {
 	@ResponseBody
 	public String querrTea(@RequestBody  TimeTable d){
     	ShiroUser u = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-    	if(u.getRoles().contains(13)) {
+    	if(u.getRoles().get(0).getId()==13) {
     	d.setTeaId(u.getId());
     	}
     List<Map<String,Object>> datas=timeTableService.queryCourse(d);
