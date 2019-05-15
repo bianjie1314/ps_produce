@@ -56,7 +56,7 @@
       and  dc.term=#{term}
       </if>
       <if test="teaId!=0">
-      and dc.teaId=#{teadId}
+      and dc.teaId=#{teaId}
       </if>
       
       </select>
