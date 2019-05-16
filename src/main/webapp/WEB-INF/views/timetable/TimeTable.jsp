@@ -183,10 +183,10 @@ function loadClazz(_this){
 					</li>
 					
 				</ul>
-				<div id="s5">
+				<div id="s4">
 					<ul class="tabUl">
 					<c:forEach items="${pageBean.content}" var="timeTable">
-					 <c:if test="${timeTable.day==5}"> 
+					 <c:if test="${timeTable.day==4}">
 						<li class="tabtr clearfix">
 							<span style="width: 13%; color: #F7001E">第${timeTable.sort} 节</span>
 							<span style="width: 13%;color: #AB9C08">${timeTable.classroom}</span>
@@ -208,10 +208,10 @@ function loadClazz(_this){
 					</li>
 					
 				</ul>
-				<div id="s1">
+				<div id="s5">
 					<ul class="tabUl">
 					<c:forEach items="${pageBean.content}" var="timeTable">
-					 <c:if test="${timeTable.day==1}"> 
+					 <c:if test="${timeTable.day==5}">
 						<li class="tabtr clearfix">
 							<span style="width: 25%; color: #F7001E">第${timeTable.sort} 节</span>
 							<span style="width: 25%;color: #AB9C08">${timeTable.classroom}</span>
