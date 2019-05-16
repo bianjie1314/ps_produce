@@ -1,24 +1,17 @@
 
-function loadClazz(_this){
-	var param = {
-			course:$("#course").val()
-	          }
-	   $("#clazz").html("");
-	   $.ajax({
-	          url : ctx + "/system/user/querrClazz",
-	          type : "POST",
-	          contentType : 'application/json; charset=utf-8',
-	          dataType : 'json',
-	          data : JSON.stringify(param),
-	          success : function(result) {
-	        	   for(var item in result){
-	        		var c=result[item]
-	        		$("#clazz").append('<option value="'+c.clazzId+'">'+c.clazz_name+'</option>');
-	        		}
-	  			 },
-	         
-	      }); 
-	}
+function loadClazz(){
+    var officeId=$("#office").val();
+    var clazzId=$("#clazz").val();
+    $("#clazz").html('');
+    for(i in clazzs){
+        var c=clazzs[i]
+        if(c.officeId==officeId){
+            $("#clazz").append('<option value="'+c.id+'">'+c.clazzName+'</option>')
+        }
+
+    }
+    $("#clazz").val(clazzId)
+}
 function loadCourse(){
 	$("#course").html("");
 	var param = {
