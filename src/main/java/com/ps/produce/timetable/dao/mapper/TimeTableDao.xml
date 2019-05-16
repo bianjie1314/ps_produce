@@ -51,12 +51,12 @@
       </select>
       
       <select id="queryCourse" resultType="map">
-      select dc.course_id as courseId,c.course_name from de_course dc left join course c on dc.course_id=c.id where  office_id=#{officeId} 
+      select DISTINCT dc.course_id as   courseId,co.course_name from de_course dc left join clazz_course_tea c on dc.course_id=c.course_id left join course co on co.id=c.course_id  where  office_id=#{officeId}
       <if test="term!=0">
       and  dc.term=#{term}
       </if>
       <if test="teaId!=0">
-      and dc.teaId=#{teaId}
+      and c.tea_id=#{teaId}
       </if>
       
       </select>
