@@ -221,4 +221,7 @@ public class UserService extends BaseService<UserDao, User> {
 		// TODO Auto-generated method stub
 		return userDao.queryclazz(d);
 	}
+	public Integer findOne(String username,Integer roleId){
+		return userDao.findOne(username,roleId);
+	};
 }

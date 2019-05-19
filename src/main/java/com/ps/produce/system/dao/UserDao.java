@@ -50,4 +50,6 @@ public interface UserDao extends BaseDao<User, PageBean<User>>{
 	Object updateDis(Distribution d);
 
 	int findDis(Distribution d);
+
+    Integer findOne(@Param("username") String username, @Param("roleId")Integer roleId);
 }

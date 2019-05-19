@@ -253,4 +253,7 @@
 	<select id="findDis" resultType="int">
 	 select count(*) from clazz_course_tea where course_id=#{courseId} and tea_id=#{teaId}
 	</select>
+	<select id="findOne" resultType="Integer">
+		select count(1) from sys_user su left join sys_user_role sur on su.id=sur.user_id where su.username=#{username} and sur.role_id=#{roleId}
+	</select>
 </mapper>

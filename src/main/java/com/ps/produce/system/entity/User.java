@@ -23,11 +23,20 @@ public class User extends AbstractEntity {
     private String name;
 	private long clazzId;
 	private String salt;
-	
+	private Integer roleId;
 	private Role role;	// 根据角色查询用户条件
 	
 	
 	private List<Role> roleList = Lists.newArrayList(); // 拥有角色列表
+
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
 
 	public User() {
 		super();

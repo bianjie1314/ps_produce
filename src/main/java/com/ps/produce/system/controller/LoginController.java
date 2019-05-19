@@ -43,7 +43,7 @@ public class LoginController {
 		Subject subject = SecurityUtils.getSubject();  
 		ShiroUser shiroUser = (ShiroUser) subject.getPrincipal();
 		// 如果已经登录，则跳转到管理首页
-	
+
 		if(shiroUser != null){
 			subject.hasRole("userSB");
 			List<Menu> menus= ISecurityUtils.getMenuList();
@@ -75,10 +75,15 @@ public class LoginController {
 
 	@RequestMapping(value = "/loginAction")
 	public String login(User user, Model model, RedirectAttributes ra) {
+
 		if(StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())){
 			ShowMessage.show(ra, MessageType.ISWARNSHOW, "请输入用户名或密码");
 			return "redirect:login";
 		}
+		Integer count=userService.findOne(user.getUsername(),user.getRoleId());
+		if(count!=1){
+			ShowMessage.show(ra, MessageType.ISDANGERSHOW, "角色选择错误");
+			}else{
 		Subject subUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
 		try {
@@ -105,6 +110,7 @@ public class LoginController {
 		} catch (AuthenticationException e3) {
 			e3.printStackTrace();
 			ShowMessage.show(ra, MessageType.ISDANGERSHOW, "登陆验证失败,请刷新后重试");
+		}
 		}
 		return "redirect:/login";
 				

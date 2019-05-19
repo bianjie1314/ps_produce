@@ -94,6 +94,20 @@ body {
 					<div class="form-group has-feedback ">
 						<input type="password" id="password" name="password"  value="" class="form-control" placeholder="密码" required="true">
 					</div>
+					<div>
+						<label class="radio-inline">
+							<input type="radio" name="roleId" id="optionsRadios3" value="1" checked> 管理员
+						</label>
+					<label class="radio-inline">
+						<input type="radio" name="roleId" id="optionsRadios3" value="11" checked> 辅导员
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="roleId" id="optionsRadios4"  value="14"> 学生
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="roleId" id="optionsRadios3" value="13" checked> 导师
+					</label>
+					</div>
 					<!-- <div class="rember ">
 						    <label>  <input type="checkbox"> 下次自动登录</label>
 						  </div> -->
